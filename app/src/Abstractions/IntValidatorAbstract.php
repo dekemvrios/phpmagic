@@ -3,6 +3,7 @@
 namespace Solis\PhpValidator\Abstractions;
 
 use Solis\PhpValidator\Contracts\IntValidatorContract;
+use Solis\PhpValidator\Helpers\Types;
 
 /**
  * Class IntValidatorAbstract
@@ -30,7 +31,7 @@ abstract class IntValidatorAbstract implements IntValidatorContract
     ) {
         if (!is_numeric($data) || !is_int(intval($data))) {
             throw new \InvalidArgumentException(
-                Properties::getInvalidTypeMessage(
+                Types::getInvalidTypeMessage(
                     [
                         '@name' => $name,
                         '@type' => 'int'

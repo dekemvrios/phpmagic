@@ -9,9 +9,8 @@ namespace Solis\PhpValidator\Helpers;
  */
 class Properties
 {
-    const PROPERTY_NOT_FOUND = "property [@name] not found in [@class]";
 
-    const PROPERTY_INVALID_TYPE = "property [@name] is not of the expected type [@type]";
+    const PROPERTY_NOT_FOUND = "property [@name] not found in [@class]";
 
     /**
      * getNotExistsMessage
@@ -34,28 +33,5 @@ class Properties
 
         return $mesage;
     }
-
-    /**
-     * getInvalidTypeMessage
-     *
-     * @param $params
-     *
-     * @return string
-     */
-    public static function getInvalidTypeMessage($params)
-    {
-        $mesage = self::PROPERTY_INVALID_TYPE;
-
-        foreach ($params as $name => $value) {
-            $mesage = str_replace(
-                $name,
-                $value,
-                $mesage
-            );
-        }
-
-        return $mesage;
-    }
-
 
 }

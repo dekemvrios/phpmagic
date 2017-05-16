@@ -3,7 +3,7 @@
 namespace Solis\PhpValidator\Abstractions;
 
 use Solis\PhpValidator\Contracts\StringValidatorContract;
-use Solis\PhpValidator\Helpers\Properties;
+use Solis\PhpValidator\Helpers\Types;
 
 /**
  * Class StringValidatorAbstract
@@ -39,7 +39,7 @@ abstract class StringValidatorAbstract implements StringValidatorContract
     ) {
         if (!is_string($data)) {
             throw new \InvalidArgumentException(
-                Properties::getInvalidTypeMessage(
+                Types::getInvalidTypeMessage(
                     [
                         '@name' => $name,
                         '@type' => 'string'

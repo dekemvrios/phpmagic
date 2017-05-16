@@ -3,7 +3,7 @@
 namespace Solis\PhpValidator\Abstractions;
 
 use Solis\PhpValidator\Contracts\FloatValidatorContract;
-use Solis\PhpValidator\Helpers\Properties;
+use Solis\PhpValidator\Helpers\Types;
 
 /**
  * Class FloatValidatorAbstract
@@ -30,7 +30,7 @@ abstract class FloatValidatorAbstract implements FloatValidatorContract
     ) {
         if (!is_float(floatval($data))) {
             throw new \InvalidArgumentException(
-                Properties::getInvalidTypeMessage(
+                Types::getInvalidTypeMessage(
                     [
                         '@name' => $name,
                         '@type' => 'float'
