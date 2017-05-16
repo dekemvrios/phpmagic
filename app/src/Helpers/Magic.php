@@ -30,10 +30,18 @@ trait Magic
             throw new \InvalidArgumentException(
                 Properties::getNotFoundMessage(
                     [
-                        '@name'  => $name,
+                        '@name' => $name,
                         '@class' => __CLASS__
                     ]
                 )
+            );
+        }
+
+        $validator = (new \ReflectionClass($this))->getProperty('validator')->getValue($this);
+        if (!empty($validator)) {
+            $value = $this->validator->validate(
+                $name,
+                $value
             );
         }
 
@@ -69,7 +77,7 @@ trait Magic
             throw new \InvalidArgumentException(
                 Properties::getNotFoundMessage(
                     [
-                        '@name'  => $name,
+                        '@name' => $name,
                         '@class' => __CLASS__
                     ]
                 )

@@ -12,20 +12,19 @@ try {
             'type' => Types::TYPE_INT,
         ],
         [
-            'name'   => 'nome',
-            'type'   => Types::TYPE_STRING,
+            'name' => 'nome',
+            'type' => Types::TYPE_STRING,
             'format' => [
                 'size' => 2
             ]
         ]
     ];
 
-    $value = Fulano::make($schema)->validator->validate(
-        'nome',
-        'Individuo 1'
-    );
+    $fulano = Fulano::make($schema);
 
-    echo $value;
+    $fulano->codigo = '1';
+
+    var_dump($fulano);
 
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();

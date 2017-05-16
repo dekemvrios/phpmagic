@@ -19,7 +19,9 @@ class Fulano
     /**
      * @var ValidatorContract
      */
-    protected $validator;
+    public $validator;
+
+    protected $codigo;
 
     /**
      * __construct
