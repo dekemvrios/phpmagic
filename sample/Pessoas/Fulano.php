@@ -21,8 +21,6 @@ class Fulano
      */
     public $validator;
 
-    protected $codigo;
-
     /**
      * __construct
      *

@@ -13,18 +13,16 @@ try {
         ],
         [
             'name' => 'nome',
-            'type' => Types::TYPE_STRING,
-            'format' => [
-                'size' => 2
-            ]
+            'type' => Types::TYPE_STRING
         ]
     ];
 
     $fulano = Fulano::make($schema);
 
     $fulano->codigo = '1';
+    $fulano->nome = 'Rafael Becker';
 
-    var_dump($fulano);
+    echo $fulano->nomes;
 
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();

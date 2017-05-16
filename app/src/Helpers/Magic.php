@@ -22,20 +22,6 @@ trait Magic
         $name,
         $value
     ) {
-        if (!property_exists(
-            __CLASS__,
-            $name
-        )
-        ) {
-            throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(
-                    [
-                        '@name' => $name,
-                        '@class' => __CLASS__
-                    ]
-                )
-            );
-        }
 
         $validator = (new \ReflectionClass($this))->getProperty('validator')->getValue($this);
         if (!empty($validator)) {
