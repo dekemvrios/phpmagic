@@ -17,9 +17,8 @@ try {
         ]
     ];
 
-
     $value = Pessoa::make($schema)->validator->validate(
-        'codigo',
+        'nome',
         'Rafael'
     );
 

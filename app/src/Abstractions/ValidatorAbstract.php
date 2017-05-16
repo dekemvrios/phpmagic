@@ -5,6 +5,9 @@ namespace Solis\PhpValidator\Abstractions;
 use Solis\PhpValidator\Contracts\ValidatorContract;
 use Solis\PhpValidator\Helpers\Properties;
 use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpValidator\Types\FloatValidator;
+use Solis\PhpValidator\Types\IntValidator;
+use Solis\PhpValidator\Types\StringValidator;
 
 /**
  * Class ValidatorAbstract
@@ -82,24 +85,24 @@ abstract class ValidatorAbstract implements ValidatorContract
     ) {
         switch ($meta['type']) {
             case Types::TYPE_STRING:
-                return Types::validateString(
+                return StringValidator::validate(
                     $meta['name'],
                     $data,
-                    $meta['options']
+                    $meta['format']
                 );
 
             case Types::TYPE_INT:
-                return Types::validateInt(
+                return IntValidator::validate(
                     $meta['name'],
                     $data,
-                    $meta['options']
+                    $meta['format']
                 );
 
             case Types::TYPE_FLOAT:
-                return Types::validateFloat(
+                return FloatValidator::validate(
                     $meta['name'],
                     $data,
-                    $meta['options']
+                    $meta['format']
                 );
         }
     }
