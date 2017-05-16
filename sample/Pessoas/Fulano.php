@@ -1,17 +1,17 @@
 <?php
 
-namespace Sample;
+namespace Sample\Pessoas;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
 use Solis\PhpValidator\Classes\Validator;
 use Solis\PhpValidator\Helpers\Magic;
 
 /**
- * Class Pessoa
+ * Class Fulano
  *
  * @package Sample
  */
-class Pessoa
+class Fulano
 {
 
     use Magic;

@@ -3,7 +3,7 @@
 require_once '../vendor/autoload.php';
 
 use Solis\PhpValidator\Helpers\Types;
-use Sample\Pessoa;
+use Sample\Pessoas\Fulano;
 
 try {
     $schema = [
@@ -20,7 +20,7 @@ try {
         ]
     ];
 
-    $value = Pessoa::make($schema)->validator->validate(
+    $value = Fulano::make($schema)->validator->validate(
         'nome',
         'Individuo 1'
     );

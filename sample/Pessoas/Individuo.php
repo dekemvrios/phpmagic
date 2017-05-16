@@ -1,6 +1,6 @@
 <?php
 
-namespace Sample;
+namespace Sample\Pessoas;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
 use Solis\PhpValidator\Classes\Validator;
