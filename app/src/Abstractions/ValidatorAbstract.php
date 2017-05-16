@@ -48,8 +48,7 @@ abstract class ValidatorAbstract implements ValidatorContract
         $meta = array_values(
             array_filter(
                 $this->schema,
-                function ($item) use
-                (
+                function ($item) use (
                     $name
                 ) {
                     return $item['name'] === $name ? true : false;
@@ -59,7 +58,7 @@ abstract class ValidatorAbstract implements ValidatorContract
 
         if (empty($meta)) {
             throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(['@name' => $name, '@class' => __CLASS__])
+                Properties::getNotFoundMessage(['@name' => $name, '@class' => __CLASS__]) . ' schema'
             );
         }
 

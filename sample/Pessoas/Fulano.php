@@ -22,6 +22,21 @@ class Fulano
     public $validator;
 
     /**
+     * @var int
+     */
+    protected $code;
+
+    /**
+     * @var string
+     */
+    protected $firstName;
+
+    /**
+     * @var string
+     */
+    protected $lastName;
+
+    /**
      * __construct
      *
      * @param $validator
