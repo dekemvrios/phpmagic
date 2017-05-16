@@ -1,0 +1,12 @@
+{
+  "name": "solis/phpvalidate",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Solis\\PhpValidator\\": "app/src",
+      "Sample\\": "sample/"
+    }
+  }
+}
