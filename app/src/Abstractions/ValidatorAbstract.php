@@ -3,6 +3,8 @@
 namespace Solis\PhpValidator\Abstractions;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
+use Solis\PhpValidator\Helpers\Properties;
+use Solis\PhpValidator\Helpers\Types;
 
 /**
  * Class ValidatorAbstract
@@ -14,35 +16,92 @@ abstract class ValidatorAbstract implements ValidatorContract
     /**
      * @var array
      */
-    protected $expectedProps;
+    protected $schema;
 
     /**
      * __construct
      *
-     * @param $expectedProps
+     * @param $schema
      */
-    protected function __construct($expectedProps)
+    protected function __construct($schema)
     {
-        $this->setExpectedProps($expectedProps);
+        $this->schema = $schema;
     }
 
     /**
-     * setExpectedProps
+     * validate
      *
-     * @param array $expectedProps
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @return mixed
+     * @throws \InvalidArgumentException
      */
-    protected function setExpectedProps(array $expectedProps)
-    {
-        $this->expectedProps = $expectedProps;
+    public function validate(
+        string $name,
+        $value
+    ) {
+
+        $meta = array_values(
+            array_filter(
+                $this->schema,
+                function ($item) use
+                (
+                    $name
+                ) {
+                    return $item['name'] === $name ? true : false;
+                }
+            )
+        );
+
+        if (empty($meta)) {
+            throw new \InvalidArgumentException(
+                Properties::getNotFoundMessage(['@name' => $name, '@class' => __CLASS__])
+            );
+        }
+
+        return $this->hydrate(
+            $meta[0],
+            $value
+        );
     }
 
     /**
-     * getExpectedProps
+     * hydrate
      *
-     * @return array
+     * @param array $meta
+     * @param mixed $data
+     *
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
-    protected function getExpectedProps()
-    {
-        return $this->expectedProps;
+    private function hydrate(
+        $meta,
+        $data
+    ) {
+        switch ($meta['type']) {
+            case Types::TYPE_STRING:
+                return Types::validateString(
+                    $meta['name'],
+                    $data,
+                    $meta['options']
+                );
+
+            case Types::TYPE_INT:
+                return Types::validateInt(
+                    $meta['name'],
+                    $data,
+                    $meta['options']
+                );
+
+            case Types::TYPE_FLOAT:
+                return Types::validateFloat(
+                    $meta['name'],
+                    $data,
+                    $meta['options']
+                );
+        }
     }
+
 }

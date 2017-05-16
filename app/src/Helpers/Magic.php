@@ -28,10 +28,10 @@ trait Magic
         )
         ) {
             throw new \InvalidArgumentException(
-                Properties::getNotExistsMessage(
+                Properties::getNotFoundMessage(
                     [
-                        'name'  => $name,
-                        'class' => __CLASS__
+                        '@name'  => $name,
+                        '@class' => __CLASS__
                     ]
                 )
             );
@@ -67,10 +67,10 @@ trait Magic
         )
         ) {
             throw new \InvalidArgumentException(
-                Properties::getNotExistsMessage(
+                Properties::getNotFoundMessage(
                     [
-                        'name'  => $name,
-                        'class' => __CLASS__
+                        '@name'  => $name,
+                        '@class' => __CLASS__
                     ]
                 )
             );

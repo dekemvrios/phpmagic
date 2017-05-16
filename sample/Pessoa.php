@@ -32,13 +32,13 @@ class Pessoa
     }
 
     /**
-     * @param $aExpectedProps
+     * @param $schema
      *
      * @return static
      */
-    public static function make(array $aExpectedProps)
+    public static function make(array $schema)
     {
-        return new static(Validator::make($aExpectedProps));
+        return new static(Validator::make($schema));
     }
 
 }

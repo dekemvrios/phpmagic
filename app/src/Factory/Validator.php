@@ -15,13 +15,13 @@ class Validator extends ValidatorAbstract
     /**
      * make
      *
-     * @param $expectedProps
+     * @param $schema
      *
      * @return static
      */
-    public static function make($expectedProps)
+    public static function make($schema)
     {
-        return new self($expectedProps);
+        return new self($schema);
     }
 
 }

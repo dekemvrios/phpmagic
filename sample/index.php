@@ -6,22 +6,24 @@ use Solis\PhpValidator\Helpers\Types;
 use Sample\Pessoa;
 
 try {
-    $aExpectedProps = [
+    $schema = [
         [
-            'name'     => 'codigo',
-            'type'     => Types::TYPE_INT,
-            'required' => 'TRUE'
+            'name' => 'codigo',
+            'type' => Types::TYPE_INT,
         ],
         [
-            'name'     => 'nome',
-            'type'     => Types::TYPE_STRING,
-            'required' => 'TRUE'
+            'name' => 'nome',
+            'type' => Types::TYPE_STRING
         ]
     ];
 
-    $pessoa = Pessoa::make($aExpectedProps);
 
-    var_dump($pessoa->validator);
+    $value = Pessoa::make($schema)->validator->validate(
+        'codigo',
+        'Rafael'
+    );
+
+    echo $value;
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();
 }
