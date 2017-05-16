@@ -19,10 +19,11 @@ try {
 
     $value = Pessoa::make($schema)->validator->validate(
         'nome',
-        'Rafael'
+        'Individuo 1'
     );
 
     echo $value;
+
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();
 }
