@@ -1,13 +1,13 @@
 <?php
 
-namespace Solis\PhpValidator\Factory;
+namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\ValidatorAbstract;
 
 /**
  * Class Validator
  *
- * @package Solis\PhpValidator\Factory
+ * @package Solis\PhpValidator\Classes
  */
 class Validator extends ValidatorAbstract
 {

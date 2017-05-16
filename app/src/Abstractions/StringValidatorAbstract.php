@@ -1,15 +1,16 @@
 <?php
 
-namespace Solis\PhpValidator\Types;
+namespace Solis\PhpValidator\Abstractions;
 
+use Solis\PhpValidator\Contracts\StringValidatorContract;
 use Solis\PhpValidator\Helpers\Properties;
 
 /**
- * Class StringValidator
+ * Class StringValidatorAbstract
  *
- * @package Solis\PhpValidator\Types
+ * @package Solis\PhpValidator\Abstractions
  */
-class StringValidator
+abstract class StringValidatorAbstract implements StringValidatorContract
 {
     /**
      * @var array
@@ -21,13 +22,13 @@ class StringValidator
     ];
 
     /**
-     * validateString
+     * validate
      *
      * @param string $name
      * @param mixed  $data
      * @param array  $format
      *
-     * @return mixed
+     * @return string
      *
      * @throws \InvalidArgumentException
      */
@@ -54,7 +55,7 @@ class StringValidator
             );
         }
 
-        return $data;
+        return (string)$data;
     }
 
     /**

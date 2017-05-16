@@ -1,15 +1,15 @@
 <?php
 
-namespace Solis\PhpValidator\Types;
+namespace Solis\PhpValidator\Abstractions;
 
-use Solis\PhpValidator\Helpers\Properties;
+use Solis\PhpValidator\Contracts\IntValidatorContract;
 
 /**
- * Class FloatValidator
+ * Class IntValidatorAbstract
  *
- * @package Solis\PhpValidator\Types
+ * @package Solis\PhpValidator\Abstractions
  */
-class FloatValidator
+abstract class IntValidatorAbstract implements IntValidatorContract
 {
 
     /**
@@ -17,28 +17,29 @@ class FloatValidator
      *
      * @param       $name
      * @param       $data
-     * @param array $options
+     * @param array $format
      *
-     * @return float
+     * @return int
      *
      * @throws \InvalidArgumentException
      */
     public static function validate(
         $name,
         $data,
-        array $options = null
+        array $format = null
     ) {
-        if (!is_float(floatval($data))) {
+        if (!is_numeric($data) || !is_int(intval($data))) {
             throw new \InvalidArgumentException(
                 Properties::getInvalidTypeMessage(
                     [
                         '@name' => $name,
-                        '@type' => 'float'
+                        '@type' => 'int'
                     ]
                 )
             );
         }
 
-        return floatval($data);
+        return intval($data);
+
     }
 }

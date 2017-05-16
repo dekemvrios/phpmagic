@@ -3,7 +3,7 @@
 namespace Sample;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
-use Solis\PhpValidator\Factory\Validator;
+use Solis\PhpValidator\Classes\Validator;
 
 /**
  * Class Individuo

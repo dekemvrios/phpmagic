@@ -12,8 +12,11 @@ try {
             'type' => Types::TYPE_INT,
         ],
         [
-            'name' => 'nome',
-            'type' => Types::TYPE_STRING
+            'name'   => 'nome',
+            'type'   => Types::TYPE_STRING,
+            'format' => [
+                'size' => 2
+            ]
         ]
     ];
 

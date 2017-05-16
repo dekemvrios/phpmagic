@@ -3,11 +3,11 @@
 namespace Solis\PhpValidator\Abstractions;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
+use Solis\PhpValidator\Classes\FloatValidator;
+use Solis\PhpValidator\Classes\IntValidator;
+use Solis\PhpValidator\Classes\StringValidator;
 use Solis\PhpValidator\Helpers\Properties;
 use Solis\PhpValidator\Helpers\Types;
-use Solis\PhpValidator\Types\FloatValidator;
-use Solis\PhpValidator\Types\IntValidator;
-use Solis\PhpValidator\Types\StringValidator;
 
 /**
  * Class ValidatorAbstract
