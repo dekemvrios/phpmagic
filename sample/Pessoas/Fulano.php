@@ -4,7 +4,7 @@ namespace Sample\Pessoas;
 
 use Solis\PhpValidator\Contracts\ValidatorContract;
 use Solis\PhpValidator\Classes\Validator;
-use Solis\PhpValidator\Helpers\Magic;
+use Solis\PhpValidator\Helpers\SingleMagic;
 
 /**
  * Class Fulano
@@ -14,7 +14,7 @@ use Solis\PhpValidator\Helpers\Magic;
 class Fulano
 {
 
-    use Magic;
+    use SingleMagic;
 
     /**
      * @var ValidatorContract

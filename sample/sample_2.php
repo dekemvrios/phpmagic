@@ -2,20 +2,20 @@
 
 require_once '../vendor/autoload.php';
 
-use Sample\Pessoas\FulanoAlone;
+use Sample\Pessoas\Individuo;
+
 
 try {
 
-    $fulano = new FulanoAlone();
+    $fulano = new Individuo();
 
-    $fulano = $fulano->attach(
+    $fulano->attach(
         [
             'firstName' => 'Rafael',
             'lastName'  => 'Becker',
             'code'      => 1
         ]
     );
-
 
     var_dump(
         [
@@ -24,7 +24,6 @@ try {
             $fulano->codigo
         ]
     );
-
 
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();

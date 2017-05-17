@@ -2,35 +2,13 @@
 
 namespace Solis\PhpValidator\Helpers;
 
-use Solis\PhpValidator\Classes\Validator;
-
 /**
  * Class Magic
  *
  * @package Solis\PhpValidator\Helpers
  */
-trait MagicAlone
+trait SingleMagic
 {
-
-    /**
-     * attach
-     *
-     * @param $dados
-     *
-     * @return static
-     */
-    public function attach(
-        $dados
-    ) {
-
-        $object = (new \ReflectionClass($this))->newInstance();
-
-        foreach ($dados as $item => $value) {
-            $object->$item = $value;
-        }
-
-        return $object;
-    }
 
     /**
      * __set
@@ -50,12 +28,19 @@ trait MagicAlone
             $name
         )
         ) {
-            $name = $this->___property($name);
+            throw new \InvalidArgumentException(
+                Properties::getNotFoundMessage(
+                    [
+                        '@name' => $name,
+                        '@class' => __CLASS__
+                    ]
+                )
+            );
         }
 
-        $validator = Validator::make($this->schema);
+        $validator = (new \ReflectionClass($this))->getProperty('validator')->getValue($this);
         if (!empty($validator)) {
-            $value = $validator->validate(
+            $value = $this->validator->validate(
                 $name,
                 $value
             );
@@ -93,7 +78,7 @@ trait MagicAlone
             throw new \InvalidArgumentException(
                 Properties::getNotFoundMessage(
                     [
-                        '@name'  => $name,
+                        '@name' => $name,
                         '@class' => __CLASS__
                     ]
                 )
@@ -110,36 +95,4 @@ trait MagicAlone
         return $this->$name;
 
     }
-
-    /**
-     * @return string
-     */
-    public function ___property($name)
-    {
-        $meta = array_values(
-            array_filter(
-                $this->schema,
-                function ($schemaItem) use
-                (
-                    $name
-                ) {
-                    return $schemaItem['name'] === $name ? true : false;
-                }
-            )
-        );
-
-        if (empty($meta)) {
-            throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(
-                    [
-                        '@name'  => $name,
-                        '@class' => __CLASS__
-                    ]
-                )
-            );
-        }
-
-        return $meta[0]['property'];
-    }
-
 }

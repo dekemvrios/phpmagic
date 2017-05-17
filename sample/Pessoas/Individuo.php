@@ -2,18 +2,18 @@
 
 namespace Sample\Pessoas;
 
-use Solis\PhpValidator\Helpers\MagicAlone;
+use Solis\PhpValidator\Helpers\Magic;
 use Solis\PhpValidator\Helpers\Types;
 
 /**
- * Class Fulano
+ * Class Individuo
  *
  * @package Sample
  */
-class FulanoAlone
+class Individuo
 {
 
-    use MagicAlone;
+    use Magic;
 
     /**
      * @var array
@@ -30,7 +30,7 @@ class FulanoAlone
             'property' => 'primeiroNome',
             'format'   => [
                 'size' => 5,
-                'lowercase'
+                'uppercase'
             ]
         ],
         [
