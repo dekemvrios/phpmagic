@@ -48,10 +48,11 @@ abstract class ValidatorAbstract implements ValidatorContract
         $meta = array_values(
             array_filter(
                 $this->schema,
-                function ($item) use (
+                function ($item) use
+                (
                     $name
                 ) {
-                    return $item['name'] === $name ? true : false;
+                    return $item['property'] === $name ? true : false;
                 }
             )
         );
@@ -85,21 +86,21 @@ abstract class ValidatorAbstract implements ValidatorContract
         switch ($meta['type']) {
             case Types::TYPE_STRING:
                 return StringValidator::validate(
-                    $meta['name'],
+                    $meta['property'],
                     $data,
                     $meta['format']
                 );
 
             case Types::TYPE_INT:
                 return IntValidator::validate(
-                    $meta['name'],
+                    $meta['property'],
                     $data,
                     $meta['format']
                 );
 
             case Types::TYPE_FLOAT:
                 return FloatValidator::validate(
-                    $meta['name'],
+                    $meta['property'],
                     $data,
                     $meta['format']
                 );
