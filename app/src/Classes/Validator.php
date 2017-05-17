@@ -3,6 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\ValidatorAbstract;
+use Solis\PhpValidator\Contracts\ValidatorContract;
 
 /**
  * Class Validator
@@ -17,7 +18,7 @@ class Validator extends ValidatorAbstract
      *
      * @param $schema
      *
-     * @return static
+     * @return ValidatorContract
      */
     public static function make($schema)
     {

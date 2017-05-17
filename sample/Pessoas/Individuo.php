@@ -29,13 +29,17 @@ class Individuo
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
+                'size' => 4,
                 'uppercase'
             ]
         ],
         [
             'name'     => 'lastName',
             'type'     => Types::TYPE_STRING,
-            'property' => 'segundoNome'
+            'property' => 'segundoNome',
+            'format'   => [
+                'uppercase'
+            ]
         ]
     ];
 

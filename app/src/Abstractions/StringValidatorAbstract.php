@@ -16,9 +16,22 @@ abstract class StringValidatorAbstract implements StringValidatorContract
      * @var array
      */
     static $formatting = [
-        ['name' => 'size', 'function' => 'applySize', 'params' => true],
-        ['name' => 'uppercase', 'function' => 'applyUppercase'],
-        ['name' => 'lowercase', 'function' => 'applyLowercase']
+        [
+            'name'     => 'size',
+            'function' => 'applySize',
+            'params'   => true,
+            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
+        ],
+        [
+            'name'     => 'uppercase',
+            'function' => 'applyUppercase',
+            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
+        ],
+        [
+            'name'     => 'lowercase',
+            'function' => 'applyLowercase',
+            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
+        ]
     ];
 
     /**
@@ -80,13 +93,18 @@ abstract class StringValidatorAbstract implements StringValidatorContract
 
                     $method = $options['function'];
 
+                    $class = !empty($options['class']) ? $options['class'] : null;
+
                     if (isset($options['params'])) {
-                        $data = self::$method(
+                        $data = !empty($class) ? $class::$method(
+                            $data,
+                            $format[$options['name']]
+                        ) : self::$method(
                             $data,
                             $format[$options['name']]
                         );
                     } else {
-                        $data = self::$method($data);
+                        $data = !empty($class) ? $class::$method($data) : self::$method($data);
                     }
 
                 }
@@ -94,51 +112,6 @@ abstract class StringValidatorAbstract implements StringValidatorContract
         }
 
         return $data;
-    }
-
-    /**
-     * applySize
-     *
-     * @param string $data
-     * @param int    $size
-     *
-     * @return string
-     */
-    private static function applySize(
-        $data,
-        $size
-    ) {
-        return substr(
-            $data,
-            0,
-            intval($size)
-        );
-    }
-
-    /**
-     * applySize
-     *
-     * @param string $data
-     *
-     * @return string
-     */
-    private static function applyUppercase(
-        $data
-    ) {
-        return strtoupper($data);
-    }
-
-    /**
-     * applyLowercase
-     *
-     * @param string $data
-     *
-     * @return string
-     */
-    private static function applyLowercase(
-        $data
-    ) {
-        return strtolower($data);
     }
 
 }
