@@ -3,7 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpValidator\Helpers\Message;
 
 /**
  * Class StringValidator
@@ -57,11 +57,11 @@ class StringValidator extends TypeValidatorAbstract
     ) {
         if (!is_string($data)) {
             throw new \InvalidArgumentException(
-                Types::getInvalidTypeMessage(
+                Message::getTextMessage(
                     [
                         '@name' => $name,
-                        '@type' => 'string'
-                    ]
+                        '@type' => 'string',
+                    ], Message::PROPERTY_INVALID_TYPE
                 )
             );
         }

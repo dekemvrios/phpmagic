@@ -83,11 +83,11 @@ trait Magic
         )
         ) {
             throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(
+                Message::getTextMessage(
                     [
                         '@name'  => $name,
-                        '@class' => __CLASS__
-                    ]
+                        '@class' => __CLASS__,
+                    ], Message::PROPERTY_NOT_FOUND
                 )
             );
         }
@@ -111,8 +111,7 @@ trait Magic
         $meta = array_values(
             array_filter(
                 $this->schema,
-                function ($schemaItem) use
-                (
+                function ($schemaItem) use (
                     $name
                 ) {
                     return $schemaItem['name'] === $name ? true : false;
@@ -122,12 +121,12 @@ trait Magic
 
         if (empty($meta)) {
             throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(
+                Message::getTextMessage(
                     [
                         '@name'  => $name,
-                        '@class' => __CLASS__
-                    ]
-                ) . " schema"
+                        '@class' => __CLASS__,
+                    ], Message::PROPERTY_NOT_FOUND
+                ) . ' schema'
             );
         }
 

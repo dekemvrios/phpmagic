@@ -6,7 +6,7 @@ use Solis\PhpValidator\Contracts\ValidatorContract;
 use Solis\PhpValidator\Classes\FloatValidator;
 use Solis\PhpValidator\Classes\IntValidator;
 use Solis\PhpValidator\Classes\StringValidator;
-use Solis\PhpValidator\Helpers\Properties;
+use Solis\PhpValidator\Helpers\Message;
 use Solis\PhpValidator\Helpers\Types;
 
 /**
@@ -59,7 +59,9 @@ abstract class ValidatorAbstract implements ValidatorContract
 
         if (empty($meta)) {
             throw new \InvalidArgumentException(
-                Properties::getNotFoundMessage(['@name' => $name, '@class' => __CLASS__]) . ' schema'
+                Message::getTextMessage(
+                    ['@name' => $name, '@class' => __CLASS__], Message::PROPERTY_NOT_FOUND
+                ) . ' schema'
             );
         }
 
