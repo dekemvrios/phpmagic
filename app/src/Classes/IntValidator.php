@@ -3,7 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpValidator\Helpers\Message;
 
 /**
  * Class IntValidator
@@ -41,11 +41,11 @@ class IntValidator extends TypeValidatorAbstract
     ) {
         if (!is_numeric($data) || !is_int(intval($data))) {
             throw new \InvalidArgumentException(
-                Types::getInvalidTypeMessage(
+                Message::getTextMessage(
                     [
                         '@name' => $name,
-                        '@type' => 'int'
-                    ]
+                        '@type' => 'int',
+                    ], Message::PROPERTY_INVALID_TYPE
                 )
             );
         }

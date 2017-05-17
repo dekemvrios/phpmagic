@@ -14,13 +14,13 @@ try {
             'code'      => '1',
             'money'     => '1.54',
             'firstName' => 'Rafael',
-            'lastName'  => 'Becker'
+            'lastName'  => 'Becker',
         ]
     );
 
     var_dump(
         [
-            $fulano
+            $fulano,
         ]
     );
 

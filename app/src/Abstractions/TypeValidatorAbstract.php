@@ -3,7 +3,7 @@
 
 namespace Solis\PhpValidator\Abstractions;
 
-use Solis\PhpValidator\Contracts\TypeValidatorContract;
+use Solis\PhpValidator\Helpers\Message;
 
 /**
  * Class TypeValidatorAbstract
@@ -71,6 +71,8 @@ abstract class TypeValidatorAbstract
      * @param $data
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     protected function applyCustomFormat(
         $format,
@@ -101,6 +103,30 @@ abstract class TypeValidatorAbstract
                 );
 
                 if (!empty($class) && !empty($method)) {
+
+                    if (!class_exists($class)) {
+                        throw new \InvalidArgumentException(
+                            Message::getTextMessage(
+                                [
+                                    '@class' => $class,
+                                ],
+                                Message::PROPERTY_CLASS_NOT_FOUND
+                            )
+                        );
+                    }
+
+                    if (!method_exists($class, $method)) {
+                        throw new \InvalidArgumentException(
+                            Message::getTextMessage(
+                                [
+                                    '@method' => $method,
+                                    '@class'  => $class,
+                                ],
+                                Message::PROPERTY_METHOD_NOT_FOUND
+                            )
+                        );
+                    }
+
                     $data = call_user_func_array(
                         $class . "::" . $method,
                         $params
@@ -141,6 +167,29 @@ abstract class TypeValidatorAbstract
 
         if (empty($method) || empty($class)) {
             return $data;
+        }
+
+        if (!class_exists($class)) {
+            throw new \InvalidArgumentException(
+                Message::getTextMessage(
+                    [
+                        '@class' => $class,
+                    ],
+                    Message::PROPERTY_CLASS_NOT_FOUND
+                )
+            );
+        }
+
+        if (!method_exists($class, $method)) {
+            throw new \InvalidArgumentException(
+                Message::getTextMessage(
+                    [
+                        '@method' => $method,
+                        '@class'  => $class,
+                    ],
+                    Message::PROPERTY_METHOD_NOT_FOUND
+                )
+            );
         }
 
         $params = isset($options['params']) ? [$format[$options['name']]] : [];
