@@ -12,16 +12,13 @@ try {
     $fulano->attach(
         [
             'firstName' => 'Rafael',
-            'lastName'  => 'Becker',
-            'code'      => 1
+            'lastName'  => 'Becker'
         ]
     );
 
     var_dump(
         [
-            $fulano->primeiroNome,
-            $fulano->segundoNome,
-            $fulano->codigo
+            $fulano
         ]
     );
 

@@ -88,35 +88,122 @@ abstract class StringValidatorAbstract implements StringValidatorContract
         $format,
         $data
     ) {
+        $bHasCustomFormat = false;
+
         foreach (self::$formatting as $options) {
 
             foreach ($format as $item => $value) {
 
-                $compare = !is_string($item) ? $value : $item;
+                if (!is_array($value)) {
+                    $compare = !is_string($item) ? $value : $item;
 
-                if ($options['name'] === $compare) {
+                    if ($options['name'] === $compare) {
 
-                    $method = $options['function'];
-
-                    $class = !empty($options['class']) ? $options['class'] : null;
-
-                    if (isset($options['params'])) {
-                        $data = !empty($class) ? $class::$method(
-                            $data,
-                            $format[$options['name']]
-                        ) : self::$method(
-                            $data,
-                            $format[$options['name']]
+                        $data = self::applyDefaultFormat(
+                            $format,
+                            $options,
+                            $data
                         );
-                    } else {
-                        $data = !empty($class) ? $class::$method($data) : self::$method($data);
-                    }
 
+                    }
+                } else {
+                    $bHasCustomFormat = true;
+                }
+            }
+
+        }
+
+        if (!empty($bHasCustomFormat)) {
+            $data = self::applyCustomFormat(
+                $format,
+                $data
+            );
+        }
+
+        return $data;
+    }
+
+    /**
+     * appluCustomFormat
+     *
+     * @param $format
+     * @param $data
+     *
+     * @return string
+     */
+    public function applyCustomFormat(
+        $format,
+        $data
+    ) {
+
+        foreach ($format as $key => $value) {
+
+            if (is_array($value)) {
+                $class = array_key_exists(
+                    'class',
+                    $value
+                ) ? $value['class'] : null;
+
+                $method = array_key_exists(
+                    'function',
+                    $value
+                ) ? $value['function'] : null;
+
+                $params = array_key_exists(
+                    'params',
+                    $value
+                ) ? $value['params'] : [];
+
+                array_unshift(
+                    $params,
+                    $data
+                );
+
+                if (!empty($class) && !empty($method)) {
+                    $data = call_user_func_array(
+                        $class . "::" . $method,
+                        $params
+                    );
                 }
             }
         }
 
         return $data;
     }
+
+    /**
+     * applyDefaultFormat
+     *
+     * @param array $format
+     * @param array $options
+     * @param array $data
+     *
+     * @return string
+     */
+    public static function applyDefaultFormat(
+        $format,
+        $options,
+        $data
+    ) {
+
+        $method = $options['function'];
+
+        $class = !empty($options['class']) ? $options['class'] : null;
+
+        if (isset($options['params'])) {
+            $data = !empty($class) ? $class::$method(
+                $data,
+                $format[$options['name']]
+            ) : self::$method(
+                $data,
+                $format[$options['name']]
+            );
+        } else {
+            $data = !empty($class) ? $class::$method($data) : self::$method($data);
+        }
+
+        return $data;
+    }
+
 
 }

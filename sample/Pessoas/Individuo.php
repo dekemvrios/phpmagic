@@ -20,11 +20,6 @@ class Individuo
      */
     protected $schema = [
         [
-            'name'     => 'code',
-            'property' => 'codigo',
-            'type'     => Types::TYPE_INT,
-        ],
-        [
             'name'     => 'firstName',
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
@@ -37,15 +32,17 @@ class Individuo
             'type'     => Types::TYPE_STRING,
             'property' => 'segundoNome',
             'format'   => [
-                'uppercase'
+                [
+                    'class'    => 'Sample\\Pessoas\\Individuo',
+                    'function' => 'getCustomString',
+                    'params'   => [
+                        'Exemplo',
+                        'Implementacao'
+                    ]
+                ]
             ]
         ]
     ];
-
-    /**
-     * @var int
-     */
-    protected $codigo;
 
     /**
      * @var string
@@ -56,5 +53,22 @@ class Individuo
      * @var string
      */
     protected $segundoNome;
+
+    /**
+     * getCustomString
+     *
+     * @param       $data
+     * @param mixed $param2
+     * @param mixed $param3
+     *
+     * @return string
+     */
+    public function getCustomString(
+        $data,
+        $param2 = null,
+        $param3 = null
+    ) {
+        return "{$data} {$param2} {$param3}";
+    }
 
 }
