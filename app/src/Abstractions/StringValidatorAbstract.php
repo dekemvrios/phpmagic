@@ -179,6 +179,8 @@ abstract class StringValidatorAbstract implements StringValidatorContract
      * @param array $data
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
      */
     public static function applyDefaultFormat(
         $format,
@@ -186,20 +188,41 @@ abstract class StringValidatorAbstract implements StringValidatorContract
         $data
     ) {
 
-        $method = $options['function'];
+        $method = array_key_exists(
+            'function',
+            $options
+        ) ? $options['function'] : null;
 
-        $class = !empty($options['class']) ? $options['class'] : null;
+        $class = array_key_exists(
+            'class',
+            $options
+        ) ? $options['class'] : null;
 
-        if (isset($options['params'])) {
-            $data = !empty($class) ? $class::$method(
-                $data,
-                $format[$options['name']]
-            ) : self::$method(
-                $data,
-                $format[$options['name']]
+        if (empty($method) || empty($class)) {
+            return $data;
+        }
+
+        $params = isset($options['params']) ? [$format[$options['name']]] : [];
+
+        array_unshift(
+            $params,
+            $data
+        );
+
+        $data = call_user_func_array(
+            $class . '::' . $method,
+            $params
+        );
+
+        if (!is_string($data)) {
+            throw new \InvalidArgumentException(
+                Types::getInvalidTypeMessage(
+                    [
+                        '@name' => $class,
+                        '@type' => 'string'
+                    ]
+                )
             );
-        } else {
-            $data = !empty($class) ? $class::$method($data) : self::$method($data);
         }
 
         return $data;

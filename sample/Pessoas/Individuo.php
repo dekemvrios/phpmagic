@@ -24,7 +24,7 @@ class Individuo
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
-                'uppercase'
+                'size' => 3
             ]
         ],
         [
