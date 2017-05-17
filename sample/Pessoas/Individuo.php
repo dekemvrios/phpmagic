@@ -8,7 +8,7 @@ use Solis\PhpValidator\Helpers\Types;
 /**
  * Class Individuo
  *
- * @package Sample
+ * @package Sample\Pessoas
  */
 class Individuo
 {
@@ -29,18 +29,13 @@ class Individuo
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
-                'size' => 5,
                 'uppercase'
             ]
         ],
         [
             'name'     => 'lastName',
             'type'     => Types::TYPE_STRING,
-            'property' => 'segundoNome',
-            'format'   => [
-                'size' => 1,
-                'uppercase'
-            ]
+            'property' => 'segundoNome'
         ]
     ];
 

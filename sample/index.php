@@ -7,7 +7,7 @@ use Sample\Pessoas\Individuo;
 
 try {
 
-    $fulano = new Individuo();
+    $fulano = (new Individuo());
 
     $fulano->attach(
         [

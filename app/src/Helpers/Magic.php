@@ -48,13 +48,10 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        $validator = Validator::make($this->schema);
-        if (!empty($validator)) {
-            $value = $validator->validate(
-                $name,
-                $value
-            );
-        }
+        $value = Validator::make($this->schema)->validate(
+            $name,
+            $value
+        );
 
         if (method_exists(
             __CLASS__,
@@ -130,7 +127,7 @@ trait Magic
                         '@name'  => $name,
                         '@class' => __CLASS__
                     ]
-                )
+                ) . " schema"
             );
         }
 
