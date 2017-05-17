@@ -20,11 +20,21 @@ class Individuo
      */
     protected $schema = [
         [
+            'name'     => 'code',
+            'type'     => Types::TYPE_INT,
+            'property' => 'codigo'
+        ],
+        [
+            'name'     => 'money',
+            'type'     => Types::TYPE_FLOAT,
+            'property' => 'dinheiro'
+        ],
+        [
             'name'     => 'firstName',
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
-                'size' => 3
+                'uppercase'
             ]
         ],
         [
@@ -43,6 +53,16 @@ class Individuo
             ]
         ]
     ];
+
+    /**
+     * @var int
+     */
+    protected $codigo;
+
+    /**
+     * @var float
+     */
+    protected $dinheiro;
 
     /**
      * @var string

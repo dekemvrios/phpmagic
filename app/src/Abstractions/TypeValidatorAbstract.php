@@ -1,96 +1,37 @@
 <?php
 
+
 namespace Solis\PhpValidator\Abstractions;
 
-use Solis\PhpValidator\Contracts\StringValidatorContract;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpValidator\Contracts\TypeValidatorContract;
 
 /**
- * Class StringValidatorAbstract
+ * Class TypeValidatorAbstract
  *
  * @package Solis\PhpValidator\Abstractions
  */
-abstract class StringValidatorAbstract implements StringValidatorContract
+abstract class TypeValidatorAbstract
 {
     /**
      * @var array
      */
-    static $formatting = [
-        [
-            'name'     => 'size',
-            'function' => 'applySize',
-            'params'   => true,
-            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
-        ],
-        [
-            'name'     => 'uppercase',
-            'function' => 'applyUppercase',
-            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
-        ],
-        [
-            'name'     => 'lowercase',
-            'function' => 'applyLowercase',
-            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
-        ],
-        [
-            'name'     => 'noSpecialChars',
-            'function' => 'removeSpecialChars',
-            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
-        ]
-    ];
+    protected $formatting;
 
     /**
-     * validate
-     *
-     * @param string $name
-     * @param mixed  $data
-     * @param array  $format
-     *
-     * @return string
-     *
-     * @throws \InvalidArgumentException
-     */
-    public static function validate(
-        string $name,
-        $data,
-        array $format = null
-    ) {
-        if (!is_string($data)) {
-            throw new \InvalidArgumentException(
-                Types::getInvalidTypeMessage(
-                    [
-                        '@name' => $name,
-                        '@type' => 'string'
-                    ]
-                )
-            );
-        }
-
-        if (!empty($format)) {
-            $data = self::applyFormat(
-                $format,
-                $data
-            );
-        }
-
-        return (string)$data;
-    }
-
-    /**
-     * filterOptions
+     * applyFormat
      *
      * @param array $format
      * @param mixed $data
      *
      * @return string
      */
-    private static function applyFormat(
+    protected function applyFormat(
         $format,
         $data
     ) {
         $bHasCustomFormat = false;
 
-        foreach (self::$formatting as $options) {
+        foreach ($this->formatting as $options) {
 
             foreach ($format as $item => $value) {
 
@@ -131,7 +72,7 @@ abstract class StringValidatorAbstract implements StringValidatorContract
      *
      * @return string
      */
-    public function applyCustomFormat(
+    protected function applyCustomFormat(
         $format,
         $data
     ) {
@@ -182,7 +123,7 @@ abstract class StringValidatorAbstract implements StringValidatorContract
      *
      * @throws \InvalidArgumentException
      */
-    public static function applyDefaultFormat(
+    protected function applyDefaultFormat(
         $format,
         $options,
         $data
@@ -214,19 +155,6 @@ abstract class StringValidatorAbstract implements StringValidatorContract
             $params
         );
 
-        if (!is_string($data)) {
-            throw new \InvalidArgumentException(
-                Types::getInvalidTypeMessage(
-                    [
-                        '@name' => $class,
-                        '@type' => 'string'
-                    ]
-                )
-            );
-        }
-
         return $data;
     }
-
-
 }

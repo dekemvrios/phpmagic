@@ -3,26 +3,26 @@
 namespace Solis\PhpValidator\Contracts;
 
 /**
- * Interface intValidatorContract
+ * Class ValidatorContract
  *
  * @package Solis\PhpValidator\Contracts
  */
-interface IntValidatorContract
+interface TypeValidatorContract
 {
 
     /**
      * validate
      *
-     * @param       $name
-     * @param       $data
-     * @param array $format
+     * @param string $name
+     * @param mixed  $data
+     * @param array  $format
      *
-     * @return int
+     * @return string
      *
      * @throws \InvalidArgumentException
      */
-    public static function validate(
-        $name,
+    public function validate(
+        string $name,
         $data,
         array $format = null
     );

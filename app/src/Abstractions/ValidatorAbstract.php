@@ -85,21 +85,21 @@ abstract class ValidatorAbstract implements ValidatorContract
     ) {
         switch ($meta['type']) {
             case Types::TYPE_STRING:
-                return StringValidator::validate(
+                return (new StringValidator())->validate(
                     $meta['property'],
                     $data,
                     $meta['format']
                 );
 
             case Types::TYPE_INT:
-                return IntValidator::validate(
+                return (new IntValidator)->validate(
                     $meta['property'],
                     $data,
                     $meta['format']
                 );
 
             case Types::TYPE_FLOAT:
-                return FloatValidator::validate(
+                return (new FloatValidator())->validate(
                     $meta['property'],
                     $data,
                     $meta['format']
