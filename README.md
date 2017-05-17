@@ -15,11 +15,11 @@ First, you need to define a schema, representing the properties and its expected
 ```
 $schema = [
     [
-        'name' => 'code',
+        'property' => 'code',
         'type' => Types::TYPE_INT,
     ],
     [
-        'name' => 'firstName',
+        'property' => 'firstName',
         'type' => Types::TYPE_STRING,        
     ]
 ];
