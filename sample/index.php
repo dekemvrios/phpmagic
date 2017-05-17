@@ -16,14 +16,16 @@ try {
             'name' => 'firstName',
             'type' => Types::TYPE_STRING,
             'format' => [
-                'uppercase' => ''
+                'size' => 2,
+                'lowercase'
             ]
         ],
         [
             'name' => 'lastName',
             'type' => Types::TYPE_STRING,
             'format' => [
-                'lowercase' => ''
+                'size' => 1,
+                'uppercase'
             ]
         ]
     ]);

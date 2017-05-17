@@ -71,19 +71,24 @@ abstract class StringValidatorAbstract implements StringValidatorContract
         $data
     ) {
         foreach (self::$formatting as $options) {
-            if (array_key_exists(
-                $options['name'],
-                $format
-            )) {
-                $method = $options['function'];
 
-                if (isset($options['params'])) {
-                    $data = self::$method(
-                        $data,
-                        $format[$options['name']]
-                    );
-                } else {
-                    $data = self::$method($data);
+            foreach ($format as $item => $value) {
+
+                $compare = !is_string($item) ? $value : $item;
+
+                if ($options['name'] === $compare) {
+
+                    $method = $options['function'];
+
+                    if (isset($options['params'])) {
+                        $data = self::$method(
+                            $data,
+                            $format[$options['name']]
+                        );
+                    } else {
+                        $data = self::$method($data);
+                    }
+
                 }
             }
         }
