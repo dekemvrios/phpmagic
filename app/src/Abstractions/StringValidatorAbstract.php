@@ -31,6 +31,11 @@ abstract class StringValidatorAbstract implements StringValidatorContract
             'name'     => 'lowercase',
             'function' => 'applyLowercase',
             'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
+        ],
+        [
+            'name'     => 'noSpecialChars',
+            'function' => 'removeSpecialChars',
+            'class'    => 'Solis\\PhpValidator\\Format\\StringFormat'
         ]
     ];
 

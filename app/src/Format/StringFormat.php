@@ -53,4 +53,23 @@ class StringFormat
     ) {
         return strtolower($data);
     }
+
+    /**
+     * removeSpecialChars
+     *
+     * @param $data
+     *
+     * @return mixed
+     */
+    public static function removeSpecialChars(
+        $data
+    ) {
+
+        return preg_replace(
+            '/[^A-Za-z0-9\-]/',
+            '',
+            $data
+        );
+    }
+
 }
