@@ -22,8 +22,8 @@ interface StringValidatorContract
      * @throws \InvalidArgumentException
      */
     public function validate(
-        string $name,
+        $name,
         $data,
-        array $format = null
+        $format = null
     );
 }

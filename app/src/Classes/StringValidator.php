@@ -62,9 +62,9 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
      * @throws \InvalidArgumentException
      */
     public function validate(
-        string $name,
+        $name,
         $data,
-        array $format = null
+        $format = null
     ) {
         if (!is_string($data)) {
             throw new \InvalidArgumentException(

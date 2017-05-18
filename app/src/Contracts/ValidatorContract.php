@@ -19,7 +19,7 @@ interface ValidatorContract
      * @return mixed
      */
     public function validate(
-        string $name,
+        $name,
         $value
     );
 }

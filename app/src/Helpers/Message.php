@@ -24,8 +24,10 @@ class Message
      *
      * @return string
      */
-    public static function getTextMessage($params, $message)
-    {
+    public static function getTextMessage(
+        $params,
+        $message
+    ) {
 
         foreach ($params as $name => $value) {
             $message = str_replace(
