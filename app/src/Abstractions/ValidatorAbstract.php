@@ -52,6 +52,14 @@ abstract class ValidatorAbstract implements ValidatorContract
                 (
                     $name
                 ) {
+                    if (!array_key_exists(
+                        'property',
+                        $item
+                    )
+                    ) {
+                        throw new \InvalidArgumentException('invalid schema definition');
+                    }
+
                     return $item['property'] === $name ? true : false;
                 }
             )
@@ -60,7 +68,8 @@ abstract class ValidatorAbstract implements ValidatorContract
         if (empty($meta)) {
             throw new \InvalidArgumentException(
                 Message::getTextMessage(
-                    ['@name' => $name, '@class' => __CLASS__], Message::PROPERTY_NOT_FOUND
+                    ['@name' => $name, '@class' => __CLASS__],
+                    Message::PROPERTY_NOT_FOUND
                 ) . ' schema'
             );
         }
@@ -85,26 +94,53 @@ abstract class ValidatorAbstract implements ValidatorContract
         $meta,
         $data
     ) {
+
+        if (!array_key_exists(
+            'type',
+            $meta
+        )
+        ) {
+            throw new \InvalidArgumentException('invalid schema definition');
+        }
+
         switch ($meta['type']) {
             case Types::TYPE_STRING:
                 return (new StringValidator())->validate(
-                    $meta['property'],
+                    array_key_exists(
+                        'property',
+                        $meta
+                    ) ? $meta['property'] : null,
                     $data,
-                    $meta['format']
+                    array_key_exists(
+                        'format',
+                        $meta
+                    ) ? $meta['format'] : null
                 );
 
             case Types::TYPE_INT:
                 return (new IntValidator)->validate(
-                    $meta['property'],
+                    array_key_exists(
+                        'property',
+                        $meta
+                    ) ? $meta['property'] : null,
                     $data,
-                    $meta['format']
+                    array_key_exists(
+                        'format',
+                        $meta
+                    ) ? $meta['format'] : null
                 );
 
             case Types::TYPE_FLOAT:
                 return (new FloatValidator())->validate(
-                    $meta['property'],
+                    array_key_exists(
+                        'property',
+                        $meta
+                    ) ? $meta['property'] : null,
                     $data,
-                    $meta['format']
+                    array_key_exists(
+                        'format',
+                        $meta
+                    ) ? $meta['format'] : null
                 );
         }
     }

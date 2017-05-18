@@ -75,6 +75,20 @@ class Individuo
     protected $segundoNome;
 
     /**
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados)
+    {
+
+        $individuo = new static();
+        $individuo->attach($dados);
+
+        return $individuo;
+    }
+
+    /**
      * getCustomString
      *
      * @param       $data
