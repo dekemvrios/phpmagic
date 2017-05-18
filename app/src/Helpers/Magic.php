@@ -19,7 +19,7 @@ trait Magic
      *
      * @throws \InvalidArgumentException
      */
-    public function attach(
+    private function attach(
         $dados
     ) {
         foreach ($dados as $item => $value) {
@@ -87,7 +87,8 @@ trait Magic
                     [
                         '@name'  => $name,
                         '@class' => __CLASS__,
-                    ], Message::PROPERTY_NOT_FOUND
+                    ],
+                    Message::PROPERTY_NOT_FOUND
                 )
             );
         }
@@ -111,21 +112,36 @@ trait Magic
         $meta = array_values(
             array_filter(
                 $this->schema,
-                function ($schemaItem) use (
+                function ($schemaItem) use
+                (
                     $name
                 ) {
+
+                    if (!array_key_exists(
+                        'name',
+                        $schemaItem
+                    )
+                    ) {
+                        throw new \InvalidArgumentException('invalid schema definition');
+                    }
+
                     return $schemaItem['name'] === $name ? true : false;
                 }
             )
         );
 
-        if (empty($meta)) {
+        if (empty($meta) || !array_key_exists(
+                'property',
+                $meta[0]
+            )
+        ) {
             throw new \InvalidArgumentException(
                 Message::getTextMessage(
                     [
                         '@name'  => $name,
                         '@class' => __CLASS__,
-                    ], Message::PROPERTY_NOT_FOUND
+                    ],
+                    Message::PROPERTY_NOT_FOUND
                 ) . ' schema'
             );
         }
