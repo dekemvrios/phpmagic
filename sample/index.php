@@ -7,21 +7,15 @@ use Sample\Pessoas\Individuo;
 
 try {
 
-    $fulano = (new Individuo());
-
-    $fulano->attach(
-        [
-            'code'      => '1',
-            'money'     => '1.54',
-            'firstName' => 'Rafael',
-            'lastName'  => 'Becker',
-        ]
-    );
-
     var_dump(
-        [
-            $fulano,
-        ]
+        Individuo::make(
+            [
+                'code'      => '1',
+                'money'     => '1.54',
+                'firstName' => 'Rafael',
+                'lastName'  => 'Becker',
+            ]
+        )
     );
 
 } catch (\InvalidArgumentException $exception) {
