@@ -3,6 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
+use Solis\PhpValidator\Contracts\StringValidatorContract;
 use Solis\PhpValidator\Helpers\Message;
 
 /**
@@ -10,7 +11,7 @@ use Solis\PhpValidator\Helpers\Message;
  *
  * @package Solis\PhpValidator\Types
  */
-class StringValidator extends TypeValidatorAbstract
+class StringValidator extends TypeValidatorAbstract implements StringValidatorContract
 {
     /**
      * @var array
@@ -40,6 +41,16 @@ class StringValidator extends TypeValidatorAbstract
     ];
 
     /**
+     * make
+     *
+     * @return static
+     */
+    public static function make()
+    {
+        return new static();
+    }
+
+    /**
      * validate
      *
      * @param string $name
@@ -61,7 +72,8 @@ class StringValidator extends TypeValidatorAbstract
                     [
                         '@name' => $name,
                         '@type' => 'string',
-                    ], Message::PROPERTY_INVALID_TYPE
+                    ],
+                    Message::PROPERTY_INVALID_TYPE
                 )
             );
         }

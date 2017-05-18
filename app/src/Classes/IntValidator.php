@@ -3,6 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
+use Solis\PhpValidator\Contracts\IntValidatorContract;
 use Solis\PhpValidator\Helpers\Message;
 
 /**
@@ -10,7 +11,7 @@ use Solis\PhpValidator\Helpers\Message;
  *
  * @package Solis\PhpValidator\Types
  */
-class IntValidator extends TypeValidatorAbstract
+class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
 {
     /**
      * @var array
@@ -22,6 +23,16 @@ class IntValidator extends TypeValidatorAbstract
             'class'    => 'Solis\\PhpValidator\\Format\\IntFormat'
         ]
     ];
+
+    /**
+     * make
+     *
+     * @return static
+     */
+    public static function make()
+    {
+        return new static();
+    }
 
     /**
      * validate
@@ -45,7 +56,8 @@ class IntValidator extends TypeValidatorAbstract
                     [
                         '@name' => $name,
                         '@type' => 'int',
-                    ], Message::PROPERTY_INVALID_TYPE
+                    ],
+                    Message::PROPERTY_INVALID_TYPE
                 )
             );
         }

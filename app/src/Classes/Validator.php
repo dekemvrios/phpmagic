@@ -22,7 +22,12 @@ class Validator extends ValidatorAbstract
      */
     public static function make($schema)
     {
-        return new self($schema);
+        return new self(
+            $schema,
+            StringValidator::make(),
+            FloatValidator::make(),
+            IntValidator::make()
+        );
     }
 
 }
