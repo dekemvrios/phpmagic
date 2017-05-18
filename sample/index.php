@@ -4,6 +4,7 @@ require_once '../vendor/autoload.php';
 
 use Sample\Pessoas\Individuo;
 
+error_reporting(E_ALL);
 
 try {
 

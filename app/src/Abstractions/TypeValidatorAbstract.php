@@ -95,11 +95,11 @@ abstract class TypeValidatorAbstract
                     $data
                 );
 
+                $object = (new \ReflectionClass($aClassFunc['class']))->newInstance();
                 $data = call_user_func_array(
-                    $aClassFunc['class'] . "::" . $aClassFunc['method'],
+                    [$object, $aClassFunc['method']],
                     $params
                 );
-
             }
         }
 
@@ -132,8 +132,9 @@ abstract class TypeValidatorAbstract
             $data
         );
 
+        $object = (new \ReflectionClass($aClassFunc['class']))->newInstance();
         $data = call_user_func_array(
-            $aClassFunc['class'] . '::' . $aClassFunc['method'],
+            [$object, $aClassFunc['method']],
             $params
         );
 
@@ -172,7 +173,11 @@ abstract class TypeValidatorAbstract
             );
         }
 
-        if (!method_exists($class, $method)) {
+        if (!method_exists(
+            $class,
+            $method
+        )
+        ) {
             throw new \InvalidArgumentException(
                 Message::getTextMessage(
                     [
