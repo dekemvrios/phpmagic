@@ -66,7 +66,7 @@ abstract class ValidatorAbstract implements ValidatorContract
      * @throws \InvalidArgumentException
      */
     public function validate(
-        string $name,
+        $name,
         $value
     ) {
 

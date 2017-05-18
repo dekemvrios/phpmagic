@@ -47,7 +47,7 @@ class Individuo
                     'function' => 'getCustomString',
                     'params'   => [
                         'Exemplo',
-                        'Implementacao'
+                        'Becker'
                     ]
                 ]
             ]

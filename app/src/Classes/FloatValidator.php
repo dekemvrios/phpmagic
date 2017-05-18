@@ -49,7 +49,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
     public function validate(
         $name,
         $data,
-        array $format = null
+        $format = null
     ) {
         if (!is_numeric($data) || !is_float(floatval($data))) {
             throw new \InvalidArgumentException(

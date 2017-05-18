@@ -23,6 +23,6 @@ interface FloatValidatorContract
     public function validate(
         $name,
         $data,
-        array $format = null
+        $format = null
     );
 }

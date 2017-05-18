@@ -48,7 +48,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
     public function validate(
         $name,
         $data,
-        array $format = null
+        $format = null
     ) {
         if (!is_numeric($data) || !is_int(intval($data))) {
             throw new \InvalidArgumentException(

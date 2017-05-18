@@ -24,6 +24,6 @@ interface IntValidatorContract
     public function validate(
         $name,
         $data,
-        array $format = null
+        $format = null
     );
 }

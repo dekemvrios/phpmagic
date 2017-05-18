@@ -41,7 +41,7 @@ trait Magic
     ) {
 
         if (!property_exists(
-            __CLASS__,
+            $this,
             $name
         )
         ) {
@@ -54,13 +54,10 @@ trait Magic
         );
 
         if (method_exists(
-            __CLASS__,
+            $this,
             'set' . ucfirst($name)
         )) {
-            call_user_func_array(
-                __CLASS__ . '::' . 'set' . ucfirst($name),
-                [$value]
-            );
+            $this->{'set' . ucfirst($name)}($value);
         } else {
             $this->$name = $value;
         }
@@ -78,7 +75,7 @@ trait Magic
     public function __get($name)
     {
         if (!property_exists(
-            __CLASS__,
+            $this,
             $name
         )
         ) {
@@ -97,7 +94,7 @@ trait Magic
             $this,
             'get' . ucfirst($name)
         )) {
-            return call_user_func(__CLASS__ . '::' . 'get' . ucfirst($name));
+            return $this->{'get' . ucfirst($name)}();
         }
 
         return $this->$name;
