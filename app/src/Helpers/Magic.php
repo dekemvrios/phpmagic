@@ -19,7 +19,7 @@ trait Magic
      *
      * @throws \InvalidArgumentException
      */
-    private function attach(
+    protected function attach(
         $dados
     ) {
         foreach ($dados as $item => $value) {
