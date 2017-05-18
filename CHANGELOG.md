@@ -5,7 +5,7 @@ All the relevant changes for this project will be documented following the [keep
 ## 0.0.2 - 2017-05-18
 
 ### Changed
-- Used $this as reference in magic trait to call methods 
+- Used $this keyword as reference in magic trait for method call 
 
 ## 0.0.1 - 2017-05-18
 
