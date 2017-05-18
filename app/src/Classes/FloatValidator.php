@@ -3,6 +3,7 @@
 namespace Solis\PhpValidator\Classes;
 
 use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
+use Solis\PhpValidator\Contracts\FloatValidatorContract;
 use Solis\PhpValidator\Helpers\Message;
 
 /**
@@ -10,7 +11,7 @@ use Solis\PhpValidator\Helpers\Message;
  *
  * @package Solis\PhpValidator\Types
  */
-class FloatValidator extends TypeValidatorAbstract
+class FloatValidator extends TypeValidatorAbstract implements FloatValidatorContract
 {
 
     /**
@@ -23,6 +24,16 @@ class FloatValidator extends TypeValidatorAbstract
             'class'    => 'Solis\\PhpValidator\\Format\\FloatFormat'
         ]
     ];
+
+    /**
+     * make
+     *
+     * @return static
+     */
+    public static function make()
+    {
+        return new static();
+    }
 
     /**
      * validate
@@ -46,7 +57,8 @@ class FloatValidator extends TypeValidatorAbstract
                     [
                         '@name' => $name,
                         '@type' => 'float',
-                    ], Message::PROPERTY_INVALID_TYPE
+                    ],
+                    Message::PROPERTY_INVALID_TYPE
                 )
             );
         }

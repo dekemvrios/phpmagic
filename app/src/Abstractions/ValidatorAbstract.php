@@ -2,10 +2,10 @@
 
 namespace Solis\PhpValidator\Abstractions;
 
+use Solis\PhpValidator\Contracts\FloatValidatorContract;
+use Solis\PhpValidator\Contracts\IntValidatorContract;
+use Solis\PhpValidator\Contracts\StringValidatorContract;
 use Solis\PhpValidator\Contracts\ValidatorContract;
-use Solis\PhpValidator\Classes\FloatValidator;
-use Solis\PhpValidator\Classes\IntValidator;
-use Solis\PhpValidator\Classes\StringValidator;
 use Solis\PhpValidator\Helpers\Message;
 use Solis\PhpValidator\Helpers\Types;
 
@@ -22,13 +22,38 @@ abstract class ValidatorAbstract implements ValidatorContract
     protected $schema;
 
     /**
+     * @var StringValidatorContract
+     */
+    protected $stringValidator;
+
+    /**
+     * @var FloatValidatorContract
+     */
+    protected $floatValidator;
+
+    /**
+     * @var IntValidatorContract
+     */
+    protected $intValidator;
+
+    /**
      * __construct
      *
      * @param $schema
+     * @param $stringValidator
+     * @param $floatValidator
+     * @param $intValidator
      */
-    protected function __construct($schema)
-    {
+    protected function __construct(
+        $schema,
+        $stringValidator,
+        $floatValidator,
+        $intValidator
+    ) {
         $this->schema = $schema;
+        $this->stringValidator = $stringValidator;
+        $this->floatValidator = $floatValidator;
+        $this->intValidator = $intValidator;
     }
 
     /**
@@ -105,7 +130,7 @@ abstract class ValidatorAbstract implements ValidatorContract
 
         switch ($meta['type']) {
             case Types::TYPE_STRING:
-                return (new StringValidator())->validate(
+                return $this->stringValidator->validate(
                     array_key_exists(
                         'property',
                         $meta
@@ -118,7 +143,7 @@ abstract class ValidatorAbstract implements ValidatorContract
                 );
 
             case Types::TYPE_INT:
-                return (new IntValidator)->validate(
+                return $this->intValidator->validate(
                     array_key_exists(
                         'property',
                         $meta
@@ -131,7 +156,7 @@ abstract class ValidatorAbstract implements ValidatorContract
                 );
 
             case Types::TYPE_FLOAT:
-                return (new FloatValidator())->validate(
+                return $this->floatValidator->validate(
                     array_key_exists(
                         'property',
                         $meta
