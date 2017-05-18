@@ -82,15 +82,8 @@ abstract class TypeValidatorAbstract
         foreach ($format as $key => $value) {
 
             if (is_array($value)) {
-                $class = array_key_exists(
-                    'class',
-                    $value
-                ) ? $value['class'] : null;
 
-                $method = array_key_exists(
-                    'function',
-                    $value
-                ) ? $value['function'] : null;
+                $aClassFunc = $this->getFuncParams($value);
 
                 $params = array_key_exists(
                     'params',
@@ -102,36 +95,11 @@ abstract class TypeValidatorAbstract
                     $data
                 );
 
-                if (!empty($class) && !empty($method)) {
+                $data = call_user_func_array(
+                    $aClassFunc['class'] . "::" . $aClassFunc['method'],
+                    $params
+                );
 
-                    if (!class_exists($class)) {
-                        throw new \InvalidArgumentException(
-                            Message::getTextMessage(
-                                [
-                                    '@class' => $class,
-                                ],
-                                Message::PROPERTY_CLASS_NOT_FOUND
-                            )
-                        );
-                    }
-
-                    if (!method_exists($class, $method)) {
-                        throw new \InvalidArgumentException(
-                            Message::getTextMessage(
-                                [
-                                    '@method' => $method,
-                                    '@class'  => $class,
-                                ],
-                                Message::PROPERTY_METHOD_NOT_FOUND
-                            )
-                        );
-                    }
-
-                    $data = call_user_func_array(
-                        $class . "::" . $method,
-                        $params
-                    );
-                }
             }
         }
 
@@ -155,6 +123,34 @@ abstract class TypeValidatorAbstract
         $data
     ) {
 
+        $aClassFunc = $this->getFuncParams($options);
+
+        $params = isset($options['params']) ? [$format[$options['name']]] : [];
+
+        array_unshift(
+            $params,
+            $data
+        );
+
+        $data = call_user_func_array(
+            $aClassFunc['class'] . '::' . $aClassFunc['method'],
+            $params
+        );
+
+        return $data;
+    }
+
+    /**
+     * getFuncParams
+     *
+     * @param $options
+     *
+     * @return array
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function getFuncParams($options)
+    {
         $method = array_key_exists(
             'function',
             $options
@@ -164,10 +160,6 @@ abstract class TypeValidatorAbstract
             'class',
             $options
         ) ? $options['class'] : null;
-
-        if (empty($method) || empty($class)) {
-            return $data;
-        }
 
         if (!class_exists($class)) {
             throw new \InvalidArgumentException(
@@ -192,18 +184,10 @@ abstract class TypeValidatorAbstract
             );
         }
 
-        $params = isset($options['params']) ? [$format[$options['name']]] : [];
-
-        array_unshift(
-            $params,
-            $data
-        );
-
-        $data = call_user_func_array(
-            $class . '::' . $method,
-            $params
-        );
-
-        return $data;
+        return [
+            'class'  => $class,
+            'method' => $method,
+        ];
     }
+
 }
