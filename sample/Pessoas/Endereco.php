@@ -23,7 +23,9 @@ class Endereco
             'type'     => Types::TYPE_STRING,
             'property' => 'logradouro',
             'format'   => [
-                'uppercase'
+                [
+                    'function' => 'uppercase'
+                ]
             ]
         ],
         [
@@ -36,7 +38,9 @@ class Endereco
             'type'     => Types::TYPE_STRING,
             'property' => 'bairro',
             'format'   => [
-                'uppercase'
+                [
+                    'function' => 'lowercase'
+                ],
             ]
         ],
         [

@@ -34,7 +34,13 @@ class Individuo
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
-                'uppercase'
+                [
+                    'function' => 'uppercase',
+                ],
+                [
+                    'function' => 'size',
+                    'params'   => 2
+                ],
             ]
         ],
         [

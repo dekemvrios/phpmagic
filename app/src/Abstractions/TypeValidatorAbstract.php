@@ -29,36 +29,37 @@ abstract class TypeValidatorAbstract
         $format,
         $data
     ) {
-        $bHasCustomFormat = false;
 
-        foreach ($this->formatting as $options) {
+        foreach ($format as $key => $value) {
 
-            foreach ($format as $item => $value) {
-
-                if (!is_array($value)) {
-                    $compare = !is_string($item) ? $value : $item;
-
-                    if ($options['name'] === $compare) {
-
-                        $data = self::applyDefaultFormat(
-                            $format,
-                            $options,
-                            $data
-                        );
-
+            $meta = array_values(
+                array_filter(
+                    $this->formatting,
+                    function ($item) use
+                    (
+                        $value
+                    ) {
+                        return $item['name'] === $value['function'] ? true : false;
                     }
-                } else {
-                    $bHasCustomFormat = true;
-                }
-            }
-
-        }
-
-        if (!empty($bHasCustomFormat)) {
-            $data = self::applyCustomFormat(
-                $format,
-                $data
+                )
             );
+
+            if (!empty($meta) && !array_key_exists(
+                    'class',
+                    $value
+                )
+            ) {
+                $data = $this->applyDefaultFormat(
+                    $value,
+                    $meta[0],
+                    $data
+                );
+            } else {
+                $data = $this->applyCustomFormat(
+                    $value,
+                    $data
+                );
+            }
         }
 
         return $data;
@@ -79,29 +80,23 @@ abstract class TypeValidatorAbstract
         $data
     ) {
 
-        foreach ($format as $key => $value) {
+        $aClassFunc = $this->getFuncParams($format);
 
-            if (is_array($value)) {
+        $params = array_key_exists(
+            'params',
+            $format
+        ) ? $format['params'] : [];
 
-                $aClassFunc = $this->getFuncParams($value);
+        array_unshift(
+            $params,
+            $data
+        );
 
-                $params = array_key_exists(
-                    'params',
-                    $value
-                ) ? $value['params'] : [];
-
-                array_unshift(
-                    $params,
-                    $data
-                );
-
-                $object = (new \ReflectionClass($aClassFunc['class']))->newInstance();
-                $data = call_user_func_array(
-                    [$object, $aClassFunc['method']],
-                    $params
-                );
-            }
-        }
+        $object = (new \ReflectionClass($aClassFunc['class']))->newInstance();
+        $data = call_user_func_array(
+            [$object, $aClassFunc['method']],
+            $params
+        );
 
         return $data;
     }
@@ -125,7 +120,14 @@ abstract class TypeValidatorAbstract
 
         $aClassFunc = $this->getFuncParams($options);
 
-        $params = isset($options['params']) ? [$format[$options['name']]] : [];
+        $params = array_key_exists(
+            'params',
+            $format
+        ) && isset($options['params']) ? $format['params'] : [];
+
+        if (!is_array($params)) {
+            $params = [$params];
+        }
 
         array_unshift(
             $params,

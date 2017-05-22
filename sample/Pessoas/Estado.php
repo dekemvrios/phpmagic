@@ -20,7 +20,12 @@ class Estado
         [
             'name'     => 'sNome',
             'type'     => Types::TYPE_STRING,
-            'property' => 'nome'
+            'property' => 'nome',
+            'format'   => [
+                [
+                    'function' => 'uppercase'
+                ]
+            ]
         ],
         [
             'name'     => 'iCodigoIbge',
