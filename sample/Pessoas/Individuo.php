@@ -1,14 +1,14 @@
 <?php
 
-namespace Sample\Pessoas;
+namespace Solis\PhpMagic\Sample\Pessoas;
 
-use Solis\PhpValidator\Helpers\Magic;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpMagic\Helpers\Magic;
+use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class Individuo
  *
- * @package Sample\Pessoas
+ * @package Sample\PhpMagic\Pessoas
  */
 class Individuo
 {
@@ -43,7 +43,7 @@ class Individuo
             'property' => 'segundoNome',
             'format'   => [
                 [
-                    'class'    => 'Sample\\Pessoas\\Individuo',
+                    'class'    => 'Solis\\PhpMagic\\Sample\\Pessoas\\Individuo',
                     'function' => 'getCustomString',
                     'params'   => [
                         'Exemplo',
@@ -56,7 +56,7 @@ class Individuo
             'name'     => 'address',
             'property' => 'endereco',
             'class'    => [
-                'class' => 'Sample\\Pessoas\\Endereco',
+                'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Endereco',
                 'name' => 'sLogradouro'
             ]
         ],

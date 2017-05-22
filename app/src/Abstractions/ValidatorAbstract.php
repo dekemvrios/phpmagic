@@ -1,13 +1,13 @@
 <?php
 
-namespace Solis\PhpValidator\Abstractions;
+namespace Solis\PhpMagic\Abstractions;
 
-use Solis\PhpValidator\Contracts\FloatValidatorContract;
-use Solis\PhpValidator\Contracts\IntValidatorContract;
-use Solis\PhpValidator\Contracts\StringValidatorContract;
-use Solis\PhpValidator\Contracts\ValidatorContract;
-use Solis\PhpValidator\Helpers\Message;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpMagic\Contracts\FloatValidatorContract;
+use Solis\PhpMagic\Contracts\IntValidatorContract;
+use Solis\PhpMagic\Contracts\StringValidatorContract;
+use Solis\PhpMagic\Contracts\ValidatorContract;
+use Solis\PhpMagic\Helpers\Message;
+use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class ValidatorAbstract

@@ -1,8 +1,8 @@
 <?php
 
-namespace Solis\PhpValidator\Helpers;
+namespace Solis\PhpMagic\Helpers;
 
-use Solis\PhpValidator\Classes\Validator;
+use Solis\PhpMagic\Classes\Validator;
 
 /**
  * Class Magic

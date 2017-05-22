@@ -2,6 +2,11 @@
 
 All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
 
+## 1.0.0 - 2017-05-22
+
+### Changed
+- Changed package name and namespaces to phpmagic
+
 ## 0.1.0 - 2017-05-22
 
 ### Added

@@ -1,9 +1,9 @@
 <?php
 
-namespace Sample\Pessoas;
+namespace Solis\PhpMagic\Sample\Pessoas;
 
-use Solis\PhpValidator\Helpers\Magic;
-use Solis\PhpValidator\Helpers\Types;
+use Solis\PhpMagic\Helpers\Magic;
+use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class Endereco

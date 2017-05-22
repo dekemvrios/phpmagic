@@ -1,11 +1,12 @@
 {
-  "name": "solis/phpvalidate",
+  "name": "solis/phpmagic",
   "require": {
     "php": ">=7.0"
   },
   "autoload": {
     "psr-4": {
-      "Solis\\PhpValidator\\": "app/src"
+      "Solis\\PhpMagic\\": "app/src",
+      "Solis\\PhpMagic\\Sample\\" : "sample"
     }
   }
 }

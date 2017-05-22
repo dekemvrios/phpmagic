@@ -1,34 +1,41 @@
 # README
 
-## What is PhpValidate
+## What is PhpMagic
 PhpValidate is a simple php class property validation engine.
 
 ## How To Install?
 This package was designed to be installed with composer dependency management tool.
+
 ```
-composer require solis/phpvalidate "dev-master"
+composer require solis/phpmagic
 ``` 
 
 ## How To Use it?
-First, you need to define a schema, representing the properties and its expected types. 
+First, you need to define a schema, representing the properties and its expected types/formats. 
 
 ```
 $schema = [
     [
+        'name'     => 'iCode',  
         'property' => 'code',
-        'type' => Types::TYPE_INT,
+        'type'     => Types::TYPE_INT,
     ],
     [
+        'name'     => 'iFirstName'
         'property' => 'firstName',
-        'type' => Types::TYPE_STRING,        
+        'type'     => Types::TYPE_STRING,
+        'format'   => [
+            'uppercase', 
+            'size' => 15
+        ]
     ]
 ];
 ```
 
-Require it with composer and instantiate a Validator class and validate a value for a property defined in the schema
+Require it with composer, instantiate a Validator class and validate a value for a property defined in the schema
 
 ```
-use Solis\PhpValidator\Classes\Validator;
+use Solis\PhpMagic\Classes\Validator;
 
 try {
 
@@ -39,5 +46,4 @@ try {
 }
 ```
 
-The Validator "make static method" returns a implementation of ValidatorContract. It validates 
-and returns the value as especified in the schema. It throwns a exception if the value is invalid.
+It validates and returns the value as especified in the schema, throwing a exception if the value is invalid.

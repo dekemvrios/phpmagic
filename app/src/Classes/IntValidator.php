@@ -1,10 +1,10 @@
 <?php
 
-namespace Solis\PhpValidator\Classes;
+namespace Solis\PhpMagic\Classes;
 
-use Solis\PhpValidator\Abstractions\TypeValidatorAbstract;
-use Solis\PhpValidator\Contracts\IntValidatorContract;
-use Solis\PhpValidator\Helpers\Message;
+use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
+use Solis\PhpMagic\Contracts\IntValidatorContract;
+use Solis\PhpMagic\Helpers\Message;
 
 /**
  * Class IntValidator

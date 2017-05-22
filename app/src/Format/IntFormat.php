@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpValidator\Format;
+namespace Solis\PhpMagic\Format;
 
 /**
  * Class IntFormat
  *
- * @package Solis\PhpValidator\Format
+ * @package Solis\PhpMagic\Format
  */
 class IntFormat
 {

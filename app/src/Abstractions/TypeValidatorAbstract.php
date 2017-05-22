@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Solis\PhpValidator\Abstractions;
+namespace Solis\PhpMagic\Abstractions;
 
-use Solis\PhpValidator\Helpers\Message;
+use Solis\PhpMagic\Helpers\Message;
 
 /**
  * Class TypeValidatorAbstract
  *
- * @package Solis\PhpValidator\Abstractions
+ * @package Solis\PhpMagic\Abstractions
  */
 abstract class TypeValidatorAbstract
 {

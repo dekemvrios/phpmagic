@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\PhpValidator\Contracts;
+namespace Solis\PhpMagic\Contracts;
 
 /**
  * Class ValidatorContract
