@@ -20,17 +20,17 @@ class Individuo
      */
     protected $schema = [
         [
-            'name'     => 'code',
+            'name'     => 'iCodigo',
             'type'     => Types::TYPE_INT,
             'property' => 'codigo'
         ],
         [
-            'name'     => 'money',
+            'name'     => 'fDinheiro',
             'type'     => Types::TYPE_FLOAT,
             'property' => 'dinheiro'
         ],
         [
-            'name'     => 'firstName',
+            'name'     => 'sPrimeiroNome',
             'type'     => Types::TYPE_STRING,
             'property' => 'primeiroNome',
             'format'   => [
@@ -38,7 +38,7 @@ class Individuo
             ]
         ],
         [
-            'name'     => 'lastName',
+            'name'     => 'sSegundoNome',
             'type'     => Types::TYPE_STRING,
             'property' => 'segundoNome',
             'format'   => [
@@ -53,11 +53,17 @@ class Individuo
             ]
         ],
         [
-            'name'     => 'address',
+            'name'     => 'aEndereco',
             'property' => 'endereco',
             'class'    => [
                 'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Endereco',
-                'name' => 'sLogradouro'
+                'name'  => [
+                    'sLogradouro',
+                    'sCep',
+                    'sCidade',
+                    'sBairro',
+                    'sComplemento'
+                ]
             ]
         ],
     ];

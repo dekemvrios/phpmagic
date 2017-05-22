@@ -34,7 +34,10 @@ class Endereco
         [
             'name'     => 'sBairro',
             'type'     => Types::TYPE_STRING,
-            'property' => 'bairro'
+            'property' => 'bairro',
+            'format' => [
+                'uppercase'
+            ]
         ],
         [
             'name'     => 'sComplemento',

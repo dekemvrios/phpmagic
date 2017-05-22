@@ -179,22 +179,6 @@ trait Magic
         $value
     ) {
 
-        if (!class_exists($meta['class']['class'])) {
-            throw new \RuntimeException("class not found {$meta['class']['class']}");
-        }
-
-        $aInstance = [];
-        if(is_array($value)){
-            foreach ($value as $item) {
-                $instance = new $meta['class']['class'];
-                $instance->{$meta['class']['name']} = $item;
-                $aInstance[] = $instance;
-            }
-        } else {
-            $instance = new $meta['class']['class'];
-            $instance->{$meta['class']['name']} = $value;
-        }
-
         if (!property_exists(
             $this,
             $meta['property']
@@ -210,8 +194,78 @@ trait Magic
                 )
             );
         }
-        $this->$meta['property'] = !empty($aInstance) ? $aInstance : $instance;
+
+        if (!class_exists($meta['class']['class'])) {
+            throw new \RuntimeException("class not found {$meta['class']['class']}");
+        }
+
+        $instance = is_array($value) ? $this->attForeignArrayValue(
+            $value,
+            $meta
+        ) : $this->attForeignSingleValue(
+            $value,
+            $meta
+        );
+
+        $this->$meta['property'] = !empty($instance) ? $instance : null;
     }
 
+    /**
+     * attArrayValue
+     *
+     * @param $value
+     * @param $meta
+     *
+     * @return array
+     */
+    private function attForeignArrayValue(
+        $value,
+        $meta
+    ) {
+        $aInstance = [];
+        foreach ($value as $item) {
+            $instance = new $meta['class']['class'];
+
+            if (is_array($meta['class']['name'])) {
+                foreach ($meta['class']['name'] as $property) {
+
+                    if (!is_array($item)) {
+                        throw new \InvalidArgumentException(
+                            "supplied value must be an key value array as specified in {$meta['name']} schema"
+                        );
+                    }
+
+                    $instance->{$property} = array_key_exists(
+                        $property,
+                        $item
+                    ) ? $item[$property] : null;
+                }
+            } else {
+                $instance->{$meta['class']['name']} = $item;
+            }
+
+            $aInstance[] = $instance;
+        }
+
+        return $aInstance;
+    }
+
+    /**
+     * attForeignSingleValue
+     *
+     * @param $value
+     * @param $meta
+     *
+     * @return mixed
+     */
+    private function attForeignSingleValue(
+        $value,
+        $meta
+    ) {
+        $instance = new $meta['class']['class'];
+        $instance->{$meta['class']['name']} = $value;
+
+        return $instance;
+    }
 
 }

@@ -21,7 +21,7 @@ $schema = [
         'type'     => Types::TYPE_INT,
     ],
     [
-        'name'     => 'iFirstName'
+        'name'     => 'sFirstName'
         'property' => 'firstName',
         'type'     => Types::TYPE_STRING,
         'format'   => [
