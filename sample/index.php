@@ -14,7 +14,11 @@ try {
             'money'     => '1.54',
             'firstName' => 'Rafael',
             'lastName'  => 'Becker',
-            'address'   => 'Emilio Peters'
+            'address'   => [
+                'Rua 25 de maio',
+                'Rua XV de novembro',
+                'Rua 7 de setembro',
+            ]
         ]
     );
 

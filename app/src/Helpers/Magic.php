@@ -183,9 +183,17 @@ trait Magic
             throw new \RuntimeException("class not found {$meta['class']['class']}");
         }
 
-        $instance = new $meta['class']['class'];
-
-        $instance->{$meta['class']['name']} = $value;
+        $aInstance = [];
+        if(is_array($value)){
+            foreach ($value as $item) {
+                $instance = new $meta['class']['class'];
+                $instance->{$meta['class']['name']} = $item;
+                $aInstance[] = $instance;
+            }
+        } else {
+            $instance = new $meta['class']['class'];
+            $instance->{$meta['class']['name']} = $value;
+        }
 
         if (!property_exists(
             $this,
@@ -202,7 +210,7 @@ trait Magic
                 )
             );
         }
-        $this->$meta['property'] = $instance;
+        $this->$meta['property'] = !empty($aInstance) ? $aInstance : $instance;
     }
 
 
