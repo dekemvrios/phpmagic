@@ -38,6 +38,15 @@ class Individuo
             ]
         ],
         [
+            'name'     => 'address',
+            'type'     => Types::TYPE_STRING,
+            'property' => 'endereco',
+            'class'    => [
+                'class' => 'Sample\\Pessoas\\Endereco',
+                'name' => 'sLogradouro'
+            ]
+        ],
+        [
             'name'     => 'lastName',
             'type'     => Types::TYPE_STRING,
             'property' => 'segundoNome',
@@ -53,6 +62,11 @@ class Individuo
             ]
         ]
     ];
+
+    /**
+     * @var Endereco
+     */
+    protected $endereco;
 
     /**
      * @var int

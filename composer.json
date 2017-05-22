@@ -5,7 +5,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Solis\\PhpValidator\\": "app/src"
+      "Solis\\PhpValidator\\": "app/src",
+      "Sample\\": "sample/"
     }
   }
 }
