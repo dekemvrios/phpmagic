@@ -1,0 +1,12 @@
+[
+  {
+    "name": "sNome",
+    "type": "string",
+    "property": "nome"
+  },
+  {
+    "name": "iCodigoIbge",
+    "type": "int",
+    "property": "codigoIbge"
+  }
+]

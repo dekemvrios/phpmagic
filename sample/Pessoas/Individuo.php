@@ -3,7 +3,6 @@
 namespace Solis\PhpMagic\Sample\Pessoas;
 
 use Solis\PhpMagic\Helpers\Magic;
-use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class Individuo
@@ -18,61 +17,7 @@ class Individuo
     /**
      * @var array
      */
-    protected $schema = [
-        [
-            'name'     => 'iCodigo',
-            'type'     => Types::TYPE_INT,
-            'property' => 'codigo'
-        ],
-        [
-            'name'     => 'fDinheiro',
-            'type'     => Types::TYPE_FLOAT,
-            'property' => 'dinheiro'
-        ],
-        [
-            'name'     => 'sPrimeiroNome',
-            'type'     => Types::TYPE_STRING,
-            'property' => 'primeiroNome',
-            'format'   => [
-                [
-                    'function' => 'uppercase',
-                ],
-                [
-                    'function' => 'size',
-                    'params'   => 2
-                ],
-            ]
-        ],
-        [
-            'name'     => 'sSegundoNome',
-            'type'     => Types::TYPE_STRING,
-            'property' => 'segundoNome',
-            'format'   => [
-                [
-                    'class'    => 'Solis\\PhpMagic\\Sample\\Pessoas\\Individuo',
-                    'function' => 'getCustomString',
-                    'params'   => [
-                        'Exemplo',
-                        'Becker'
-                    ]
-                ]
-            ]
-        ],
-        [
-            'name'     => 'aEndereco',
-            'property' => 'endereco',
-            'class'    => [
-                'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Endereco',
-                'name'  => [
-                    'sLogradouro',
-                    'sCep',
-                    'aCidade',
-                    'sBairro',
-                    'sComplemento'
-                ]
-            ]
-        ],
-    ];
+    protected $schema;
 
     /**
      * @var Endereco
@@ -108,6 +53,16 @@ class Individuo
     {
 
         $individuo = new static();
+
+        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json")) {
+            throw new \RuntimeException('not found schema for class ' . __CLASS__);
+        }
+
+        $individuo->schema = json_decode(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json"),
+            true
+        );
+
         $individuo->attach($dados);
 
         return $individuo;

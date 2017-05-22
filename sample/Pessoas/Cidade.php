@@ -3,7 +3,6 @@
 namespace Solis\PhpMagic\Sample\Pessoas;
 
 use Solis\PhpMagic\Helpers\Magic;
-use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class Cidade
@@ -17,29 +16,7 @@ class Cidade
     /**
      * @var array
      */
-    protected $schema = [
-        [
-            'name'     => 'sNome',
-            'type'     => Types::TYPE_STRING,
-            'property' => 'nome'
-        ],
-        [
-            'name'     => 'iCodigoIbge',
-            'type'     => Types::TYPE_INT,
-            'property' => 'codigoIbge'
-        ],
-        [
-            'name'     => 'aEstado',
-            'property' => 'estado',
-            'class'    => [
-                'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Estado',
-                'name'  => [
-                    'sNome',
-                    'iCodigoIbge',
-                ]
-            ]
-        ],
-    ];
+    protected $schema;
 
     /**
      * @var string
@@ -55,5 +32,21 @@ class Cidade
      * @var string
      */
     protected $estado;
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+
+        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")) {
+            throw new \RuntimeException('not found schema for class ' . __CLASS__);
+        }
+
+        $this->schema = json_decode(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json"),
+            true
+        );
+    }
 
 }

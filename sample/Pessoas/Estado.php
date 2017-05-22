@@ -3,7 +3,6 @@
 namespace Solis\PhpMagic\Sample\Pessoas;
 
 use Solis\PhpMagic\Helpers\Magic;
-use Solis\PhpMagic\Helpers\Types;
 
 /**
  * Class Estado
@@ -13,26 +12,11 @@ use Solis\PhpMagic\Helpers\Types;
 class Estado
 {
     use Magic;
+
     /**
      * @var array
      */
-    protected $schema = [
-        [
-            'name'     => 'sNome',
-            'type'     => Types::TYPE_STRING,
-            'property' => 'nome',
-            'format'   => [
-                [
-                    'function' => 'uppercase'
-                ]
-            ]
-        ],
-        [
-            'name'     => 'iCodigoIbge',
-            'type'     => Types::TYPE_INT,
-            'property' => 'codigoIbge'
-        ],
-    ];
+    protected $schema;
 
     /**
      * @var string
@@ -43,5 +27,21 @@ class Estado
      * @var string
      */
     protected $codigoIbge;
+
+    /**
+     * __construct
+     *
+     */
+    public function __construct()
+    {
+        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")) {
+            throw new \RuntimeException('not found schema for class ' . __CLASS__);
+        }
+
+        $this->schema = json_decode(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json"),
+            true
+        );
+    }
 
 }

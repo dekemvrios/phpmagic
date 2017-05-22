@@ -1,0 +1,44 @@
+[
+  {
+    "name": "sLogradouro",
+    "type": "string",
+    "property": "logradouro",
+    "format": [
+      {
+        "function": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "sCep",
+    "type": "string",
+    "property": "cep"
+  },
+  {
+    "name": "sBairro",
+    "type": "string",
+    "property": "bairro",
+    "format": [
+      {
+        "function": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "sComplemento",
+    "type": "string",
+    "property": "complemento"
+  },
+  {
+    "name": "aCidade",
+    "property": "cidade",
+    "class": {
+      "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Cidade",
+      "name": [
+        "sNome",
+        "iCodigoIbge",
+        "aEstado"
+      ]
+    }
+  }
+]
