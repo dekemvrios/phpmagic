@@ -256,12 +256,19 @@ trait Magic
      * @param $meta
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
     private function attForeignSingleValue(
         $value,
         $meta
     ) {
         $instance = new $meta['class']['class'];
+
+        if (!is_string($meta['class']['name'])) {
+            throw new \InvalidArgumentException("invalid type for property name at method {attForeignSingleValue}");
+        }
+
         $instance->{$meta['class']['name']} = $value;
 
         return $instance;
