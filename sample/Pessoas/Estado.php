@@ -6,14 +6,13 @@ use Solis\PhpMagic\Helpers\Magic;
 use Solis\PhpMagic\Helpers\Types;
 
 /**
- * Class Cidade
+ * Class Estado
  *
- * @package Sample\Pessoas
+ * @package Solis\PhpMagic\Sample\Pessoas
  */
-class Cidade
+class Estado
 {
     use Magic;
-
     /**
      * @var array
      */
@@ -28,17 +27,6 @@ class Cidade
             'type'     => Types::TYPE_INT,
             'property' => 'codigoIbge'
         ],
-        [
-            'name'     => 'aEstado',
-            'property' => 'estado',
-            'class'    => [
-                'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Estado',
-                'name'  => [
-                    'sNome',
-                    'iCodigoIbge',
-                ]
-            ]
-        ],
     ];
 
     /**
@@ -50,10 +38,5 @@ class Cidade
      * @var string
      */
     protected $codigoIbge;
-
-    /**
-     * @var string
-     */
-    protected $estado;
 
 }

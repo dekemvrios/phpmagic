@@ -22,7 +22,7 @@ class Endereco
             'name'     => 'sLogradouro',
             'type'     => Types::TYPE_STRING,
             'property' => 'logradouro',
-            'format' => [
+            'format'   => [
                 'uppercase'
             ]
         ],
@@ -35,7 +35,7 @@ class Endereco
             'name'     => 'sBairro',
             'type'     => Types::TYPE_STRING,
             'property' => 'bairro',
-            'format' => [
+            'format'   => [
                 'uppercase'
             ]
         ],
@@ -52,6 +52,7 @@ class Endereco
                 'name'  => [
                     'sNome',
                     'iCodigoIbge',
+                    'aEstado'
                 ]
             ]
         ],

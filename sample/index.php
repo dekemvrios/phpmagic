@@ -23,7 +23,13 @@ try {
                     'aCidade'      => [
                         [
                             'sNome'       => 'Rio do Sul',
-                            'iCodigoIbge' => '123456'
+                            'iCodigoIbge' => '123456',
+                            'aEstado'     => [
+                                [
+                                    'sNome'       => 'Santa Catarina',
+                                    'iCodigoIbge' => '123459',
+                                ]
+                            ]
                         ]
                     ]
                 ],
