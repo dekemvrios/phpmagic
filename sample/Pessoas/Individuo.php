@@ -51,8 +51,21 @@ class Individuo
                     ]
                 ]
             ]
-        ]
+        ],
+        [
+            'name'     => 'address',
+            'property' => 'endereco',
+            'class'    => [
+                'class' => 'Sample\\Pessoas\\Endereco',
+                'name' => 'sLogradouro'
+            ]
+        ],
     ];
+
+    /**
+     * @var Endereco
+     */
+    protected $endereco;
 
     /**
      * @var int
