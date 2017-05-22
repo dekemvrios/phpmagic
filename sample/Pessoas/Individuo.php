@@ -60,7 +60,7 @@ class Individuo
                 'name'  => [
                     'sLogradouro',
                     'sCep',
-                    'sCidade',
+                    'aCidade',
                     'sBairro',
                     'sComplemento'
                 ]

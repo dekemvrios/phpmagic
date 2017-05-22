@@ -39,7 +39,6 @@ trait Magic
         $name,
         $value
     ) {
-
         if (!property_exists(
             $this,
             $name

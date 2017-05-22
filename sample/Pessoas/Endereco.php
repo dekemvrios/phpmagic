@@ -45,9 +45,15 @@ class Endereco
             'property' => 'complemento'
         ],
         [
-            'name'     => 'sCidade',
-            'type'     => Types::TYPE_STRING,
-            'property' => 'cidade'
+            'name'     => 'aCidade',
+            'property' => 'cidade',
+            'class'    => [
+                'class' => 'Solis\\PhpMagic\\Sample\\Pessoas\\Cidade',
+                'name'  => [
+                    'sNome',
+                    'iCodigoIbge',
+                ]
+            ]
         ],
     ];
 
