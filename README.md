@@ -1,7 +1,7 @@
 # README
 
 ## What is PhpMagic
-PhpValidate is a simple php class property validation engine.
+PhpMagic is a simple php class property validation engine.
 
 ## How To Install?
 This package was designed to be installed with composer dependency management tool.

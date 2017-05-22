@@ -1,12 +1,16 @@
 {
   "name": "solis/phpmagic",
+  "license": [
+    "GPL-3.0+",
+    "LGPL-3.0+"
+  ],
   "require": {
     "php": ">=7.0"
   },
   "autoload": {
     "psr-4": {
       "Solis\\PhpMagic\\": "app/src",
-      "Solis\\PhpMagic\\Sample\\" : "sample"
+      "Solis\\PhpMagic\\Sample\\": "sample"
     }
   }
 }
