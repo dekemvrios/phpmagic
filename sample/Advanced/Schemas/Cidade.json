@@ -13,7 +13,7 @@
     "name": "aEstado",
     "property": "estado",
     "class": {
-      "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Estado",
+      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Estado",
       "name": [
         "sNome",
         "iCodigoIbge"

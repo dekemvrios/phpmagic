@@ -29,7 +29,7 @@
     "property": "segundoNome",
     "format": [
       {
-        "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Individuo",
+        "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Individuo",
         "function": "getCustomString",
         "params": [
           "Exemplo",
@@ -42,7 +42,7 @@
     "name": "aEndereco",
     "property": "endereco",
     "class": {
-      "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Endereco",
+      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Endereco",
       "name": [
         "sLogradouro",
         "sCep",

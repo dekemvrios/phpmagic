@@ -2,42 +2,33 @@
 
 require_once '../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Pessoas\Individuo;
+use Solis\PhpMagic\Sample\Veiculo\Carro;
 
 error_reporting(E_ALL);
 
 try {
 
-    $individuo = Individuo::make(
+    $veiculo = Carro::make(
         [
-            'iCodigo'       => '1',
-            'fDinheiro'     => '1.54',
-            'sPrimeiroNome' => 'Rafael',
-            'sSegundoNome'  => 'Becker',
-            'aEndereco'     => [
+            'sNome' => 'Kombi',
+            'sRoda' => [
                 [
-                    'sLogradouro'  => 'Rua XV de novembro',
-                    'sCep'         => '89160000',
-                    'sBairro'      => 'Centro',
-                    'sComplemento' => 'Sala 15',
-                    'aCidade'      => [
-                        [
-                            'sNome'       => 'Rio do Sul',
-                            'iCodigoIbge' => '123456',
-                            'aEstado'     => [
-                                [
-                                    'sNome'       => 'Santa Catarina',
-                                    'iCodigoIbge' => '123459',
-                                ]
-                            ]
-                        ]
-                    ]
+                    'sMarca'    => 'Pirelli',
+                    'sPolegada' => 15
+                ],
+                [
+                    'sMarca'    => 'Michelin',
+                    'sPolegada' => 19
+                ],
+                [
+                    'sMarca'    => 'GoodYear',
+                    'sPolegada' => 21
                 ],
             ]
         ]
     );
 
-    var_dump($individuo);
+    var_dump($veiculo);
 } catch (\InvalidArgumentException $exception) {
     echo $exception->getMessage();
 }

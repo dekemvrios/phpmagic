@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Pessoas;
+namespace Solis\PhpMagic\Sample\Advanced\Pessoas;
 
 use Solis\PhpMagic\Helpers\Magic;
 
