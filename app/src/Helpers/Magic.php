@@ -91,7 +91,6 @@ trait Magic
         }
 
         return $this->$name;
-
     }
 
     /**
@@ -99,32 +98,15 @@ trait Magic
      */
     private function ___property($name)
     {
-        $meta = array_values(
-            array_filter(
-                $this->schema,
-                function ($schemaItem) use
-                (
-                    $name
-                ) {
+        $meta = array_values(array_filter($this->schema, function ($schemaItem) use ($name) {
+            if (!array_key_exists('name', $schemaItem)) {
+                throw new \InvalidArgumentException('invalid schema definition');
+            }
 
-                    if (!array_key_exists(
-                        'name',
-                        $schemaItem
-                    )
-                    ) {
-                        throw new \InvalidArgumentException('invalid schema definition');
-                    }
+            return $schemaItem['name'] === $name ? true : false;
+        }));
 
-                    return $schemaItem['name'] === $name ? true : false;
-                }
-            )
-        );
-
-        if (empty($meta) || !array_key_exists(
-                'property',
-                $meta[0]
-            )
-        ) {
+        if (empty($meta) || !array_key_exists('property', $meta[0])) {
             throw new \InvalidArgumentException(
                 Message::getTextMessage(
                     [
@@ -227,7 +209,6 @@ trait Magic
 
             if (is_array($meta['class']['name'])) {
                 foreach ($meta['class']['name'] as $property) {
-
                     if (!is_array($item)) {
                         throw new \InvalidArgumentException(
                             "supplied value must be an key value array as specified in {$meta['name']} schema"
@@ -273,5 +254,4 @@ trait Magic
 
         return $instance;
     }
-
 }

@@ -18,5 +18,4 @@ class FloatFormat
     {
         return floatval($data);
     }
-
 }
