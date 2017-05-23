@@ -7,7 +7,6 @@ use Solis\PhpMagic\Sample\Advanced\Pessoas\Individuo;
 error_reporting(E_ALL);
 
 try {
-
     $individuo = Individuo::make(
         [
             'iCodigo'       => '1',

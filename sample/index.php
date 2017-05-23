@@ -7,7 +7,6 @@ use Solis\PhpMagic\Sample\Veiculo\Carro;
 error_reporting(E_ALL);
 
 try {
-
     $veiculo = Carro::make(
         [
             'sNome' => 'Kombi',

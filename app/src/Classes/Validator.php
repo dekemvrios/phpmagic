@@ -29,5 +29,4 @@ class Validator extends ValidatorAbstract
             IntValidator::make()
         );
     }
-
 }

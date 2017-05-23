@@ -72,5 +72,4 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
 
         return floatval($data);
     }
-
 }

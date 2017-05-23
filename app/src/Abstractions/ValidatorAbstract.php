@@ -70,25 +70,13 @@ abstract class ValidatorAbstract implements ValidatorContract
         $value
     ) {
 
-        $meta = array_values(
-            array_filter(
-                $this->schema,
-                function ($item) use
-                (
-                    $name
-                ) {
-                    if (!array_key_exists(
-                        'property',
-                        $item
-                    )
-                    ) {
-                        throw new \InvalidArgumentException('invalid schema definition');
-                    }
+        $meta = array_values(array_filter($this->schema, function ($item) use ($name) {
+            if (!array_key_exists('property', $item)) {
+                throw new \InvalidArgumentException('invalid schema definition');
+            }
 
-                    return $item['property'] === $name ? true : false;
-                }
-            )
-        );
+            return $item['property'] === $name ? true : false;
+        }));
 
         if (empty($meta)) {
             throw new \InvalidArgumentException(
@@ -169,5 +157,4 @@ abstract class ValidatorAbstract implements ValidatorContract
                 );
         }
     }
-
 }

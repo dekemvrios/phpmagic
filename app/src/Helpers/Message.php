@@ -5,7 +5,7 @@ namespace Solis\PhpMagic\Helpers;
 /**
  * Class Message
  *
- * @package Solis\PhpValidator\Helpers
+ * @package Solis\PhpMagic\Helpers
  */
 class Message
 {
@@ -39,5 +39,4 @@ class Message
 
         return $message;
     }
-
 }

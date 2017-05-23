@@ -84,5 +84,4 @@ class Individuo
     ) {
         return "{$data} {$param2} {$param3}";
     }
-
 }

@@ -31,24 +31,11 @@ abstract class TypeValidatorAbstract
     ) {
 
         foreach ($format as $key => $value) {
+            $meta = array_values(array_filter($this->formatting, function ($item) use ($value) {
+                return $item['name'] === $value['function'] ? true : false;
+            }));
 
-            $meta = array_values(
-                array_filter(
-                    $this->formatting,
-                    function ($item) use
-                    (
-                        $value
-                    ) {
-                        return $item['name'] === $value['function'] ? true : false;
-                    }
-                )
-            );
-
-            if (!empty($meta) && !array_key_exists(
-                    'class',
-                    $value
-                )
-            ) {
+            if (!empty($meta) && !array_key_exists('class', $value)) {
                 $data = $this->applyDefaultFormat(
                     $value,
                     $meta[0],
@@ -196,5 +183,4 @@ abstract class TypeValidatorAbstract
             'method' => $method,
         ];
     }
-
 }

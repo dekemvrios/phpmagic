@@ -18,5 +18,4 @@ class IntFormat
     {
         return intval($data);
     }
-
 }
