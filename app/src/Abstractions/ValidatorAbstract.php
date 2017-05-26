@@ -8,6 +8,7 @@ use Solis\PhpMagic\Contracts\StringValidatorContract;
 use Solis\PhpMagic\Contracts\ValidatorContract;
 use Solis\PhpMagic\Helpers\Message;
 use Solis\PhpMagic\Helpers\Types;
+use Solis\Breaker\TException;
 
 /**
  * Class ValidatorAbstract
@@ -63,7 +64,7 @@ abstract class ValidatorAbstract implements ValidatorContract
      * @param mixed  $value
      *
      * @return mixed
-     * @throws \InvalidArgumentException
+     * @throws TException
      */
     public function validate(
         $name,
@@ -72,18 +73,26 @@ abstract class ValidatorAbstract implements ValidatorContract
 
         $meta = array_values(array_filter($this->schema, function ($item) use ($name) {
             if (!array_key_exists('property', $item)) {
-                throw new \InvalidArgumentException('invalid schema definition');
+                throw new TException(
+                    __CLASS__,
+                    __METHOD__,
+                    'invalid schema definition',
+                    400
+                );
             }
 
             return $item['property'] === $name ? true : false;
         }));
 
         if (empty($meta)) {
-            throw new \InvalidArgumentException(
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
                 Message::getTextMessage(
                     ['@name' => $name, '@class' => __CLASS__],
                     Message::PROPERTY_NOT_FOUND
-                ) . ' schema'
+                ) . ' schema',
+                400
             );
         }
 
@@ -101,7 +110,7 @@ abstract class ValidatorAbstract implements ValidatorContract
      *
      * @return mixed
      *
-     * @throws \InvalidArgumentException
+     * @throws TException
      */
     private function hydrate(
         $meta,
@@ -113,7 +122,12 @@ abstract class ValidatorAbstract implements ValidatorContract
             $meta
         )
         ) {
-            throw new \InvalidArgumentException('invalid schema definition');
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                'invalid schema definition',
+                400
+            );
         }
 
         switch ($meta['type']) {

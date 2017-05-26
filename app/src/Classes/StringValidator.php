@@ -2,6 +2,7 @@
 
 namespace Solis\PhpMagic\Classes;
 
+use Solis\Breaker\TException;
 use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
 use Solis\PhpMagic\Contracts\StringValidatorContract;
 use Solis\PhpMagic\Helpers\Message;
@@ -59,7 +60,7 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
      *
      * @return string
      *
-     * @throws \InvalidArgumentException
+     * @throws TException
      */
     public function validate(
         $name,
@@ -67,14 +68,17 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
         $format = null
     ) {
         if (!is_string($data)) {
-            throw new \InvalidArgumentException(
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
                 Message::getTextMessage(
                     [
                         '@name' => $name,
                         '@type' => 'string',
                     ],
                     Message::PROPERTY_INVALID_TYPE
-                )
+                ),
+                400
             );
         }
 

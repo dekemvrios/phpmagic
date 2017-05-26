@@ -4,6 +4,7 @@
 namespace Solis\PhpMagic\Abstractions;
 
 use Solis\PhpMagic\Helpers\Message;
+use Solis\Breaker\TException;
 
 /**
  * Class TypeValidatorAbstract
@@ -137,7 +138,7 @@ abstract class TypeValidatorAbstract
      *
      * @return array
      *
-     * @throws \InvalidArgumentException
+     * @throws TException
      */
     protected function getFuncParams($options)
     {
@@ -152,13 +153,16 @@ abstract class TypeValidatorAbstract
         ) ? $options['class'] : null;
 
         if (!class_exists($class)) {
-            throw new \InvalidArgumentException(
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
                 Message::getTextMessage(
                     [
                         '@class' => $class,
                     ],
                     Message::PROPERTY_CLASS_NOT_FOUND
-                )
+                ),
+                400
             );
         }
 
@@ -167,14 +171,17 @@ abstract class TypeValidatorAbstract
             $method
         )
         ) {
-            throw new \InvalidArgumentException(
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
                 Message::getTextMessage(
                     [
                         '@method' => $method,
                         '@class'  => $class,
                     ],
                     Message::PROPERTY_METHOD_NOT_FOUND
-                )
+                ),
+                400
             );
         }
 

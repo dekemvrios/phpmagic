@@ -2,6 +2,11 @@
 
 All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
 
+## 1.2.0 - 2017-05-26
+
+### Changed
+- Added solis/breaker as default exception handler
+
 ## 1.1.0 - 2017-05-22
 
 ### Changed
