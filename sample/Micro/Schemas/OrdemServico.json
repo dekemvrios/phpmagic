@@ -1,0 +1,83 @@
+[
+  {
+    "name": "proID",
+    "property": "ID",
+    "type": "int"
+  },
+  {
+    "name": "proOrganizacaoID",
+    "property": "organizacaoID",
+    "type": "int"
+  },
+  {
+    "name": "proEntidadeID",
+    "type": "int",
+    "property": "entidadeID"
+  },
+  {
+    "name": "proClienteID",
+    "type": "int",
+    "property": "clienteID"
+  },
+  {
+    "name": "proClienteNome",
+    "type": "string",
+    "property": "clienteNome",
+    "format": [
+      {
+        "function": "lowercase"
+      }
+    ]
+  },
+  {
+    "name": "proClienteInscrFederal",
+    "type": "string",
+    "property": "clienteInscrFederal"
+  },
+  {
+    "name": "proDescricao",
+    "type": "string",
+    "property": "descricao"
+  },
+  {
+    "name": "proVencimento",
+    "type": "string",
+    "property": "vencimento"
+  },
+  {
+    "name": "proValor",
+    "type": "float",
+    "property": "valor"
+  },
+  {
+    "name": "proSituacao",
+    "type": "int",
+    "property": "situacao"
+  },
+  {
+    "name": "proTipoCobranca",
+    "type": "int",
+    "property": "tipoCobranca"
+  },
+  {
+    "name": "proObservacao",
+    "type": "string",
+    "property": "observacao",
+    "format": [
+      {
+        "function": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "proServicoID",
+    "property": "servicoID",
+    "class": {
+      "class": "Solis\\PhpMagic\\Sample\\Micro\\Classes\\Servico",
+      "name": [
+        "proID",
+        "proDescricao"
+      ]
+    }
+  }
+]

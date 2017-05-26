@@ -5,6 +5,7 @@ namespace Solis\PhpMagic\Classes;
 use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
 use Solis\PhpMagic\Contracts\FloatValidatorContract;
 use Solis\PhpMagic\Helpers\Message;
+use Solis\Breaker\TException;
 
 /**
  * Class FloatValidator
@@ -44,7 +45,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
      *
      * @return float
      *
-     * @throws \InvalidArgumentException
+     * @throws TException
      */
     public function validate(
         $name,
@@ -52,14 +53,17 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
         $format = null
     ) {
         if (!is_numeric($data) || !is_float(floatval($data))) {
-            throw new \InvalidArgumentException(
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
                 Message::getTextMessage(
                     [
                         '@name' => $name,
                         '@type' => 'float',
                     ],
                     Message::PROPERTY_INVALID_TYPE
-                )
+                ),
+                400
             );
         }
 

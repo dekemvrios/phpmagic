@@ -1,0 +1,84 @@
+[
+  {
+    "name": "proID",
+    "property": "ID",
+    "type": "int"
+  },
+  {
+    "name": "proOrganizacaoID",
+    "property": "organizacaoID",
+    "type": "int"
+  },
+  {
+    "name": "proEntidadeID",
+    "property": "entidadeID",
+    "type": "int"
+  },
+  {
+    "name": "proClienteInscrFederal",
+    "property": "clienteInscrFederal",
+    "type": "string"
+  },
+  {
+    "name": "proTipoServicoID",
+    "property": "tipoServicoID",
+    "type": "int"
+  },
+  {
+    "name": "proDescricao",
+    "property": "descricao",
+    "type": "string",
+    "required": "TRUE",
+    "format": [
+      {
+        "function": "uppercase"
+      }
+    ]
+  },
+  {
+    "name": "proValor",
+    "property": "valor",
+    "type": "float",
+    "required": "TRUE"
+  },
+  {
+    "name": "proAliquota",
+    "property": "aliquota",
+    "type": "float"
+  },
+  {
+    "name": "proValorDeducao",
+    "property": "valorDeducao",
+    "type": "float"
+  },
+  {
+    "name": "proValorDeducaoRetidoFonte",
+    "property": "valorDeducaoRetidoFonte",
+    "type": "float"
+  },
+  {
+    "name": "proRetencaoIss",
+    "property": "retencaoIss",
+    "type": "float"
+  },
+  {
+    "name": "proSituacaoTributaria",
+    "property": "situacaoTributaria",
+    "type": "int"
+  },
+  {
+    "name": "proTributaMunicipioPrestador",
+    "property": "tributaMunicipioPrestador",
+    "type": "int"
+  },
+  {
+    "name": "proObservacao",
+    "property": "observacao",
+    "type": "string",
+    "format": [
+      {
+        "function": "uppercase"
+      }
+    ]
+  }
+]
