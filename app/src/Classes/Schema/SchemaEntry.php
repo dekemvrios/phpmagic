@@ -75,6 +75,13 @@ class SchemaEntry extends SchemaEntryAbstract
             $instance->setObject(ObjectEntry::make($schema['object']));
         }
 
+        if (array_key_exists(
+            'database',
+            $schema
+        )) {
+            $instance->setDatabase(DatabaseEntry::make($schema['database']));
+        }
+
         return $instance;
     }
 }

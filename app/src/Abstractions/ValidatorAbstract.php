@@ -170,5 +170,7 @@ abstract class ValidatorAbstract implements ValidatorContract
                     ) ? $meta['format'] : null
                 );
         }
+
+        return $data;
     }
 }

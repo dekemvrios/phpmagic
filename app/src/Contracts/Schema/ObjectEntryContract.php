@@ -31,6 +31,16 @@ interface ObjectEntryContract
     public function setProperty($property);
 
     /**
+     * @return DatabaseEntryContract[]
+     */
+    public function getDatabase();
+
+    /**
+     * @param DatabaseEntryContract[] $database
+     */
+    public function setDatabase($database);
+
+    /**
      * toArray
      *
      * @return array

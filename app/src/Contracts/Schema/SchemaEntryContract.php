@@ -60,6 +60,16 @@ interface SchemaEntryContract
     public function setObject($object);
 
     /**
+     * @return DatabaseEntryContract
+     */
+    public function getDatabase();
+
+    /**
+     * @param DatabaseEntryContract $database
+     */
+    public function setDatabase($database);
+
+    /**
      * @return array
      */
     public function toArray();

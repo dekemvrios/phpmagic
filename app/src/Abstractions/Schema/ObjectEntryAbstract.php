@@ -2,6 +2,7 @@
 
 namespace Solis\PhpMagic\Abstractions\Schema;
 
+use Solis\PhpMagic\Contracts\Schema\DatabaseEntryContract;
 use Solis\PhpMagic\Contracts\Schema\ObjectEntryContract;
 
 /**
@@ -20,6 +21,11 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
      * @var string|array
      */
     protected $property;
+
+    /**
+     * @var DatabaseEntryContract[]
+     */
+    protected $database;
 
     /**
      * __construct
@@ -68,15 +74,41 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
     }
 
     /**
+     * @return DatabaseEntryContract[]
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param DatabaseEntryContract[] $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
+    }
+
+    /**
      * toArray
      *
      * @return array
      */
     public function toArray()
     {
-        return [
+        $array = [
             'class'    => $this->getClass(),
-            'property' => $this->getProperty()
+            'property' => $this->getProperty(),
         ];
+
+        if(!empty($this->getDatabase())){
+            $database = [];
+            foreach ($this->getDatabase() as $item) {
+                $database[] = $item->toArray();
+            }
+            $array['database'] = $database;
+        }
+
+        return $array;
     }
 }

@@ -28,4 +28,9 @@ interface SourceEntryContract
      * @param string $refers
      */
     public function setRefers($refers);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

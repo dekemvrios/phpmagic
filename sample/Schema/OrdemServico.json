@@ -124,26 +124,29 @@
       "property": [
         "proID"
       ],
-      "database": {
-        "type": "fk",
-        "relation": [
-          {
+      "database": [
+        {
+          "type": "pk",
+          "source": {
             "field": "servicoID",
-            "refers": "ID",
-            "type": "pk"
-          },
-          {
-            "field": "entidadeID",
-            "refers": "entidadeID",
-            "type": "fk"
-          },
-          {
-            "field": "organizacaoID",
-            "refers": "organizacaoID",
-            "type": "fk"
+            "refers": "ID"
           }
-        ]
-      }
+        },
+        {
+          "type": "fk",
+          "source": {
+            "field": "entidadeID",
+            "refers": "entidadeID"
+          }
+        },
+        {
+          "type": "fk",
+          "source": {
+            "field": "organizacaoID",
+            "refers": "organizacaoID"
+          }
+        }
+      ]
     }
   }
 ]

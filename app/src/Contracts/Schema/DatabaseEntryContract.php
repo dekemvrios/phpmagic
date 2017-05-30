@@ -28,4 +28,9 @@ interface DatabaseEntryContract
      * @param SourceEntryContract $source
      */
     public function setSource($source);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

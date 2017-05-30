@@ -1,6 +1,7 @@
 <?php
 namespace Solis\PhpMagic\Abstractions\Schema;
 
+use Solis\PhpMagic\Contracts\Schema\DatabaseEntryContract;
 use Solis\PhpMagic\Contracts\Schema\ObjectEntryContract;
 use Solis\PhpMagic\Contracts\Schema\FormatEntryContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
@@ -37,6 +38,11 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
      * @var ObjectEntryContract
      */
     protected $object;
+
+    /**
+     * @var DatabaseEntryContract
+     */
+    protected $database;
 
     /**
      * __construct
@@ -136,6 +142,22 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     }
 
     /**
+     * @return DatabaseEntryContract
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param DatabaseEntryContract $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
+    }
+
+    /**
      * toArray
      *
      * @return array
@@ -161,6 +183,10 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
 
         if (!empty($this->getObject())) {
             $array['object'] = $this->getObject()->toArray();
+        }
+
+        if(!empty($this->getDatabase())){
+            $array['database'] = $this->getDatabase()->toArray();
         }
 
         return $array;

@@ -66,4 +66,15 @@ abstract class SourceEntryAbstract implements SourceEntryContract
     {
         $this->refers = $refers;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'field' => $this->getField(),
+            'refers' => $this->getRefers()
+        ];
+    }
 }

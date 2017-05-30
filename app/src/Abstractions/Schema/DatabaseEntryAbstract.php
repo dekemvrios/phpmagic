@@ -63,4 +63,17 @@ abstract class DatabaseEntryAbstract implements DatabaseEntryContract
     {
         $this->source = $source;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = [];
+        $array['type'] = $this->getType();
+        if (!empty($this->getSource())) {
+            $array['source'] = $this->getSource()->toArray();
+        }
+        return $array;
+    }
 }
