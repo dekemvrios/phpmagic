@@ -1,7 +1,8 @@
 <?php
-
 namespace Solis\PhpMagic\Abstractions\Schema;
 
+use Solis\PhpMagic\Contracts\Schema\ClassEntryContract;
+use Solis\PhpMagic\Contracts\Schema\FormatEntryContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
 /**
@@ -28,17 +29,30 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     protected $type;
 
     /**
+     * @var FormatEntryContract[]
+     */
+    protected $format;
+
+    /**
+     * @var ClassEntryContract
+     */
+    protected $class;
+
+    /**
      * __construct
      *
      * @param string $name
      * @param string $property
      * @param string $type
      */
-    protected function __construct($name, $property, $type)
-    {
+    protected function __construct(
+        $name,
+        $property,
+        $type = null
+    ) {
         $this->setName($name);
         $this->setProperty($property);
-        $this->setType($type);
+        $this->setType(!empty($type) ? $type : null);
     }
 
     /**
@@ -90,17 +104,65 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     }
 
     /**
+     * @return FormatEntryContract[]
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
+     * @param FormatEntryContract[] $format
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
+    }
+
+    /**
+     * @return ClassEntryContract
+     */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param ClassEntryContract $class
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
+    /**
      * toArray
      *
      * @return array
      */
     public function toArray()
     {
-        return [
-            'name' => $this->getName(),
-            'property' => $this->getProperty(),
-            'type' => $this->getType()
-        ];
+        $array = [];
+
+        $array['name'] = $this->getName();
+        $array['property'] = $this->getProperty();
+
+        if (!empty($this->getType())) {
+            $array['type'] = $this->getType();
+        }
+
+        if (!empty($this->getFormat())) {
+            $format = [];
+            foreach ($this->getFormat() as $item) {
+                $format[] = $item->toArray();
+            }
+            $array['format'] = $format;
+        }
+
+        if (!empty($this->getClass())) {
+            $array['class'] = $this->getClass()->toArray();
+        }
+
+        return $array;
     }
 }
-

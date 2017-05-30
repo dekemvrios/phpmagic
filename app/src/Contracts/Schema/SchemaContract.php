@@ -22,5 +22,4 @@ interface SchemaContract
      * @return string
      */
     public function toJson();
-
 }

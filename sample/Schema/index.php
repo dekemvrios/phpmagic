@@ -8,12 +8,10 @@ use Solis\Breaker\TException;
 try {
 
     $instance = Schema::make(
-        file_get_contents('Estado.json')
+        file_get_contents('Individuo.json')
     );
 
-    //echo $instance->toJson();
-
-    var_dump($instance);
+    echo $instance->toJson();
 
 } catch (TException $exception) {
     echo $exception->toJson();

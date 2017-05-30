@@ -39,7 +39,7 @@ abstract class SchemaAbstract
 
     /**
      * getSchema
-     * 
+     *
      * @return SchemaEntryContract[]
      */
     public function getSchema()
@@ -67,8 +67,8 @@ abstract class SchemaAbstract
     public function getEntry($name)
     {
         $entry = [];
-        if(!empty($this->getSchema())){
-            $entry = array_filter($this->getSchema(), function ($item) use ($name){
+        if (!empty($this->getSchema())) {
+            $entry = array_filter($this->getSchema(), function ($item) use ($name) {
                 return $item->getName() === $name ? true : false;
             });
         }

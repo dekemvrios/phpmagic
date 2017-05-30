@@ -22,19 +22,23 @@ class Schema extends SchemaAbstract
      */
     public static function make($json)
     {
-        $schema = json_decode($json, true);
+        $schema = json_decode(
+            $json,
+            true
+        );
         if (!$schema) {
-            throw new TException(__CLASS__, __METHOD__, "error decoding json schema", 500);
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "error decoding json schema",
+                500
+            );
         }
 
         $instance = new self();
         foreach ($schema as $item) {
             $instance->addEntry(
-                SchemaEntry::make(
-                    $item['name'],
-                    $item['property'],
-                    $item['type']
-                )
+                SchemaEntry::make($item)
             );
         }
 
