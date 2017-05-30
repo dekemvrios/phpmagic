@@ -2,6 +2,11 @@
 
 All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
 
+## 1.3.0 - 2017-05-30
+
+### Changed
+- Added schema class builder 
+
 ## 1.2.0 - 2017-05-26
 
 ### Changed
