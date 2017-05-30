@@ -2,14 +2,14 @@
 
 namespace Solis\PhpMagic\Abstractions\Schema;
 
-use Solis\PhpMagic\Contracts\Schema\ClassEntryContract;
+use Solis\PhpMagic\Contracts\Schema\ObjectEntryContract;
 
 /**
- * Class ClassEntryAbstract
+ * Class ObjectEntryAbstract
  *
  * @package Solis\PhpMagic\Abstractions\Schema
  */
-abstract class ClassEntryAbstract implements ClassEntryContract
+abstract class ObjectEntryAbstract implements ObjectEntryContract
 {
     /**
      * @var string
@@ -19,20 +19,20 @@ abstract class ClassEntryAbstract implements ClassEntryContract
     /**
      * @var string|array
      */
-    protected $name;
+    protected $property;
 
     /**
      * __construct
      *
-     * @param $class
-     * @param $name
+     * @param string       $class
+     * @param string|array $property
      */
     protected function __construct(
         $class,
-        $name
+        $property
     ) {
         $this->setClass($class);
-        $this->setName($name);
+        $this->setProperty($property);
     }
 
     /**
@@ -54,17 +54,17 @@ abstract class ClassEntryAbstract implements ClassEntryContract
     /**
      * @return array|string
      */
-    public function getName()
+    public function getProperty()
     {
-        return $this->name;
+        return $this->property;
     }
 
     /**
-     * @param array|string $name
+     * @param array|string $property
      */
-    public function setName($name)
+    public function setProperty($property)
     {
-        $this->name = $name;
+        $this->property = $property;
     }
 
     /**
@@ -75,8 +75,8 @@ abstract class ClassEntryAbstract implements ClassEntryContract
     public function toArray()
     {
         return [
-            'class' => $this->getClass(),
-            'name'  => $this->getName()
+            'class'    => $this->getClass(),
+            'property' => $this->getProperty()
         ];
     }
 }

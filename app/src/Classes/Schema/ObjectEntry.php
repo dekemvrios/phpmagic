@@ -2,15 +2,15 @@
 
 namespace Solis\PhpMagic\Classes\Schema;
 
-use Solis\PhpMagic\Abstractions\Schema\ClassEntryAbstract;
+use Solis\PhpMagic\Abstractions\Schema\ObjectEntryAbstract;
 use Solis\Breaker\TException;
 
 /**
- * Class ClassEntry
+ * Class ObjectEntry
  *
  * @package Solis\PhpMagic\Classes\Schema
  */
-class ClassEntry extends ClassEntryAbstract
+class ObjectEntry extends ObjectEntryAbstract
 {
 
     /**
@@ -31,7 +31,7 @@ class ClassEntry extends ClassEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found key class in schema for class',
+                'not found key class in schema for schema object entry',
                 400
             );
         }
@@ -40,27 +40,27 @@ class ClassEntry extends ClassEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                "class {$class['class']} has not been defined",
+                "class {$class['class']} has not been defined for schema object entry",
                 400
             );
         }
 
         if (!array_key_exists(
-            'name',
+            'property',
             $class
         )
         ) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found key name in schema for class',
+                'not found key property in schema for schema object entry',
                 400
             );
         }
 
         return new static(
             $class['class'],
-            $class['name']
+            $class['property']
         );
     }
 }

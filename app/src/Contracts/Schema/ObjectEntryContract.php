@@ -3,11 +3,11 @@
 namespace Solis\PhpMagic\Contracts\Schema;
 
 /**
- * Interface ClassEntryContract
+ * Interface ObjectEntryContract
  *
  * @package Solis\PhpMagic\Contracts\Schema
  */
-interface ClassEntryContract
+interface ObjectEntryContract
 {
 
     /**
@@ -23,12 +23,12 @@ interface ClassEntryContract
     /**
      * @return array|string
      */
-    public function getName();
+    public function getProperty();
 
     /**
-     * @param array|string $name
+     * @param array|string $property
      */
-    public function setName($name);
+    public function setProperty($property);
 
     /**
      * toArray

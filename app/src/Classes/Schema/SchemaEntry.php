@@ -69,10 +69,10 @@ class SchemaEntry extends SchemaEntryAbstract
         }
 
         if (array_key_exists(
-            'class',
+            'object',
             $schema
         )) {
-            $instance->setClass(ClassEntry::make($schema['class']));
+            $instance->setObject(ObjectEntry::make($schema['object']));
         }
 
         return $instance;

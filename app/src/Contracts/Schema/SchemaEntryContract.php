@@ -50,14 +50,14 @@ interface SchemaEntryContract
     public function setFormat($format);
 
     /**
-     * @return ClassEntryContract
+     * @return ObjectEntryContract
      */
-    public function getClass();
+    public function getObject();
 
     /**
-     * @param ClassEntryContract $class
+     * @param ObjectEntryContract $object
      */
-    public function setClass($class);
+    public function setObject($object);
 
     /**
      * @return array

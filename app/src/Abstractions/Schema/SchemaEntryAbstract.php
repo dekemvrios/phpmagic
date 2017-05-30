@@ -1,7 +1,7 @@
 <?php
 namespace Solis\PhpMagic\Abstractions\Schema;
 
-use Solis\PhpMagic\Contracts\Schema\ClassEntryContract;
+use Solis\PhpMagic\Contracts\Schema\ObjectEntryContract;
 use Solis\PhpMagic\Contracts\Schema\FormatEntryContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
@@ -34,9 +34,9 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     protected $format;
 
     /**
-     * @var ClassEntryContract
+     * @var ObjectEntryContract
      */
-    protected $class;
+    protected $object;
 
     /**
      * __construct
@@ -120,19 +120,19 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     }
 
     /**
-     * @return ClassEntryContract
+     * @return ObjectEntryContract
      */
-    public function getClass()
+    public function getObject()
     {
-        return $this->class;
+        return $this->object;
     }
 
     /**
-     * @param ClassEntryContract $class
+     * @param ObjectEntryContract $object
      */
-    public function setClass($class)
+    public function setObject($object)
     {
-        $this->class = $class;
+        $this->object = $object;
     }
 
     /**
@@ -159,8 +159,8 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
             $array['format'] = $format;
         }
 
-        if (!empty($this->getClass())) {
-            $array['class'] = $this->getClass()->toArray();
+        if (!empty($this->getObject())) {
+            $array['object'] = $this->getObject()->toArray();
         }
 
         return $array;

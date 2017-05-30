@@ -8,7 +8,7 @@ use Solis\Breaker\TException;
 try {
 
     $instance = Schema::make(
-        file_get_contents('Individuo.json')
+        file_get_contents('OrdemServico.json')
     );
 
     echo $instance->toJson();
