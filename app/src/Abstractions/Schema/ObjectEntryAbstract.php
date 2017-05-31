@@ -18,11 +18,6 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
     protected $class;
 
     /**
-     * @var string|array
-     */
-    protected $property;
-
-    /**
      * @var DatabaseEntryContract[]
      */
     protected $database;
@@ -30,15 +25,12 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
     /**
      * __construct
      *
-     * @param string       $class
-     * @param string|array $property
+     * @param string $class
      */
     protected function __construct(
-        $class,
-        $property
+        $class
     ) {
         $this->setClass($class);
-        $this->setProperty($property);
     }
 
     /**
@@ -55,22 +47,6 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
     public function setClass($class)
     {
         $this->class = $class;
-    }
-
-    /**
-     * @return array|string
-     */
-    public function getProperty()
-    {
-        return $this->property;
-    }
-
-    /**
-     * @param array|string $property
-     */
-    public function setProperty($property)
-    {
-        $this->property = $property;
     }
 
     /**
@@ -97,11 +73,10 @@ abstract class ObjectEntryAbstract implements ObjectEntryContract
     public function toArray()
     {
         $array = [
-            'class'    => $this->getClass(),
-            'property' => $this->getProperty(),
+            'class' => $this->getClass()
         ];
 
-        if(!empty($this->getDatabase())){
+        if (!empty($this->getDatabase())) {
             $database = [];
             foreach ($this->getDatabase() as $item) {
                 $database[] = $item->toArray();

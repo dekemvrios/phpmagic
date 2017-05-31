@@ -21,22 +21,17 @@
   {
     "name": "aCidade",
     "property": "cidade",
-    "type" : "undefined",
+    "type": "undefined",
     "object": {
-      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade",
-      "property": [
-        "sNome",
-        "iCodigoIbge"
-      ]
+      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade"
     }
   },
   {
     "name": "aCapital",
     "property": "capital",
-    "type" : "undefined",
+    "type": "undefined",
     "object": {
-      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade",
-      "property": "sNome"
+      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade"
     }
   }
 ]

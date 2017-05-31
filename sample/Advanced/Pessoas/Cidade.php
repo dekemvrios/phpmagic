@@ -49,4 +49,17 @@ class Cidade
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")
         );
     }
+
+    /**
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados)
+    {
+        $instance = new static();
+        $instance->attach($dados);
+
+        return $instance;
+    }
 }

@@ -62,4 +62,17 @@ class Endereco
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json")
         );
     }
+
+    /**
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados)
+    {
+        $instance = new static();
+        $instance->attach($dados);
+
+        return $instance;
+    }
 }

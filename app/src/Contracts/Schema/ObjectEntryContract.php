@@ -21,16 +21,6 @@ interface ObjectEntryContract
     public function setClass($class);
 
     /**
-     * @return array|string
-     */
-    public function getProperty();
-
-    /**
-     * @param array|string $property
-     */
-    public function setProperty($property);
-
-    /**
      * @return DatabaseEntryContract[]
      */
     public function getDatabase();

@@ -34,12 +34,7 @@
     "property": "cidade",
     "type": "undefined",
     "object": {
-      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Cidade",
-      "property": [
-        "sNome",
-        "iCodigoIbge",
-        "aEstado"
-      ]
+      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Cidade"
     }
   }
 ]

@@ -3,6 +3,7 @@
 require_once '../../vendor/autoload.php';
 
 use Solis\PhpMagic\Sample\Veiculo\Carro;
+use Solis\Breaker\TException;
 
 error_reporting(E_ALL);
 
@@ -28,6 +29,6 @@ try {
     );
 
     var_dump($veiculo);
-} catch (\InvalidArgumentException $exception) {
-    echo $exception->getMessage();
+} catch (TException $exception) {
+    echo $exception->toJson();
 }

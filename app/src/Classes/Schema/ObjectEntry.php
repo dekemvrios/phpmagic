@@ -3,7 +3,6 @@
 namespace Solis\PhpMagic\Classes\Schema;
 
 use Solis\PhpMagic\Abstractions\Schema\ObjectEntryAbstract;
-use Solis\PhpMagic\Classes\Schema\DatabaseEntry;
 use Solis\Breaker\TException;
 
 /**
@@ -46,19 +45,6 @@ class ObjectEntry extends ObjectEntryAbstract
             );
         }
 
-        if (!array_key_exists(
-            'property',
-            $class
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "'property' field has not been found for defining 'object' schema entry",
-                400
-            );
-        }
-
         if (!method_exists(
             $class['class'],
             'make'
@@ -73,8 +59,7 @@ class ObjectEntry extends ObjectEntryAbstract
         }
 
         $instance = new static(
-            $class['class'],
-            $class['property']
+            $class['class']
         );
 
         if (array_key_exists(
