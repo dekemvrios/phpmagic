@@ -34,7 +34,9 @@
     "property": "capital",
     "object": {
       "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade",
-      "property": "sNome"
+      "property": [
+        "sNome"
+      ]
     }
   }
 ]

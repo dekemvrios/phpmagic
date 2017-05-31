@@ -19,7 +19,7 @@ trait Magic
     /**
      * attach
      *
-     * @param $dados
+     * @param array $dados
      *
      * @throws \InvalidArgumentException
      */
@@ -34,8 +34,8 @@ trait Magic
     /**
      * __set
      *
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param mixed  $value
      *
      * @throws TException
      */
@@ -172,10 +172,7 @@ trait Magic
         $value
     ) {
 
-        $instance = is_array($value) ? $this->attForeignArrayValue(
-            $value,
-            $meta
-        ) : $this->attForeignSingleValue(
+        $instance = $this->___attForeign(
             $value,
             $meta
         );
@@ -184,7 +181,7 @@ trait Magic
     }
 
     /**
-     * attArrayValue
+     * ___attForeign
      *
      * @param mixed               $value
      * @param SchemaEntryContract $meta
@@ -192,66 +189,65 @@ trait Magic
      * @return array
      * @throws TException
      */
-    private function attForeignArrayValue(
+    private function ___attForeign(
         $value,
         $meta
     ) {
-
-        //$value = !is_array($value) ? [$value] : $value;
+        $value = !is_array($value) ? [$value] : $value;
 
         $aInstance = [];
         foreach ($value as $item) {
+            // callable class
             $class = $meta->getObject()->getClass();
 
+            // property to set the instance of the class
             $property = $meta->getObject()->getProperty();
 
-            $instance = new $class();
+            // calling by default its make method, if its exists
+            $instance = method_exists(
+                $class,
+                'make'
+            ) ? call_user_func_array(
+                [$class, 'make'],
+                []
+            ) : new $class();
 
-            if (is_array($property)) {
-                foreach ($property as $prop) {
-                    if (!is_array($item)) {
-                        throw new TException(
-                            get_class($this),
-                            __METHOD__,
-                            "supplied value must be an key value array as specified in " . $meta->getName() . " schema",
-                            '400'
-                        );
+            if (empty($instance) || !is_object($instance)) {
+                throw new TException(
+                    __CLASS__,
+                    __METHOD__,
+                    "application can't create instance of {$class}, verify your class __construct or make method",
+                    500
+                );
+            }
+
+            switch ($property){
+                case is_array($property):
+                    foreach ($property as $prop) {
+                        if (!is_array($item)) {
+                            throw new TException(
+                                get_class($this),
+                                __METHOD__,
+                                "{$meta->getName()} schema property entry in is an array, so you need to supply its values as an associative array",
+                                400
+                            );
+                        }
+
+                        $instance->{$prop} = array_key_exists(
+                            $prop,
+                            $item
+                        ) ? $item[$prop] : null;
                     }
+                    break;
 
-                    $instance->{$prop} = array_key_exists(
-                        $prop,
-                        $item
-                    ) ? $item[$prop] : null;
-                }
-            } else {
-                $instance->{$property} = $item;
+                default:
+                    $instance->{$property} = $item;
+                    break;
             }
 
             $aInstance[] = $instance;
         }
 
         return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
-    }
-
-    /**
-     * attForeignSingleValue
-     *
-     * @param mixed               $value
-     * @param SchemaEntryContract $meta
-     *
-     * @return mixed
-     * @throws TException
-     */
-    private function attForeignSingleValue(
-        $value,
-        $meta
-    ) {
-        $class = $meta->getObject()->getClass();
-        $property = $meta->getObject()->getProperty();
-
-        $instance = new $class();
-        $instance->{$property} = $value;
-
-        return $instance;
     }
 }

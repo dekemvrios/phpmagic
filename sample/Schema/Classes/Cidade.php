@@ -34,7 +34,7 @@ class Cidade
     /**
      * __construct
      */
-    public function __construct()
+    protected function __construct()
     {
 
         if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")) {
@@ -49,5 +49,15 @@ class Cidade
         $this->schema = Schema::make(
             file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")
         );
+    }
+
+    /**
+     * make
+     *
+     * @return static
+     */
+    public static function make($params = null)
+    {
+        return new static();
     }
 }
