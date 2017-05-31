@@ -160,9 +160,39 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     /**
      * toArray
      *
+     * @param array $properties
+     *
      * @return array
      */
-    public function toArray()
+    public function toArray($properties = null)
+    {
+        return empty($properties) ? $this->defaultToArray() : $this->customToArray($properties);
+    }
+
+    /**
+     * @param $properties
+     *
+     * @return array
+     */
+    protected function customToArray($properties)
+    {
+        $array = [];
+        foreach ($properties as $property) {
+            if (method_exists($this, 'get' . ucfirst($property))) {
+                $value = $this->{'get' . ucfirst($property)}();
+                if (is_object($value)) {
+                    $value = method_exists($value, 'toArray') ? $value->toArray() : null;
+                }
+                $array[$property] = !empty($value) ? $value : 'not defined';
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * @return array
+     */
+    protected function defaultToArray()
     {
         $array = [];
 
@@ -185,7 +215,7 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
             $array['object'] = $this->getObject()->toArray();
         }
 
-        if(!empty($this->getDatabase())){
+        if (!empty($this->getDatabase())) {
             $array['database'] = $this->getDatabase()->toArray();
         }
 

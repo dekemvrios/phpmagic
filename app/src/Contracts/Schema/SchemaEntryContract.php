@@ -70,7 +70,9 @@ interface SchemaEntryContract
     public function setDatabase($database);
 
     /**
+     * @param array $properties
+     *
      * @return array
      */
-    public function toArray();
+    public function toArray($properties = null);
 }

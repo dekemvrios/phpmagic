@@ -11,7 +11,8 @@ try {
         file_get_contents('OrdemServico.json')
     );
 
-    echo $instance->toJson();
+    //echo $instance->toJson();
+    print_r($instance->toArray(['name']));
 
 } catch (TException $exception) {
     echo $exception->toJson();

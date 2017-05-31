@@ -78,14 +78,16 @@ abstract class SchemaAbstract
     /**
      * toArray
      *
+     * @param array $properties
+     *
      * @return array|SchemaEntryContract[]
      */
-    public function toArray()
+    public function toArray($properties = null)
     {
         $array = [];
         if (!empty($this->getSchema())) {
             foreach ($this->getSchema() as $item) {
-                $array[] = $item->toArray();
+                $array[] = $item->toArray(!empty($properties) ? $properties : null);
             }
         }
 
