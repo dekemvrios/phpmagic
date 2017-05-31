@@ -2,6 +2,7 @@
 
 namespace Solis\PhpMagic\Sample\Veiculo;
 
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Helpers\Magic;
 use Solis\PhpMagic\Helpers\Types;
 
@@ -39,4 +40,25 @@ class Roda
      * @var float
      */
     protected $polegada;
+
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+        $this->schema = Schema::make(json_encode($this->schema));
+    }
+
+    /**
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados)
+    {
+        $instance = new static();
+        $instance->attach($dados);
+
+        return $instance;
+    }
 }

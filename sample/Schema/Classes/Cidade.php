@@ -1,10 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Advanced\Pessoas;
+namespace Solis\PhpMagic\Sample\Schema\Classes;
 
+use Solis\Breaker\TException;
 use Solis\PhpMagic\Contracts\Schema\SchemaContract;
-use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Helpers\Magic;
+use Solis\PhpMagic\Classes\Schema\Schema;
 
 /**
  * Class Cidade
@@ -31,18 +32,18 @@ class Cidade
     protected $codigoIbge;
 
     /**
-     * @var string
-     */
-    protected $estado;
-
-    /**
      * __construct
      */
-    public function __construct()
+    protected function __construct()
     {
 
         if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json")) {
-            throw new \RuntimeException('not found schema for class ' . __CLASS__);
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                'not found schema for class ' . __CLASS__,
+                400
+            );
         }
 
         $this->schema = Schema::make(

@@ -1,7 +1,8 @@
 <?php
 namespace Solis\PhpMagic\Abstractions\Schema;
 
-use Solis\PhpMagic\Contracts\Schema\ClassEntryContract;
+use Solis\PhpMagic\Contracts\Schema\DatabaseEntryContract;
+use Solis\PhpMagic\Contracts\Schema\ObjectEntryContract;
 use Solis\PhpMagic\Contracts\Schema\FormatEntryContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
@@ -34,9 +35,14 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     protected $format;
 
     /**
-     * @var ClassEntryContract
+     * @var ObjectEntryContract
      */
-    protected $class;
+    protected $object;
+
+    /**
+     * @var DatabaseEntryContract
+     */
+    protected $database;
 
     /**
      * __construct
@@ -120,27 +126,73 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
     }
 
     /**
-     * @return ClassEntryContract
+     * @return ObjectEntryContract
      */
-    public function getClass()
+    public function getObject()
     {
-        return $this->class;
+        return $this->object;
     }
 
     /**
-     * @param ClassEntryContract $class
+     * @param ObjectEntryContract $object
      */
-    public function setClass($class)
+    public function setObject($object)
     {
-        $this->class = $class;
+        $this->object = $object;
+    }
+
+    /**
+     * @return DatabaseEntryContract
+     */
+    public function getDatabase()
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param DatabaseEntryContract $database
+     */
+    public function setDatabase($database)
+    {
+        $this->database = $database;
     }
 
     /**
      * toArray
      *
+     * @param array $properties
+     *
      * @return array
      */
-    public function toArray()
+    public function toArray($properties = null)
+    {
+        return empty($properties) ? $this->defaultToArray() : $this->customToArray($properties);
+    }
+
+    /**
+     * @param $properties
+     *
+     * @return array
+     */
+    protected function customToArray($properties)
+    {
+        $array = [];
+        foreach ($properties as $property) {
+            if (method_exists($this, 'get' . ucfirst($property))) {
+                $value = $this->{'get' . ucfirst($property)}();
+                if (is_object($value)) {
+                    $value = method_exists($value, 'toArray') ? $value->toArray() : null;
+                }
+                $array[$property] = !empty($value) ? $value : 'not defined';
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * @return array
+     */
+    protected function defaultToArray()
     {
         $array = [];
 
@@ -159,8 +211,12 @@ abstract class SchemaEntryAbstract implements SchemaEntryContract
             $array['format'] = $format;
         }
 
-        if (!empty($this->getClass())) {
-            $array['class'] = $this->getClass()->toArray();
+        if (!empty($this->getObject())) {
+            $array['object'] = $this->getObject()->toArray();
+        }
+
+        if (!empty($this->getDatabase())) {
+            $array['database'] = $this->getDatabase()->toArray();
         }
 
         return $array;

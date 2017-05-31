@@ -2,6 +2,8 @@
 
 namespace Solis\PhpMagic\Sample\Advanced\Pessoas;
 
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Helpers\Magic;
 
 /**
@@ -58,9 +60,8 @@ class Individuo
             throw new \RuntimeException('not found schema for class ' . __CLASS__);
         }
 
-        $individuo->schema = json_decode(
-            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json"),
-            true
+        $individuo->schema = Schema::make(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json")
         );
 
         $individuo->attach($dados);

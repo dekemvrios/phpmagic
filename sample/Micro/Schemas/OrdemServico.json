@@ -72,12 +72,9 @@
   {
     "name": "proServicoID",
     "property": "servicoID",
+    "type": "undefined",
     "class": {
-      "class": "Solis\\PhpMagic\\Sample\\Micro\\Classes\\Servico",
-      "name": [
-        "proID",
-        "proDescricao"
-      ]
+      "class": "Solis\\PhpMagic\\Sample\\Micro\\Classes\\Servico"
     }
   }
 ]

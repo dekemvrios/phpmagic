@@ -30,7 +30,7 @@ class SchemaEntry extends SchemaEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found property key in schema',
+                "'property' field has not been found for defining schema entry ",
                 400
             );
         }
@@ -43,7 +43,20 @@ class SchemaEntry extends SchemaEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found name key in schema',
+                "'name' field has not been found for defining schema entry ",
+                400
+            );
+        }
+
+        if (!array_key_exists(
+            'type',
+            $schema
+        )
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'type' field has not been found for defining schema entry ",
                 400
             );
         }
@@ -51,10 +64,7 @@ class SchemaEntry extends SchemaEntryAbstract
         $instance = new self(
             $schema['name'],
             $schema['property'],
-            !array_key_exists(
-                'type',
-                $schema
-            ) ? null : $schema['type']
+            $schema['type']
         );
 
         if (array_key_exists(
@@ -69,10 +79,17 @@ class SchemaEntry extends SchemaEntryAbstract
         }
 
         if (array_key_exists(
-            'class',
+            'object',
             $schema
         )) {
-            $instance->setClass(ClassEntry::make($schema['class']));
+            $instance->setObject(ObjectEntry::make($schema['object']));
+        }
+
+        if (array_key_exists(
+            'database',
+            $schema
+        )) {
+            $instance->setDatabase(DatabaseEntry::make($schema['database']));
         }
 
         return $instance;

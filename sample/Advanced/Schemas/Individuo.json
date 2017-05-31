@@ -41,15 +41,9 @@
   {
     "name": "aEndereco",
     "property": "endereco",
-    "class": {
-      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Endereco",
-      "name": [
-        "sLogradouro",
-        "sCep",
-        "aCidade",
-        "sBairro",
-        "sComplemento"
-      ]
+    "type": "undefined",
+    "object": {
+      "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Endereco"
     }
   }
 ]

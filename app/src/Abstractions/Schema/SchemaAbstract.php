@@ -2,6 +2,8 @@
 
 namespace Solis\PhpMagic\Abstractions\Schema;
 
+use Solis\Breaker\TException;
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
 /**
@@ -9,7 +11,7 @@ use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
  *
  * @package Solis\PhpMagic\Abstractions
  */
-abstract class SchemaAbstract
+abstract class SchemaAbstract implements SchemaContract
 {
 
     /**
@@ -60,32 +62,49 @@ abstract class SchemaAbstract
     /**
      * getEntry
      *
-     * @param $name
+     * @param string $key
+     * @param mixed $value
      *
      * @return array|bool
      */
-    public function getEntry($name)
+    public function getEntry($key, $value)
     {
         $entry = [];
         if (!empty($this->getSchema())) {
-            $entry = array_filter($this->getSchema(), function ($item) use ($name) {
-                return $item->getName() === $name ? true : false;
+            $entry = array_filter($this->getSchema(), function ($item) use ($key, $value) {
+
+                if (!method_exists(
+                    $item,
+                    'get' . ucfirst($key)
+                )
+                ) {
+                    throw new TException(
+                        __CLASS__,
+                        __METHOD__,
+                        'method ' . 'get' . ucfirst($key) . ' not found at ' . get_class($item),
+                        400
+                    );
+                }
+
+                return $item->{'get'.ucfirst($key)}() === $value ? true : false;
             });
         }
-        return empty($entry) ? false : $entry;
+        return empty($entry) ? false : array_values($entry);
     }
 
     /**
      * toArray
      *
+     * @param array $properties
+     *
      * @return array|SchemaEntryContract[]
      */
-    public function toArray()
+    public function toArray($properties = null)
     {
         $array = [];
         if (!empty($this->getSchema())) {
             foreach ($this->getSchema() as $item) {
-                $array[] = $item->toArray();
+                $array[] = $item->toArray(!empty($properties) ? $properties : null);
             }
         }
 

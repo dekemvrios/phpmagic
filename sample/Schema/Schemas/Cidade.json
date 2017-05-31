@@ -6,10 +6,6 @@
     "format": [
       {
         "function": "uppercase"
-      },
-      {
-        "function": "size",
-        "params": 2
       }
     ]
   },

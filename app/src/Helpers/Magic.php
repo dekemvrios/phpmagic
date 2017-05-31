@@ -2,8 +2,11 @@
 
 namespace Solis\PhpMagic\Helpers;
 
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Classes\Validator;
 use Solis\Breaker\TException;
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
 /**
  * Class Magic
@@ -16,7 +19,7 @@ trait Magic
     /**
      * attach
      *
-     * @param $dados
+     * @param array $dados
      *
      * @throws \InvalidArgumentException
      */
@@ -31,8 +34,8 @@ trait Magic
     /**
      * __set
      *
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param mixed  $value
      *
      * @throws TException
      */
@@ -48,10 +51,10 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        is_array($name) ? $this->attForeign(
+        $name instanceof SchemaEntryContract ? $this->___object(
             $name,
             $value
-        ) : $this->attOwn(
+        ) : $this->___set(
             $name,
             $value
         );
@@ -76,13 +79,7 @@ trait Magic
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $name,
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ),
+                "property $name not found in class, review your class or arguments definition",
                 '400'
             );
         }
@@ -116,74 +113,34 @@ trait Magic
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => 'schema',
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ),
+                'property schema has not been defined, review your class definition',
                 '400'
             );
         }
 
-        $meta = array_values(
-            array_filter(
-                $this->schema,
-                function ($schemaItem) use
-                (
-                    $name
-                ) {
-                    if (!array_key_exists(
-                        'name',
-                        $schemaItem
-                    )
-                    ) {
-                        throw new TException(
-                            get_class($this),
-                            __METHOD__,
-                            'invalid schema definition',
-                            '400'
-                        );
-                    }
-
-                    return $schemaItem['name'] === $name ? true : false;
-                }
-            )
+        $meta = $this->schema->getEntry(
+            'name',
+            $name
         );
-
-        if (empty($meta) || !array_key_exists(
-                'property',
-                $meta[0]
-            )
-        ) {
+        if (empty($meta) || !is_array($meta)) {
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $name,
-                        '@class' => __CLASS__,
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ) . ' schema',
-                '400'
+                "property $name not found in schema, review your schema definition",
+                400
             );
         }
 
-        return array_key_exists(
-            'class',
-            $meta[0]
-        ) ? $meta[0] : $meta[0]['property'];
+        return !empty($meta[0]->getObject()) ? $meta[0] : $meta[0]->getProperty();
     }
 
     /**
-     * attOwn
+     * ___set
      *
      * @param $name
      * @param $value
      */
-    private function attOwn(
+    private function ___set(
         $name,
         $value
     ) {
@@ -203,126 +160,78 @@ trait Magic
     }
 
     /**
-     * attForeign
+     * ___object
      *
-     * @param $meta
-     * @param $value
+     * @param SchemaEntryContract $meta
+     * @param mixed               $value
      *
      * @throws TException
      */
-    private function attForeign(
+    private function ___object(
         $meta,
         $value
     ) {
 
-        if (!property_exists(
-            $this,
-            $meta['property']
-        )
-        ) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $meta['property'],
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ) . ' schema',
-                '400'
-            );
-        }
-
-        if (!class_exists($meta['class']['class'])) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                "class not found {$meta['class']['class']}",
-                '400'
-            );
-        }
-
-        $instance = is_array($value) ? $this->attForeignArrayValue(
-            $value,
-            $meta
-        ) : $this->attForeignSingleValue(
+        $instance = $this->___attForeign(
             $value,
             $meta
         );
 
-        $this->{$meta['property']} = !empty($instance) ? $instance : null;
+        $this->{$meta->getProperty()} = !empty($instance) ? $instance : null;
     }
 
     /**
-     * attArrayValue
+     * ___attForeign
      *
-     * @param $value
-     * @param $meta
+     * @param array               $value
+     * @param SchemaEntryContract $meta
      *
      * @return array
      * @throws TException
      */
-    private function attForeignArrayValue(
-        $value,
+    private function ___attForeign(
+        array $value,
         $meta
     ) {
+
+        $value = count(
+            array_filter(
+                array_keys($value),
+                'is_string'
+            )
+        ) > 0 ? [$value] : $value;
+
         $aInstance = [];
         foreach ($value as $item) {
-            $instance = new $meta['class']['class'];
+            // callable class
+            $class = $meta->getObject()->getClass();
 
-            if (is_array($meta['class']['name'])) {
-                foreach ($meta['class']['name'] as $property) {
-                    if (!is_array($item)) {
-                        throw new TException(
-                            get_class($this),
-                            __METHOD__,
-                            "supplied value must be an key value array as specified in {$meta['name']} schema",
-                            '400'
-                        );
-                    }
-
-                    $instance->{$property} = array_key_exists(
-                        $property,
-                        $item
-                    ) ? $item[$property] : null;
-                }
-            } else {
-                $instance->{$meta['class']['name']} = $item;
+            if (empty($item) || !is_array($item)) {
+                throw new TException(
+                    __CLASS__,
+                    __METHOD__,
+                    "meta information for {$meta->getName()} expects an associative array as supplied argument",
+                    500
+                );
             }
 
+            // calling by default its make method, if its exists
+            $instance = call_user_func_array(
+                [$class, 'make'],
+                [$item]
+            );
+
+            if (empty($instance) || !is_object($instance)) {
+                throw new TException(
+                    __CLASS__,
+                    __METHOD__,
+                    "application can't create instance of {$class}, verify your class make method",
+                    500
+                );
+            }
             $aInstance[] = $instance;
         }
 
-        return $aInstance;
-    }
-
-    /**
-     * attForeignSingleValue
-     *
-     * @param $value
-     * @param $meta
-     *
-     * @return mixed
-     * @throws TException
-     */
-    private function attForeignSingleValue(
-        $value,
-        $meta
-    ) {
-        $instance = new $meta['class']['class'];
-
-        if (!is_string($meta['class']['name'])) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                "invalid type for property {$meta['class']['name']}",
-                '400'
-            );
-        }
-
-        $instance->{$meta['class']['name']} = $value;
-
-        return $instance;
+        return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
     }
 }

@@ -3,11 +3,11 @@
 namespace Solis\PhpMagic\Contracts\Schema;
 
 /**
- * Interface ClassEntryContract
+ * Interface ObjectEntryContract
  *
  * @package Solis\PhpMagic\Contracts\Schema
  */
-interface ClassEntryContract
+interface ObjectEntryContract
 {
 
     /**
@@ -21,14 +21,14 @@ interface ClassEntryContract
     public function setClass($class);
 
     /**
-     * @return array|string
+     * @return DatabaseEntryContract[]
      */
-    public function getName();
+    public function getDatabase();
 
     /**
-     * @param array|string $name
+     * @param DatabaseEntryContract[] $database
      */
-    public function setName($name);
+    public function setDatabase($database);
 
     /**
      * toArray
