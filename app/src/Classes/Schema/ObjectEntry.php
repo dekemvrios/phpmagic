@@ -59,6 +59,19 @@ class ObjectEntry extends ObjectEntryAbstract
             );
         }
 
+        if (!method_exists(
+            $class['class'],
+            'make'
+        )
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "a 'class' defined in the 'object' schema entry must have a make method",
+                400
+            );
+        }
+
         $instance = new static(
             $class['class'],
             $class['property']

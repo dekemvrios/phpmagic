@@ -183,68 +183,52 @@ trait Magic
     /**
      * ___attForeign
      *
-     * @param mixed               $value
+     * @param array               $value
      * @param SchemaEntryContract $meta
      *
      * @return array
      * @throws TException
      */
     private function ___attForeign(
-        $value,
+        array $value,
         $meta
     ) {
-        $value = !is_array($value) ? [$value] : $value;
+
+        $value = count(
+            array_filter(
+                array_keys($value),
+                'is_string'
+            )
+        ) > 0 ? [$value] : $value;
 
         $aInstance = [];
         foreach ($value as $item) {
             // callable class
             $class = $meta->getObject()->getClass();
 
-            // property to set the instance of the class
-            $property = $meta->getObject()->getProperty();
+            if (empty($item) || !is_array($item)) {
+                throw new TException(
+                    __CLASS__,
+                    __METHOD__,
+                    "meta information for {$meta->getName()} expects an associative array as supplied argument",
+                    500
+                );
+            }
 
             // calling by default its make method, if its exists
-            $instance = method_exists(
-                $class,
-                'make'
-            ) ? call_user_func_array(
+            $instance = call_user_func_array(
                 [$class, 'make'],
-                []
-            ) : new $class();
+                [$item]
+            );
 
             if (empty($instance) || !is_object($instance)) {
                 throw new TException(
                     __CLASS__,
                     __METHOD__,
-                    "application can't create instance of {$class}, verify your class __construct or make method",
+                    "application can't create instance of {$class}, verify your class make method",
                     500
                 );
             }
-
-            switch ($property){
-                case is_array($property):
-                    foreach ($property as $prop) {
-                        if (!is_array($item)) {
-                            throw new TException(
-                                get_class($this),
-                                __METHOD__,
-                                "{$meta->getName()} schema property entry in is an array, so you need to supply its values as an associative array",
-                                400
-                            );
-                        }
-
-                        $instance->{$prop} = array_key_exists(
-                            $prop,
-                            $item
-                        ) ? $item[$prop] : null;
-                    }
-                    break;
-
-                default:
-                    $instance->{$property} = $item;
-                    break;
-            }
-
             $aInstance[] = $instance;
         }
 

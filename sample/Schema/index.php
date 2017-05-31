@@ -5,6 +5,8 @@ require_once '../../vendor/autoload.php';
 use Solis\PhpMagic\Sample\Schema\Classes\Estado;
 use Solis\Breaker\TException;
 
+error_reporting(E_ALL);
+
 try {
 
     $instance = Estado::make(
@@ -13,7 +15,7 @@ try {
             'iCodigoIbge' => 42,
             'aCidade'     => [
                 [
-                    'sNome'       => 'Florianopolis',
+                    'sNome'       => 'Rio do Sul',
                     'iCodigoIbge' => 52,
                 ],
                 [
@@ -21,7 +23,10 @@ try {
                     'iCodigoIbge' => 52,
                 ]
             ],
-            "aCapital"    => ['Florianopolis', 'Joinville']
+            "aCapital"    => [
+                'sNome'       => 'Florianopolis',
+                'iCodigoIbge' => 52,
+            ],
         ]
     );
 

@@ -52,12 +52,15 @@ class Cidade
     }
 
     /**
-     * make
+     * @param $dados
      *
      * @return static
      */
-    public static function make($params = null)
+    public static function make($dados)
     {
-        return new static();
+        $instance = new static();
+        $instance->attach($dados);
+
+        return $instance;
     }
 }
