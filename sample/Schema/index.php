@@ -10,7 +10,18 @@ try {
     $instance = Estado::make(
         [
             'sNome'       => 'Santa Catarina',
-            'iCodigoIbge' => 42
+            'iCodigoIbge' => 42,
+            'aCidade'     => [
+                [
+                    'sNome'       => 'Florianopolis',
+                    'iCodigoIbge' => 52,
+                ],
+                [
+                    'sNome'       => 'Joinville',
+                    'iCodigoIbge' => 52,
+                ]
+            ],
+            "aCapital"    => ['Florianopolis', 'Joinville']
         ]
     );
 

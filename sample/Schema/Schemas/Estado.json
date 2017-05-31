@@ -17,5 +17,24 @@
     "name": "iCodigoIbge",
     "type": "int",
     "property": "codigoIbge"
+  },
+  {
+    "name": "aCidade",
+    "property": "cidade",
+    "object": {
+      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade",
+      "property": [
+        "sNome",
+        "iCodigoIbge"
+      ]
+    }
+  },
+  {
+    "name": "aCapital",
+    "property": "capital",
+    "object": {
+      "class": "Solis\\PhpMagic\\Sample\\Schema\\Classes\\Cidade",
+      "property": "sNome"
+    }
   }
 ]

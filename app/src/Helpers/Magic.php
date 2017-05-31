@@ -51,7 +51,7 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        $name instanceof Schema ? $this->attForeign(
+        $name instanceof SchemaEntryContract ? $this->___object(
             $name,
             $value
         ) : $this->___set(
@@ -160,14 +160,14 @@ trait Magic
     }
 
     /**
-     * attForeign
+     * ___object
      *
      * @param SchemaEntryContract $meta
      * @param mixed               $value
      *
      * @throws TException
      */
-    private function attForeign(
+    private function ___object(
         $meta,
         $value
     ) {
@@ -180,7 +180,7 @@ trait Magic
             $meta
         );
 
-        $this->{$meta['property']} = !empty($instance) ? $instance : null;
+        $this->{$meta->getProperty()} = !empty($instance) ? $instance : null;
     }
 
     /**
@@ -196,6 +196,9 @@ trait Magic
         $value,
         $meta
     ) {
+
+        //$value = !is_array($value) ? [$value] : $value;
+
         $aInstance = [];
         foreach ($value as $item) {
             $class = $meta->getObject()->getClass();
@@ -227,7 +230,7 @@ trait Magic
             $aInstance[] = $instance;
         }
 
-        return $aInstance;
+        return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
     }
 
     /**
@@ -244,7 +247,7 @@ trait Magic
         $meta
     ) {
         $class = $meta->getObject()->getClass();
-        $property = $meta->getObject()->getClass()->getProperty();
+        $property = $meta->getObject()->getProperty();
 
         $instance = new $class();
         $instance->{$property} = $value;
