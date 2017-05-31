@@ -2,6 +2,8 @@
 
 namespace Solis\PhpMagic\Sample\Micro\Classes;
 
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Helpers\Magic;
 
 /**
@@ -12,8 +14,9 @@ use Solis\PhpMagic\Helpers\Magic;
 class OrdemServico
 {
     use Magic;
+
     /**
-     * @var array
+     * @var SchemaContract
      */
     public $schema;
 
@@ -35,14 +38,13 @@ class OrdemServico
      * __construct
      *
      */
-    public function __construct()
+    protected function __construct()
     {
-        if (!file_exists(dirname(dirname(__FILE__)) . '/Schemas/Servico.json')) {
+        if (!file_exists(dirname(dirname(__FILE__)) . '/Schemas/OrdemServico.json')) {
             throw new \RuntimeException('not found schema for class ' . __CLASS__);
         }
-        $this->schema = json_decode(
-            file_get_contents(dirname(dirname(__FILE__)) . '/Schemas/Servico.json'),
-            true
+        $this->schema = Schema::make(
+            file_get_contents(dirname(dirname(__FILE__)) . '/Schemas/OrdemServico.json')
         );
     }
 
@@ -56,37 +58,8 @@ class OrdemServico
     public static function make($dados)
     {
         $instance = new static();
-        if (!file_exists(dirname(dirname(__FILE__)) . '/Schemas/OrdemServico.json')) {
-            throw new \RuntimeException('not found schema for class ' . __CLASS__);
-        }
-        $instance->schema = json_decode(
-            file_get_contents(dirname(dirname(__FILE__)) . '/Schemas/OrdemServico.json'),
-            true
-        );
         $instance->attach($dados);
 
         return $instance;
-    }
-
-    /**
-     * @return array
-     */
-    public function __debugInfo()
-    {
-        $result = [];
-
-        $aProps = (new \ReflectionClass($this))->getProperties();
-        foreach ($aProps as $property) {
-            if ($property->getName() === 'schema') {
-                continue;
-            }
-
-            $property->setAccessible(true);
-            $result[] = [
-                $property->getName() => $property->getValue($this)
-            ];
-        }
-
-        return $result;
     }
 }

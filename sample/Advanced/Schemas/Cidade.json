@@ -12,9 +12,10 @@
   {
     "name": "aEstado",
     "property": "estado",
-    "class": {
+    "type": "undefined",
+    "object": {
       "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Estado",
-      "name": [
+      "property": [
         "sNome",
         "iCodigoIbge"
       ]

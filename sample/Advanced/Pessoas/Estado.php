@@ -2,6 +2,8 @@
 
 namespace Solis\PhpMagic\Sample\Advanced\Pessoas;
 
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Helpers\Magic;
 
 /**
@@ -14,7 +16,7 @@ class Estado
     use Magic;
 
     /**
-     * @var array
+     * @var SchemaContract
      */
     protected $schema;
 
@@ -38,9 +40,8 @@ class Estado
             throw new \RuntimeException('not found schema for class ' . __CLASS__);
         }
 
-        $this->schema = json_decode(
-            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json"),
-            true
+        $this->schema = Schema::make(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Estado.json")
         );
     }
 }

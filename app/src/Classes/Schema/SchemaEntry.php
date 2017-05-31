@@ -48,13 +48,23 @@ class SchemaEntry extends SchemaEntryAbstract
             );
         }
 
+        if (!array_key_exists(
+            'type',
+            $schema
+        )
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "'type' field has not been found for defining schema entry ",
+                400
+            );
+        }
+
         $instance = new self(
             $schema['name'],
             $schema['property'],
-            !array_key_exists(
-                'type',
-                $schema
-            ) ? null : $schema['type']
+            $schema['type']
         );
 
         if (array_key_exists(

@@ -32,9 +32,10 @@
   {
     "name": "aCidade",
     "property": "cidade",
-    "class": {
+    "type": "undefined",
+    "object": {
       "class": "Solis\\PhpMagic\\Sample\\Advanced\\Pessoas\\Cidade",
-      "name": [
+      "property": [
         "sNome",
         "iCodigoIbge",
         "aEstado"

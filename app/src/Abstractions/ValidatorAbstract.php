@@ -7,7 +7,6 @@ use Solis\PhpMagic\Contracts\IntValidatorContract;
 use Solis\PhpMagic\Contracts\Schema\SchemaContract;
 use Solis\PhpMagic\Contracts\StringValidatorContract;
 use Solis\PhpMagic\Contracts\ValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
 use Solis\PhpMagic\Helpers\Types;
 use Solis\Breaker\TException;
 
@@ -105,19 +104,6 @@ abstract class ValidatorAbstract implements ValidatorContract
         $data
     ) {
 
-        if (!array_key_exists(
-            'type',
-            $meta
-        )
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                'invalid schema definition',
-                400
-            );
-        }
-
         switch ($meta['type']) {
             case Types::TYPE_STRING:
                 return $this->stringValidator->validate(
@@ -159,6 +145,7 @@ abstract class ValidatorAbstract implements ValidatorContract
                 );
         }
 
+        // still in development, so if not has an expected type, returns the raw value
         return $data;
     }
 }

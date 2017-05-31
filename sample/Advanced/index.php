@@ -3,6 +3,7 @@
 require_once '../../vendor/autoload.php';
 
 use Solis\PhpMagic\Sample\Advanced\Pessoas\Individuo;
+use Solis\Breaker\TException;
 
 error_reporting(E_ALL);
 
@@ -37,6 +38,6 @@ try {
     );
 
     var_dump($individuo);
-} catch (\Exception $exception) {
-    echo $exception->getMessage();
+} catch (TException $exception) {
+    echo $exception->toJson();
 }
