@@ -30,7 +30,7 @@ class SchemaEntry extends SchemaEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found property key in schema',
+                "'property' field has not been found for defining schema entry ",
                 400
             );
         }
@@ -43,7 +43,7 @@ class SchemaEntry extends SchemaEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found name key in schema',
+                "'name' field has not been found for defining schema entry ",
                 400
             );
         }

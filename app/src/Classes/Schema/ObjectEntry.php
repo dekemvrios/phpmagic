@@ -32,7 +32,7 @@ class ObjectEntry extends ObjectEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found key class in schema for schema object entry',
+                "'class' field has not been found for defining 'object' schema entry ",
                 400
             );
         }
@@ -41,7 +41,7 @@ class ObjectEntry extends ObjectEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                "class {$class['class']} has not been defined for schema object entry",
+                "class {$class['class']} has not been defined",
                 400
             );
         }
@@ -54,7 +54,7 @@ class ObjectEntry extends ObjectEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'not found key property in schema for schema object entry',
+                "'property' field has not been found for defining 'object' schema entry",
                 400
             );
         }
@@ -73,7 +73,7 @@ class ObjectEntry extends ObjectEntryAbstract
                 throw new TException(
                     __CLASS__,
                     __METHOD__,
-                    'key database is not of the espected type array',
+                    "'database' field is not of the expected type array for defining 'object' schema entry",
                     400
                 );
             }

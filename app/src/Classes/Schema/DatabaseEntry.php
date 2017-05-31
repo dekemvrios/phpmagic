@@ -32,7 +32,7 @@ class DatabaseEntry extends DatabaseEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                "key type not found in database entry schema",
+                "'type' field has not been found for defining database schema entry ",
                 400
             );
         }

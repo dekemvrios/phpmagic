@@ -29,7 +29,7 @@ class FormatEntry extends FormatEntryAbstract
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                'key function not found in schema',
+                "'function' field has not been found for defining 'format' schema entry ",
                 400
             );
         }
@@ -55,7 +55,7 @@ class FormatEntry extends FormatEntryAbstract
                 throw new TException(
                     __CLASS__,
                     __METHOD__,
-                    "not found function {$format['function']} in class {$format['class']}",
+                    "function {$format['function']} has not been defined in class {$format['class']}",
                     400
                 );
             }
