@@ -4,6 +4,7 @@ namespace Solis\PhpMagic\Abstractions;
 
 use Solis\PhpMagic\Contracts\FloatValidatorContract;
 use Solis\PhpMagic\Contracts\IntValidatorContract;
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
 use Solis\PhpMagic\Contracts\StringValidatorContract;
 use Solis\PhpMagic\Contracts\ValidatorContract;
 use Solis\PhpMagic\Helpers\Message;
@@ -18,7 +19,7 @@ use Solis\Breaker\TException;
 abstract class ValidatorAbstract implements ValidatorContract
 {
     /**
-     * @var array
+     * @var SchemaContract
      */
     protected $schema;
 
@@ -40,7 +41,7 @@ abstract class ValidatorAbstract implements ValidatorContract
     /**
      * __construct
      *
-     * @param $schema
+     * @param SchemaContract $schema
      * @param $stringValidator
      * @param $floatValidator
      * @param $intValidator
@@ -71,33 +72,20 @@ abstract class ValidatorAbstract implements ValidatorContract
         $value
     ) {
 
-        $meta = array_values(array_filter($this->schema, function ($item) use ($name) {
-            if (!array_key_exists('property', $item)) {
-                throw new TException(
-                    __CLASS__,
-                    __METHOD__,
-                    'invalid schema definition',
-                    400
-                );
-            }
-
-            return $item['property'] === $name ? true : false;
-        }));
-
+        $meta = $this->schema->getEntry('property', $name);
         if (empty($meta)) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    ['@name' => $name, '@class' => __CLASS__],
-                    Message::PROPERTY_NOT_FOUND
-                ) . ' schema',
+                "meta information for 'property' entry has not been found in schema definition",
                 400
             );
         }
 
+        $meta = $meta[0]->toArray();
+
         return $this->hydrate(
-            $meta[0],
+            $meta,
             $value
         );
     }

@@ -3,6 +3,7 @@
 namespace Solis\PhpMagic\Classes;
 
 use Solis\PhpMagic\Abstractions\ValidatorAbstract;
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
 use Solis\PhpMagic\Contracts\ValidatorContract;
 
 /**
@@ -16,7 +17,7 @@ class Validator extends ValidatorAbstract
     /**
      * make
      *
-     * @param $schema
+     * @param SchemaContract $schema
      *
      * @return ValidatorContract
      */

@@ -2,17 +2,19 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Classes\Schema\Schema;
+use Solis\PhpMagic\Sample\Schema\Classes\Estado;
 use Solis\Breaker\TException;
 
 try {
 
-    $instance = Schema::make(
-        file_get_contents('OrdemServico.json')
+    $instance = Estado::make(
+        [
+            'sNome'       => 'Santa Catarina',
+            'iCodigoIbge' => 42
+        ]
     );
 
-    //echo $instance->toJson();
-    print_r($instance->toArray(['name']));
+    var_dump($instance);
 
 } catch (TException $exception) {
     echo $exception->toJson();

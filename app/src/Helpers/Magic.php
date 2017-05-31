@@ -2,8 +2,11 @@
 
 namespace Solis\PhpMagic\Helpers;
 
+use Solis\PhpMagic\Classes\Schema\Schema;
 use Solis\PhpMagic\Classes\Validator;
 use Solis\Breaker\TException;
+use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
 /**
  * Class Magic
@@ -48,10 +51,10 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        is_array($name) ? $this->attForeign(
+        $name instanceof Schema ? $this->attForeign(
             $name,
             $value
-        ) : $this->attOwn(
+        ) : $this->___set(
             $name,
             $value
         );
@@ -76,13 +79,7 @@ trait Magic
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $name,
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ),
+                "property $name not found in class, review your class or arguments definition",
                 '400'
             );
         }
@@ -116,74 +113,34 @@ trait Magic
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => 'schema',
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ),
+                'property schema has not been defined, review your class definition',
                 '400'
             );
         }
 
-        $meta = array_values(
-            array_filter(
-                $this->schema,
-                function ($schemaItem) use
-                (
-                    $name
-                ) {
-                    if (!array_key_exists(
-                        'name',
-                        $schemaItem
-                    )
-                    ) {
-                        throw new TException(
-                            get_class($this),
-                            __METHOD__,
-                            'invalid schema definition',
-                            '400'
-                        );
-                    }
-
-                    return $schemaItem['name'] === $name ? true : false;
-                }
-            )
+        $meta = $this->schema->getEntry(
+            'name',
+            $name
         );
-
-        if (empty($meta) || !array_key_exists(
-                'property',
-                $meta[0]
-            )
-        ) {
+        if (empty($meta) || !is_array($meta)) {
             throw new TException(
                 get_class($this),
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $name,
-                        '@class' => __CLASS__,
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ) . ' schema',
-                '400'
+                "property $name not found in schema, review your schema definition",
+                400
             );
         }
 
-        return array_key_exists(
-            'class',
-            $meta[0]
-        ) ? $meta[0] : $meta[0]['property'];
+        return !empty($meta[0]->getObject()) ? $meta[0] : $meta[0]->getProperty();
     }
 
     /**
-     * attOwn
+     * ___set
      *
      * @param $name
      * @param $value
      */
-    private function attOwn(
+    private function ___set(
         $name,
         $value
     ) {
@@ -205,8 +162,8 @@ trait Magic
     /**
      * attForeign
      *
-     * @param $meta
-     * @param $value
+     * @param SchemaEntryContract $meta
+     * @param mixed               $value
      *
      * @throws TException
      */
@@ -214,34 +171,6 @@ trait Magic
         $meta,
         $value
     ) {
-
-        if (!property_exists(
-            $this,
-            $meta['property']
-        )
-        ) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name'  => $meta['property'],
-                        '@class' => get_class($this),
-                    ],
-                    Message::PROPERTY_NOT_FOUND
-                ) . ' schema',
-                '400'
-            );
-        }
-
-        if (!class_exists($meta['class']['class'])) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                "class not found {$meta['class']['class']}",
-                '400'
-            );
-        }
 
         $instance = is_array($value) ? $this->attForeignArrayValue(
             $value,
@@ -257,8 +186,8 @@ trait Magic
     /**
      * attArrayValue
      *
-     * @param $value
-     * @param $meta
+     * @param mixed               $value
+     * @param SchemaEntryContract $meta
      *
      * @return array
      * @throws TException
@@ -269,26 +198,30 @@ trait Magic
     ) {
         $aInstance = [];
         foreach ($value as $item) {
-            $instance = new $meta['class']['class'];
+            $class = $meta->getObject()->getClass();
 
-            if (is_array($meta['class']['name'])) {
-                foreach ($meta['class']['name'] as $property) {
+            $property = $meta->getObject()->getProperty();
+
+            $instance = new $class();
+
+            if (is_array($property)) {
+                foreach ($property as $prop) {
                     if (!is_array($item)) {
                         throw new TException(
                             get_class($this),
                             __METHOD__,
-                            "supplied value must be an key value array as specified in {$meta['name']} schema",
+                            "supplied value must be an key value array as specified in " . $meta->getName() . " schema",
                             '400'
                         );
                     }
 
-                    $instance->{$property} = array_key_exists(
-                        $property,
+                    $instance->{$prop} = array_key_exists(
+                        $prop,
                         $item
-                    ) ? $item[$property] : null;
+                    ) ? $item[$prop] : null;
                 }
             } else {
-                $instance->{$meta['class']['name']} = $item;
+                $instance->{$property} = $item;
             }
 
             $aInstance[] = $instance;
@@ -300,8 +233,8 @@ trait Magic
     /**
      * attForeignSingleValue
      *
-     * @param $value
-     * @param $meta
+     * @param mixed               $value
+     * @param SchemaEntryContract $meta
      *
      * @return mixed
      * @throws TException
@@ -310,18 +243,11 @@ trait Magic
         $value,
         $meta
     ) {
-        $instance = new $meta['class']['class'];
+        $class = $meta->getObject()->getClass();
+        $property = $meta->getObject()->getClass()->getProperty();
 
-        if (!is_string($meta['class']['name'])) {
-            throw new TException(
-                get_class($this),
-                __METHOD__,
-                "invalid type for property {$meta['class']['name']}",
-                '400'
-            );
-        }
-
-        $instance->{$meta['class']['name']} = $value;
+        $instance = new $class();
+        $instance->{$property} = $value;
 
         return $instance;
     }

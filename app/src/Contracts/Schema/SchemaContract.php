@@ -10,6 +10,37 @@ namespace Solis\PhpMagic\Contracts\Schema;
 interface SchemaContract
 {
     /**
+     * setSchema
+     *
+     * @param SchemaEntryContract []
+     */
+    public function setSchema($schema);
+
+    /**
+     * getSchema
+     *
+     * @return SchemaEntryContract[]
+     */
+    public function getSchema();
+
+    /**
+     * addEntry
+     *
+     * @param SchemaEntryContract $entry
+     */
+    public function addEntry($entry);
+
+    /**
+     * getEntry
+     *
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return array|bool
+     */
+    public function getEntry($key, $value);
+
+    /**
      * toArray
      *
      * @return array
