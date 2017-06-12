@@ -1,0 +1,13 @@
+{
+    "database": {
+        "table" : "tbveiculo",
+        "primaryKeys" : "nome"
+    },
+    "properties" : [
+        {
+            "alias" : "sNome",
+            "property" : "nome",
+            "type" : "string"
+        }
+    ]
+}
