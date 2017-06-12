@@ -1,10 +1,10 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Veiculo;
+namespace Solis\PhpMagic\Sample\Veiculo\Classes;
 
-use Solis\PhpMagic\Classes\Schema\Schema;
+use Solis\PhpSchema\Classes\Schema;
 use Solis\PhpMagic\Helpers\Magic;
-use Solis\PhpMagic\Helpers\Types;
+use Solis\Breaker\TException;
 
 /**
  * Class Roda
@@ -18,18 +18,7 @@ class Roda
     /**
      * @var array
      */
-    protected $schema = [
-        [
-            'name'     => 'sMarca',
-            'property' => 'marca',
-            'type'     => Types::TYPE_STRING
-        ],
-        [
-            'name'     => 'sPolegada',
-            'property' => 'polegada',
-            'type'     => Types::TYPE_FLOAT
-        ]
-    ];
+    protected $schema;
 
     /**
      * @var array
@@ -46,7 +35,18 @@ class Roda
      */
     public function __construct()
     {
-        $this->schema = Schema::make(json_encode($this->schema));
+        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Roda.json")) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                'not found schema for class ' . __CLASS__,
+                400
+            );
+        }
+
+        $this->schema = Schema::make(
+            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Roda.json")
+        );
     }
 
     /**

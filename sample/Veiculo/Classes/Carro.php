@@ -26,6 +26,11 @@ class Carro
     protected $nome;
 
     /**
+     * @var Roda
+     */
+    protected $roda;
+
+    /**
      * Carro constructor.
      */
     public function __construct()

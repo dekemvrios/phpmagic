@@ -211,7 +211,7 @@ trait Magic
                 throw new TException(
                     __CLASS__,
                     __METHOD__,
-                    "meta information for {$meta->getName()} expects an associative array as supplied argument",
+                    "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
                     500
                 );
             }

@@ -1,0 +1,18 @@
+{
+    "database" : {
+        "table" : "tbroda",
+        "primaryKeys" : "marca"
+    },
+    "properties" : [
+        {
+            "alias" : "sMarca",
+            "property" : "marca",
+            "type" : "string"
+        },
+        {
+            "alias" : "sPolegada",
+            "property" : "polegada",
+            "type" : "float"
+        }
+    ]
+}

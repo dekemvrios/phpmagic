@@ -7,7 +7,21 @@ use Solis\Breaker\TException;
 
 try {
 
-    var_dump(Carro::make(['sNome' => 'Fusca']));
+    var_dump(
+        Carro::make(
+            [
+                'sNome' => 'Fusca',
+                'sRoda' => [
+                    [
+                        'sMarca' => 'Pirelli'
+                    ],
+                    [
+                        'sMarca' => 'Pirelli'
+                    ]
+                ]
+            ]
+        )
+    );
 } catch (TException $exception) {
     echo $exception->toJson();
 }
