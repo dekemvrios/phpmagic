@@ -14,36 +14,44 @@ composer require solis/phpmagic
 First, you need to define a schema, representing the properties and its expected types/formats. 
 
 ```
-$schema = [
-    [
-        'name'     => 'iCode',  
-        'property' => 'code',
-        'type'     => Types::TYPE_INT,
-    ],
-    [
-        'name'     => 'sFirstName'
-        'property' => 'firstName',
-        'type'     => Types::TYPE_STRING,
-        'format'   => [
-            'uppercase', 
-            'size' => 15
-        ]
-    ]
-];
+{
+    "properties": [
+        {
+          "alias": "sNome",
+          "property": "nome",
+          "type": "string"
+        },
+        {
+          "alias": "iCodigoIbge",
+          "property": "codigoIbge",
+          "type": "int"
+        }
+     ]
+}
 ```
 
-Require it with composer, instantiate a Validator class and validate a value for a property defined in the schema
+The schema is a json representation of a class and is built by the PhpSchema\Schema class.
+
+```
+Solis\PhpSchema\Classes\Schema;
+
+$schema = Schema::make(
+    file_get_contents("/path/to/schema.json")
+);
+```
+
+Its possible to use the validation engine to validate a certain value against the schema.
 
 ```
 use Solis\PhpMagic\Classes\Validator;
 
 try {
 
-  $value = Validator::make($schema)->validate('firstName', 'Individuo');
+  $value = Validator::make($schema)->validate($property, $value);
 
 } catch(\InvalidArgumentException $exception){
   $exception->getMessage();  
 }
 ```
 
-It validates and returns the value as especified in the schema, throwing a exception if the value is invalid.
+It validates and returns the value as specified in the schema, throwing a TException if the value is invalid.
