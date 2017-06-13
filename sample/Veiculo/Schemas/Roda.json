@@ -1,8 +1,4 @@
 {
-    "database" : {
-        "table" : "tbroda",
-        "primaryKeys" : "marca"
-    },
     "properties" : [
         {
             "alias" : "sMarca",

@@ -48,7 +48,7 @@ class Individuo
 
     /**
      * @param $dados
-     * available
+     * 
      * @return static
      */
     public static function make($dados)
