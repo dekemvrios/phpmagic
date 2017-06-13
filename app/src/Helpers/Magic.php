@@ -235,4 +235,35 @@ trait Magic
 
         return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
     }
+
+    /**
+     * toArray
+     * 
+     * @throws TException
+     */
+    public function toArray()
+    {
+
+        if (!property_exists(
+                $this,
+                'schema'
+            ) || empty($this->schema)
+        ) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "schema property has not been defined at " . get_class($this),
+                500
+            );
+        }
+
+        $dados = [];
+        foreach ($this->schema->getProperties() as $item) {
+            if (empty($item->getObject())) {
+                $dados[$item->getProperty()] = $this->{$item->getProperty()};
+            }
+        }
+
+        return $dados;
+    }
 }
