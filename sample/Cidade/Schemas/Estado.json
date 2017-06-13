@@ -1,43 +1,43 @@
 {
-    "database" : {
-        "table" : "tbestado",
-        "primaryKyes" : "codigoIbge"
+  "database": {
+    "table": "tbestado",
+    "primaryKeys": "codigoIbge"
+  },
+  "properties": [
+    {
+      "alias": "sNome",
+      "property": "nome",
+      "type": "string",
+      "format": [
+        {
+          "function": "uppercase"
+        },
+        {
+          "function": "size",
+          "params": 2
+        }
+      ]
     },
-    "properties" : [
-      {
-        "alias": "sNome",
-        "property": "nome",
-        "type": "string",
-        "format": [
-          {
-            "function": "uppercase"
-          },
-          {
-            "function": "size",
-            "params": 2
-          }
-        ]
-      },
-      {
-        "alias": "iCodigoIbge",
-        "property": "codigoIbge"
-        "type": "int",
-      },
-      {
-        "alias": "aCidade",
-        "property": "cidade",
-        "type": "undefined",
-        "object": {
-          "class": "Solis\\PhpSchema\\Sample\\Cidade\\Classes\\Cidade"
-        }
-      },
-      {
-        "alias": "aCapital",
-        "property": "capital",
-        "type": "undefined",
-        "object": {
-          "class": "Solis\\PhpSchema\\Sample\\Cidade\\Classes\\Cidade"
-        }
+    {
+      "alias": "iCodigoIbge",
+      "property": "codigoIbge",
+      "type": "int"
+    },
+    {
+      "alias": "aCidade",
+      "property": "cidade",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
       }
-    ]
+    },
+    {
+      "alias": "aCapital",
+      "property": "capital",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
+      }
+    }
+  ]
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Advanced\Pessoas;
+namespace Solis\PhpMagic\Sample\Pessoas\Classes;
 
-use Solis\PhpMagic\Classes\Schema\Schema;
-use Solis\PhpMagic\Contracts\Schema\SchemaContract;
+use Solis\PhpSchema\Contracts\SchemaContract;
+use Solis\PhpSchema\Classes\Schema;
 use Solis\PhpMagic\Helpers\Magic;
 
 /**

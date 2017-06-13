@@ -2,7 +2,7 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Advanced\Pessoas\Individuo;
+use Solis\PhpMagic\Sample\Pessoas\Classes\Individuo;
 use Solis\Breaker\TException;
 
 error_reporting(E_ALL);
@@ -23,13 +23,7 @@ try {
                     'aCidade'      => [
                         [
                             'sNome'       => 'Rio do Sul',
-                            'iCodigoIbge' => '123456',
-                            'aEstado'     => [
-                                [
-                                    'sNome'       => 'Santa Catarina',
-                                    'iCodigoIbge' => '123459',
-                                ]
-                            ]
+                            'iCodigoIbge' => '123456'
                         ]
                     ]
                 ],
