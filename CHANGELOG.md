@@ -2,6 +2,11 @@
 
 All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
 
+## 3.0.0 - 2017-06-13
+
+### Changed
+- Defined solis/phpschema as default schema handler
+
 ## 2.0.0 - 2017-05-30
 
 ### Changed

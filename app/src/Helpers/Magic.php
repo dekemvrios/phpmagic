@@ -2,11 +2,9 @@
 
 namespace Solis\PhpMagic\Helpers;
 
-use Solis\PhpMagic\Classes\Schema\Schema;
+use Solis\PhpSchema\Abstractions\Properties\PropertyEntryAbstract;
 use Solis\PhpMagic\Classes\Validator;
 use Solis\Breaker\TException;
-use Solis\PhpMagic\Contracts\Schema\SchemaContract;
-use Solis\PhpMagic\Contracts\Schema\SchemaEntryContract;
 
 /**
  * Class Magic
@@ -51,7 +49,7 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        $name instanceof SchemaEntryContract ? $this->___object(
+        $name instanceof PropertyEntryAbstract ? $this->___object(
             $name,
             $value
         ) : $this->___set(
@@ -118,11 +116,14 @@ trait Magic
             );
         }
 
-        $meta = $this->schema->getEntry(
-            'name',
+        $meta = $this->schema->getPropertyEntry(
+            'alias',
             $name
         );
-        if (empty($meta) || !is_array($meta)) {
+
+        $meta = is_array($meta) ? $meta[0] : $meta;
+
+        if (empty($meta)) {
             throw new TException(
                 get_class($this),
                 __METHOD__,
@@ -131,7 +132,7 @@ trait Magic
             );
         }
 
-        return !empty($meta[0]->getObject()) ? $meta[0] : $meta[0]->getProperty();
+        return !empty($meta->getObject()) ? $meta : $meta->getProperty();
     }
 
     /**
@@ -162,8 +163,8 @@ trait Magic
     /**
      * ___object
      *
-     * @param SchemaEntryContract $meta
-     * @param mixed               $value
+     * @param PropertyEntryAbstract $meta
+     * @param mixed                 $value
      *
      * @throws TException
      */
@@ -183,8 +184,8 @@ trait Magic
     /**
      * ___attForeign
      *
-     * @param array               $value
-     * @param SchemaEntryContract $meta
+     * @param array                 $value
+     * @param PropertyEntryAbstract $meta
      *
      * @return array
      * @throws TException
@@ -210,7 +211,7 @@ trait Magic
                 throw new TException(
                     __CLASS__,
                     __METHOD__,
-                    "meta information for {$meta->getName()} expects an associative array as supplied argument",
+                    "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
                     500
                 );
             }

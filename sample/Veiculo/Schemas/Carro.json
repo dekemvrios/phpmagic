@@ -1,0 +1,17 @@
+{
+    "properties" : [
+        {
+            "alias" : "sNome",
+            "property" : "nome",
+            "type" : "string"
+        },
+        {
+            "alias" : "sRoda",
+            "property" : "roda",
+            "type" : "undefined",
+            "object" : {
+                "class" : "Solis\\PhpMagic\\Sample\\Veiculo\\Classes\\Roda"
+            }
+        }
+    ]
+}

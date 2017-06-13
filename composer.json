@@ -6,7 +6,8 @@
   ],
   "require": {
     "php": ">=7.0",
-    "solis/phpbreaker": "0.0.1"
+    "solis/phpbreaker": "0.0.1",
+    "solis/phpschema": "0.0.1"
   },
   "autoload": {
     "psr-4": {

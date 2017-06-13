@@ -1,0 +1,42 @@
+{
+  "properties": [
+    {
+      "alias": "sLogradouro",
+      "property": "logradouro",
+      "type": "string",
+      "format": [
+        {
+          "function": "uppercase"
+        }
+      ]
+    },
+    {
+      "alias": "sCep",
+      "property": "cep",
+      "type": "string"
+    },
+    {
+      "alias": "sBairro",
+      "property": "bairro",
+      "type": "string",
+      "format": [
+        {
+          "function": "uppercase"
+        }
+      ]
+    },
+    {
+      "alias": "sComplemento",
+      "property": "complemento",
+      "type": "string"
+    },
+    {
+      "alias": "aCidade",
+      "property": "cidade",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "properties": [
+    {
+      "alias": "iCodigo",
+      "property": "codigo",
+      "type": "int"
+    },
+    {
+      "alias": "fDinheiro",
+      "property": "dinheiro",
+      "type": "float"
+    },
+    {
+      "alias": "sPrimeiroNome",
+      "property": "primeiroNome",
+      "type": "string",
+      "format": [
+        {
+          "function": "uppercase"
+        },
+        {
+          "function": "size",
+          "params": 2
+        }
+      ]
+    },
+    {
+      "alias": "sSegundoNome",
+      "property": "segundoNome",
+      "type": "string",
+      "format": [
+        {
+          "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Individuo",
+          "function": "getCustomString",
+          "params": [
+            "Exemplo",
+            "Becker"
+          ]
+        }
+      ]
+    },
+    {
+      "alias": "aEndereco",
+      "property": "endereco",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Endereco"
+      }
+    }
+  ]
+}

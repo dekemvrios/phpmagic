@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "alias": "sNome",
+      "type": "string",
+      "property": "nome",
+      "format": [
+        {
+          "function": "lowercase"
+        }
+      ]
+    },
+    {
+      "alias": "iCodigoIbge",
+      "type": "int",
+      "property": "codigoIbge"
+    }
+  ]
+}

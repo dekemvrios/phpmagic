@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "alias": "sNome",
+      "property": "nome",
+      "type": "string",
+      "format": [
+        {
+          "function": "uppercase"
+        },
+        {
+          "function": "size",
+          "params": 2
+        }
+      ]
+    },
+    {
+      "alias": "iCodigoIbge",
+      "property": "codigoIbge",
+      "type": "int"
+    },
+    {
+      "alias": "aCidade",
+      "property": "cidade",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
+      }
+    },
+    {
+      "alias": "aCapital",
+      "property": "capital",
+      "type": "undefined",
+      "object": {
+        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
+      }
+    }
+  ]
+}

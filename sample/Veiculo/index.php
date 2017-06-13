@@ -2,33 +2,26 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Veiculo\Carro;
+use Solis\PhpMagic\Sample\Veiculo\Classes\Carro;
 use Solis\Breaker\TException;
 
-error_reporting(E_ALL);
-
 try {
-    $veiculo = Carro::make(
-        [
-            'sNome' => 'Kombi',
-            'sRoda' => [
-                [
-                    'sMarca'    => 'Pirelli',
-                    'sPolegada' => 15
-                ],
-                [
-                    'sMarca'    => 'Michelin',
-                    'sPolegada' => 19
-                ],
-                [
-                    'sMarca'    => 'GoodYear',
-                    'sPolegada' => 21
-                ],
-            ]
-        ]
-    );
 
-    var_dump($veiculo);
+    var_dump(
+        Carro::make(
+            [
+                'sNome' => 'Fusca',
+                'sRoda' => [
+                    [
+                        'sMarca' => 'Pirelli'
+                    ],
+                    [
+                        'sMarca' => 'Pirelli'
+                    ]
+                ]
+            ]
+        )
+    );
 } catch (TException $exception) {
     echo $exception->toJson();
 }
