@@ -265,7 +265,7 @@ trait Magic
 
         $dados = [];
         foreach ($this->schema->getProperties() as $item) {
-            $value = $this->{$item->{$method}()};
+            $value = $this->{$item->getProperty()};
             if(!empty($value)){
                 $dados[$item->{$method}()] = is_object($value) ? $value->toArray() : $value;
             }
