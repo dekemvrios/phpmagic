@@ -266,8 +266,16 @@ trait Magic
         $dados = [];
         foreach ($this->schema->getProperties() as $item) {
             $value = $this->{$item->getProperty()};
-            if(!empty($value)){
-                $dados[$item->{$method}()] = is_object($value) ? $value->toArray(!empty($asAlias) ? $asAlias : false) : $value;
+
+            if (!empty($value)) {
+                if (is_array($value)) {
+                    $dados[$item->{$method}()] = [];
+                    foreach ($value as $valueItem) {
+                        $dados[$item->{$method}()][] = is_object($valueItem) ? $valueItem->toArray(!empty($asAlias) ? $asAlias : false) : $valueItem;
+                    }
+                } else {
+                    $dados[$item->{$method}()] = is_object($value) ? $value->toArray(!empty($asAlias) ? $asAlias : false) : $value;
+                }
             }
         }
 
