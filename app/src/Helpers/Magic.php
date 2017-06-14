@@ -238,10 +238,14 @@ trait Magic
 
     /**
      * toArray
-     * 
+     *
+     * @param boolean $asAlias
+     *
      * @throws TException
+     *
+     * @return array
      */
-    public function toArray()
+    public function toArray($asAlias = false)
     {
 
         if (!property_exists(
@@ -257,11 +261,13 @@ trait Magic
             );
         }
 
+        $method = !empty($asAlias) ? "getAlias" : "getProperty";
+
         $dados = [];
         foreach ($this->schema->getProperties() as $item) {
-            $value = $this->{$item->getProperty()};
+            $value = $this->{$item->{$method}()};
             if(!empty($value)){
-                $dados[$item->getProperty()] = is_object($value) ? $value->toArray() : $value;
+                $dados[$item->{$method}()] = is_object($value) ? $value->toArray() : $value;
             }
         }
 
