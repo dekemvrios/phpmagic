@@ -2,6 +2,11 @@
 
 All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
 
+## 3.1.0 - 2017-06-21
+
+### Changed
+- Throw TException if trying to set null value in property defined as required
+
 ## 3.0.0 - 2017-06-13
 
 ### Changed
