@@ -140,23 +140,41 @@ trait Magic
      *
      * @param $name
      * @param $value
+     *
+     * @throws TException
      */
     private function ___set(
         $name,
         $value
     ) {
-        $value = Validator::make($this->schema)->validate(
-            $name,
-            $value
-        );
+        $isRequired = $this->schema->getPropertyEntry(
+            'property',
+            $name
+        )->getBehavior()->isRequired();
 
-        if (method_exists(
-            $this,
-            'set' . ucfirst($name)
-        )) {
-            $this->{'set' . ucfirst($name)}($value);
-        } else {
-            $this->{$name} = $value;
+        if (is_null($value) && !empty($isRequired)) {
+            throw new TException(
+                __CLASS__,
+                __METHOD__,
+                "value for property [ {$name} ] set as required cannot be null",
+                400
+            );
+        }
+
+        if (!is_null($value)) {
+            $value = Validator::make($this->schema)->validate(
+                $name,
+                $value
+            );
+
+            if (method_exists(
+                $this,
+                'set' . ucfirst($name)
+            )) {
+                $this->{'set' . ucfirst($name)}($value);
+            } else {
+                $this->{$name} = $value;
+            }
         }
     }
 
