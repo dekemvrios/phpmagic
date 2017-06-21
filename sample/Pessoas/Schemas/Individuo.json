@@ -8,7 +8,10 @@
     {
       "alias": "fDinheiro",
       "property": "dinheiro",
-      "type": "float"
+      "type": "float",
+      "behavior": {
+        "required": false
+      }
     },
     {
       "alias": "sPrimeiroNome",
