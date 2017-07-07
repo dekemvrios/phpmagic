@@ -1,5 +1,6 @@
 {
   "name": "solis/phpmagic",
+  "description": "PhpMagic use magic methods to validate and set/get class properties",
   "license": [
     "GPL-3.0+",
     "LGPL-3.0+"
@@ -11,7 +12,11 @@
   },
   "autoload": {
     "psr-4": {
-      "Solis\\PhpMagic\\": "app/src",
+      "Solis\\PhpMagic\\": "app/src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "Solis\\PhpMagic\\Sample\\": "sample"
     }
   }
