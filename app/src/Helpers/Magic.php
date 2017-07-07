@@ -285,7 +285,7 @@ trait Magic
         foreach ($this->schema->getProperties() as $item) {
             $value = $this->{$item->getProperty()};
 
-            if (!empty($value)) {
+            if (!is_null($value)) {
                 if (is_array($value)) {
                     $dados[$item->{$method}()] = [];
                     foreach ($value as $valueItem) {
