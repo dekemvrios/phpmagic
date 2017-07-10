@@ -1,49 +1,55 @@
 # Changelog
 
-All the relevant changes for this project will be documented following the [keeping changelog](http://keepachangelog.com/) especifications
+Todas as modificações relevantes para esse projeto serão documentadas seguindo as especificações descritas por [keeping changelog](http://keepachangelog.com/)
+
+## 3.2.0 - 2017-07-10
+
+### Changed
+- Atualizado pacote solis/phpbreaker para versão 0.0.2.
+- Atualizado pacote solis/phpschema para versão 0.2.0.
 
 ## 3.1.0 - 2017-06-21
 
 ### Changed
-- Throw TException if trying to set null value in property defined as required
+- Adicionado validação de modo a lançar TException caso tentativa de atribuir valor nulo a propriedade definida como required
 
 ## 3.0.0 - 2017-06-13
 
 ### Changed
-- Defined solis/phpschema as default schema handler
+- Definido solis/phpschema como mecanismo padrão para construção de schemas
 
 ## 2.0.0 - 2017-05-30
 
 ### Changed
-- Added schema class builder
-- Defined Schema Builder as default schema handler
+- Adicionado mecanismos para construção de schemas
 
 ## 1.2.0 - 2017-05-26
 
 ### Changed
-- Added solis/breaker as default exception handler
+- Adicionado solis/phpbreaker como manipulador default de Exceptions
 
 ## 1.1.0 - 2017-05-22
 
 ### Changed
-- Added validation to set array of objects as value in a class property 
+- Adicionado validação de modo a atribuir array de instâncias a uma propriedade
 
 ## 1.0.0 - 2017-05-22
 
 ### Changed
-- Changed package name and namespaces to phpmagic
+- Modificado nome de pacote e namespaces para PhpMagic
 
 ## 0.1.0 - 2017-05-22
 
 ### Added
-- Added schema entry to set property as a class instance
+- Adicionado entrada no schema de modo a atribuir propriedade como instância de classe
 
 ## 0.0.2 - 2017-05-18
 
 ### Fixed
-- Used $this keyword as reference in magic trait for method call 
+- Used $this keyword as reference in magic trait for method call
+- Modificado chamadas de função internas a magic trait para utilizarem a palavra chave $this
 
 ## 0.0.1 - 2017-05-18
 
 ### Added
-- Implemented semantic versioning [Semantic Versioning 2.0.0](http://semver.org/)
+- Implementado versionamento semântico [Semantic Versioning 2.0.0](http://semver.org/)
