@@ -4,7 +4,7 @@ namespace Solis\Expressive\Magic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
-use Solis\Expressive\Magic\Classes\Validator;
+use Solis\Expressive\Magic\Validator\Validator;
 use Solis\Expressive\Magic\MagicException;
 
 /**

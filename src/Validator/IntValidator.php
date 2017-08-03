@@ -1,29 +1,28 @@
 <?php
 
-namespace Solis\Expressive\Magic\Classes;
+namespace Solis\Expressive\Magic\Validator;
 
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
-use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Expressive\Magic\Contracts\IntValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\MagicException;
 
 /**
- * Class FloatValidator
+ * Class IntValidator
  *
  * @package Solis\PhpValidator\Types
  */
-class FloatValidator extends TypeValidatorAbstract implements FloatValidatorContract
+class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
 {
-
     /**
      * @var array
      */
     protected $formatting = [
         [
-            'name'     => 'floatval',
-            'function' => 'applyFloatval',
-            'class'    => 'Solis\\Expressive\\Magic\\Format\\FloatFormat',
-        ],
+            'name'     => 'intval',
+            'function' => 'applyIntval',
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\IntFormat'
+        ]
     ];
 
     /**
@@ -49,7 +48,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
      * @param       $data
      * @param array $format
      *
-     * @return float
+     * @return int
      *
      * @throws TExceptionAbstract
      */
@@ -58,11 +57,11 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
         $data,
         $format = null
     ) {
-        if (!is_numeric($data) || !is_float(floatval($data))) {
+        if (!is_numeric($data) || !is_int(intval($data))) {
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "property {$name} is invalid for type float",
+                "property {$name} is invalid for type int",
                 400,
                 $this->meta
             );
@@ -75,6 +74,6 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
             );
         }
 
-        return floatval($data);
+        return intval($data);
     }
 }

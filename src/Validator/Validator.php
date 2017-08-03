@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\Expressive\Magic\Classes;
+namespace Solis\Expressive\Magic\Validator;
 
 use Solis\Expressive\Magic\Abstractions\ValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\ValidatorContract;
