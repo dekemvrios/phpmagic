@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Validator;
 
-use Solis\Breaker\TException;
-use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
-use Solis\PhpMagic\Contracts\StringValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
+use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\StringValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class StringValidator
@@ -22,33 +22,37 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
             'name'     => 'size',
             'function' => 'applySize',
             'params'   => true,
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'uppercase',
             'function' => 'applyUppercase',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'lowercase',
             'function' => 'applyLowercase',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'noSpecialChars',
             'function' => 'removeSpecialChars',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
-        ]
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
+        ],
     ];
 
     /**
-     * make
+     * @param mixed $meta
      *
      * @return static
      */
-    public static function make()
+    public static function make($meta = null)
     {
-        return new static();
+        $instance = new static();
+        if (!empty($meta)) {
+            $instance->meta = $meta;
+        }
+        return $instance;
     }
 
     /**
@@ -60,7 +64,7 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
      *
      * @return string
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -68,17 +72,12 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
         $format = null
     ) {
         if (!is_string($data)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name' => $name,
-                        '@type' => 'string',
-                    ],
-                    Message::PROPERTY_INVALID_TYPE
-                ),
-                400
+                "property {$name} is invalid for type string",
+                400,
+                $this->meta
             );
         }
 

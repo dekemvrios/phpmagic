@@ -2,7 +2,7 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Veiculo\Classes\Carro;
+use Solis\Expressive\Magic\Sample\Veiculo\Classes\Carro;
 use Solis\Breaker\TException;
 
 try {
@@ -12,16 +12,16 @@ try {
             'sNome' => 'Fusca',
             'sRoda' => [
                 [
-                    'sMarca' => 'Pirelli'
+                    'sMarca' => 'Pirelli',
                 ],
                 [
-                    'sMarca' => 'Pirelli'
-                ]
-            ]
+                    'sMarca' => 'Pirelli',
+                ],
+            ],
         ]
     );
 
-    $instance->toArray();
+    var_dump($instance);
 
 } catch (TException $exception) {
     echo $exception->toJson();

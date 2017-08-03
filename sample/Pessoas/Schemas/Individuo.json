@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "schema": "Individuo.json"
+  },
   "properties": [
     {
       "alias": "iCodigo",
@@ -33,7 +36,7 @@
       "type": "string",
       "format": [
         {
-          "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Individuo",
+          "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Individuo",
           "function": "getCustomString",
           "params": [
             "Exemplo",
@@ -46,8 +49,8 @@
       "alias": "aEndereco",
       "property": "endereco",
       "type": "undefined",
-      "object": {
-        "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Endereco"
+      "composition": {
+        "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Endereco"
       }
     }
   ]

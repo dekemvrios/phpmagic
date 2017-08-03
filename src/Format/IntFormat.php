@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Format;
+namespace Solis\Expressive\Magic\Format;
 
 /**
  * Class IntFormat
  *
- * @package Solis\PhpMagic\Format
+ * @package Solis\Expressive\Magic\Format
  */
 class IntFormat
 {
