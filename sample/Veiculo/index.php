@@ -12,16 +12,16 @@ try {
             'sNome' => 'Fusca',
             'sRoda' => [
                 [
-                    'sMarca' => 'Pirelli'
+                    'sMarca' => 'Pirelli',
                 ],
                 [
-                    'sMarca' => 'Pirelli'
-                ]
-            ]
+                    'sMarca' => 'Pirelli',
+                ],
+            ],
         ]
     );
 
-    $instance->toArray();
+    var_dump($instance);
 
 } catch (TException $exception) {
     echo $exception->toJson();

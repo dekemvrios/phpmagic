@@ -34,7 +34,7 @@
       "alias": "aCidade",
       "property": "cidade",
       "type": "undefined",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
       }
     }

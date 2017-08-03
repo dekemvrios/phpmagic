@@ -1,18 +1,37 @@
 <?php
 
-namespace Solis\PhpMagic\Helpers;
+namespace Solis\PhpMagic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\PhpMagic\Classes\Validator;
 use Solis\Breaker\TException;
 
 /**
- * Class Magic
+ * Trait HasMagic
  *
- * @package Solis\PhpValidator\Helpers
+ * @package Solis\PhpMagic\Concerns
  */
-trait Magic
+trait HasMagic
 {
+
+    use HasSchema;
+
+    /**
+     * make
+     *
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados = [])
+    {
+        $instance = new static();
+        if (!empty($dados)) {
+            $instance->attach($dados);
+        }
+
+        return $instance;
+    }
 
     /**
      * attach
@@ -102,12 +121,7 @@ trait Magic
      */
     private function ___property($name)
     {
-        if (!property_exists(
-                $this,
-                'schema'
-            ) || empty($this->schema)
-        ) {
-
+        if (!isset(self::$schema)) {
             throw new TException(
                 get_class($this),
                 __METHOD__,
@@ -116,7 +130,7 @@ trait Magic
             );
         }
 
-        $meta = $this->schema->getPropertyEntryByIdentifier(
+        $meta = self::$schema->getPropertyEntryByIdentifier(
             $name,
             'alias'
         );
@@ -147,7 +161,7 @@ trait Magic
         $name,
         $value
     ) {
-        $isRequired = $this->schema->getPropertyEntryByIdentifier(
+        $isRequired = self::$schema->getPropertyEntryByIdentifier(
             $name
         )->getBehavior()->isRequired();
 
@@ -161,7 +175,7 @@ trait Magic
         }
 
         if (!is_null($value)) {
-            $value = Validator::make($this->schema)->validate(
+            $value = Validator::make(self::$schema)->validate(
                 $name,
                 $value
             );
@@ -251,51 +265,5 @@ trait Magic
         }
 
         return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
-    }
-
-    /**
-     * toArray
-     *
-     * @param boolean $asAlias
-     *
-     * @throws TException
-     *
-     * @return array
-     */
-    public function toArray($asAlias = false)
-    {
-
-        if (!property_exists(
-                $this,
-                'schema'
-            ) || empty($this->schema)
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "schema property has not been defined at " . get_class($this),
-                500
-            );
-        }
-
-        $method = !empty($asAlias) ? "getAlias" : "getProperty";
-
-        $dados = [];
-        foreach ($this->schema->getProperties() as $item) {
-            $value = $this->{$item->getProperty()};
-
-            if (!is_null($value)) {
-                if (is_array($value)) {
-                    $dados[$item->{$method}()] = [];
-                    foreach ($value as $valueItem) {
-                        $dados[$item->{$method}()][] = is_object($valueItem) ? $valueItem->toArray(!empty($asAlias) ? $asAlias : false) : $valueItem;
-                    }
-                } else {
-                    $dados[$item->{$method}()] = is_object($value) ? $value->toArray(!empty($asAlias) ? $asAlias : false) : $value;
-                }
-            }
-        }
-
-        return $dados;
     }
 }

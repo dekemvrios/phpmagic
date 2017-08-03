@@ -46,7 +46,7 @@
       "alias": "aEndereco",
       "property": "endereco",
       "type": "undefined",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Endereco"
       }
     }

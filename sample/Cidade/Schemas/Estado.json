@@ -23,7 +23,7 @@
       "alias": "aCidade",
       "property": "cidade",
       "type": "undefined",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
       }
     },
@@ -31,7 +31,7 @@
       "alias": "aCapital",
       "property": "capital",
       "type": "undefined",
-      "object": {
+      "composition": {
         "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
       }
     }

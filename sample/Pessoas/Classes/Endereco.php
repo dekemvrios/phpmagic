@@ -2,9 +2,7 @@
 
 namespace Solis\PhpMagic\Sample\Pessoas\Classes;
 
-use Solis\PhpSchema\Contracts\SchemaContract;
-use Solis\PhpSchema\Classes\Schema;
-use Solis\PhpMagic\Helpers\Magic;
+use Solis\PhpMagic\Concerns\HasMagic;
 
 /**
  * Class Endereco
@@ -14,12 +12,7 @@ use Solis\PhpMagic\Helpers\Magic;
 class Endereco
 {
 
-    use Magic;
-
-    /**
-     * @var SchemaContract
-     */
-    protected $schema;
+    use HasMagic;
 
     /**
      * @var string
@@ -53,26 +46,6 @@ class Endereco
      */
     public function __construct()
     {
-
-        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json")) {
-            throw new \RuntimeException('not found schema for class ' . __CLASS__);
-        }
-
-        $this->schema = Schema::make(
-            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json")
-        );
-    }
-
-    /**
-     * @param $dados
-     *
-     * @return static
-     */
-    public static function make($dados)
-    {
-        $instance = new static();
-        $instance->attach($dados);
-
-        return $instance;
+        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json");
     }
 }

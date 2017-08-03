@@ -2,9 +2,7 @@
 
 namespace Solis\PhpMagic\Sample\Pessoas\Classes;
 
-use Solis\PhpSchema\Contracts\SchemaContract;
-use Solis\PhpSchema\Classes\Schema;
-use Solis\PhpMagic\Helpers\Magic;
+use Solis\PhpMagic\Concerns\HasMagic;
 
 /**
  * Class Individuo
@@ -14,12 +12,7 @@ use Solis\PhpMagic\Helpers\Magic;
 class Individuo
 {
 
-    use Magic;
-
-    /**
-     * @var SchemaContract
-     */
-    protected $schema;
+    use HasMagic;
 
     /**
      * @var Endereco
@@ -47,26 +40,13 @@ class Individuo
     protected $segundoNome;
 
     /**
-     * @param $dados
-     * 
-     * @return static
+     * __construct
+     *
+     * @throws \RuntimeException
      */
-    public static function make($dados)
+    public function __construct()
     {
-
-        $individuo = new static();
-
-        if (!file_exists(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json")) {
-            throw new \RuntimeException('not found schema for class ' . __CLASS__);
-        }
-
-        $individuo->schema = Schema::make(
-            file_get_contents(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json")
-        );
-
-        $individuo->attach($dados);
-
-        return $individuo;
+        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json");
     }
 
     /**

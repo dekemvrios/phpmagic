@@ -2,7 +2,7 @@
 
 namespace Solis\PhpMagic\Abstractions;
 
-use Solis\PhpSchema\Contracts\SchemaContract;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\PhpMagic\Contracts\FloatValidatorContract;
 use Solis\PhpMagic\Contracts\IntValidatorContract;
 use Solis\PhpMagic\Contracts\StringValidatorContract;
@@ -71,7 +71,7 @@ abstract class ValidatorAbstract implements ValidatorContract
         $value
     ) {
 
-        $meta = $this->schema->getPropertyEntry('property', $name);
+        $meta = $this->schema->getPropertyEntryByIdentifier($name);
         if (empty($meta)) {
             throw new TException(
                 __CLASS__,

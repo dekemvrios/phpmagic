@@ -23,11 +23,11 @@ try {
                     'aCidade'      => [
                         [
                             'sNome'       => 'Rio do Sul',
-                            'iCodigoIbge' => '123456'
-                        ]
-                    ]
+                            'iCodigoIbge' => '123456',
+                        ],
+                    ],
                 ],
-            ]
+            ],
         ]
     );
 

@@ -4,7 +4,7 @@ namespace Solis\PhpMagic\Classes;
 
 use Solis\PhpMagic\Abstractions\ValidatorAbstract;
 use Solis\PhpMagic\Contracts\ValidatorContract;
-use Solis\PhpSchema\Contracts\SchemaContract;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
 
 /**
  * Class Validator

@@ -19,7 +19,7 @@ try {
                 [
                     'sNome'       => 'Joinville',
                     'iCodigoIbge' => 52,
-                ]
+                ],
             ],
             "aCapital"    => [
                 'sNome'       => 'Florianopolis',
