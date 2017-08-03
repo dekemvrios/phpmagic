@@ -2,7 +2,7 @@
 
 ## PhpMagic
 
-PhpSchema é utilizado como ferramenta por [phpexpressive](https://github.com/rafaelbeecker/phpexpressive) para atribuição e validação dinâmica de propriedades.
+PhpMagic é utilizado como ferramenta por [phpexpressive](https://github.com/rafaelbeecker/phpexpressive) para atribuição e validação dinâmica de propriedades.
 
 ## Como instalar?
 
