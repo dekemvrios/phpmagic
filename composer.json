@@ -11,7 +11,7 @@
   "require": {
     "php": ">=7.0",
     "solis/phpbreaker": "~0.2",
-    "solis/phpschema": "dev-master"
+    "solis/phpschema": "~1.0"
   },
   "autoload": {
     "psr-4": {
