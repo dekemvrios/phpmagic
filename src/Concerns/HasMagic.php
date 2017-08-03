@@ -98,7 +98,8 @@ trait HasMagic
                 get_class($this),
                 __METHOD__,
                 "property $name not found in class, review your class or arguments definition",
-                '400'
+                400,
+                self::$schema->getMeta()
             );
         }
 
@@ -127,7 +128,8 @@ trait HasMagic
                 get_class($this),
                 __METHOD__,
                 'property schema has not been defined, review your class definition',
-                '400'
+                400,
+                self::$schema->getMeta()
             );
         }
 
@@ -143,7 +145,8 @@ trait HasMagic
                 get_class($this),
                 __METHOD__,
                 "property $name not found in schema, review your schema definition",
-                400
+                400,
+                self::$schema->getMeta()
             );
         }
 
@@ -171,7 +174,8 @@ trait HasMagic
                 __CLASS__,
                 __METHOD__,
                 "value for property [ {$name} ] set as required cannot be null",
-                400
+                400,
+                self::$schema->getMeta()
             );
         }
 
@@ -244,7 +248,8 @@ trait HasMagic
                     __CLASS__,
                     __METHOD__,
                     "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
-                    500
+                    500,
+                    self::$schema->getMeta()
                 );
             }
 
@@ -259,7 +264,8 @@ trait HasMagic
                     __CLASS__,
                     __METHOD__,
                     "application can't create instance of {$class}, verify your class make method",
-                    500
+                    500,
+                    self::$schema->getMeta()
                 );
             }
             $aInstance[] = $instance;

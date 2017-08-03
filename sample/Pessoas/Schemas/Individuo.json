@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "schema": "Individuo.json"
+  },
   "properties": [
     {
       "alias": "iCodigo",

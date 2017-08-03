@@ -5,7 +5,6 @@ namespace Solis\Expressive\Magic\Classes;
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\IntValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
-use Solis\Expressive\Magic\Helpers\Message;
 use Solis\Expressive\Magic\MagicException;
 
 /**
@@ -29,11 +28,17 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
     /**
      * make
      *
+     * @param mixed $meta
+     *
      * @return static
      */
-    public static function make()
+    public static function make($meta = null)
     {
-        return new static();
+        $instance = new static();
+        if (!empty($meta)) {
+            $instance->meta = $meta;
+        }
+        return $instance;
     }
 
     /**
@@ -56,14 +61,9 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name' => $name,
-                        '@type' => 'int',
-                    ],
-                    Message::PROPERTY_INVALID_TYPE
-                ),
-                400
+                "property {$name} is invalid for type int",
+                400,
+                $this->meta
             );
         }
 

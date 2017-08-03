@@ -19,12 +19,14 @@ class MagicException extends TExceptionAbstract
      * @param mixed $method method name
      * @param mixed $reason explanation for TException
      * @param mixed $code   error code
+     * @param mixed $meta   meta information about the magic error
      */
     public function __construct(
         $class,
         $method,
         $reason,
-        $code
+        $code,
+        $meta = null
     ) {
         // create new Tinfo object to store default TException information
         $error = Tinfo::build(
@@ -39,9 +41,12 @@ class MagicException extends TExceptionAbstract
             [
                 'class'  => $class,
                 'method' => $method,
-                'trace'  => $this->getTrace(),
             ]
         );
+
+        if (!empty($meta)) {
+            $debug->setMeta($meta);
+        }
 
         parent::__construct(
             $error,

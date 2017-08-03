@@ -11,7 +11,7 @@ try {
     $individuo = Individuo::make(
         [
             'iCodigo'       => '1',
-            'fDinheiro'     => '1.54',
+            'fDinheiro'     => '1.50',
             'sPrimeiroNome' => 'Rafael',
             'sSegundoNome'  => 'Becker',
             'aEndereco'     => [
