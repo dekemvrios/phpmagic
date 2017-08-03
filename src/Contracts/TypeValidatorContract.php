@@ -1,6 +1,8 @@
 <?php
 
-namespace Solis\PhpMagic\Contracts;
+namespace Solis\Expressive\Magic\Contracts;
+
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 
 /**
  * Class ValidatorContract
@@ -19,7 +21,7 @@ interface TypeValidatorContract
      *
      * @return string
      *
-     * @throws \InvalidArgumentException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,

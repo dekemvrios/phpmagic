@@ -1,18 +1,38 @@
 <?php
 
-namespace Solis\PhpMagic\Helpers;
+namespace Solis\Expressive\Magic\Concerns;
 
-use Solis\PhpSchema\Abstractions\Properties\PropertyEntryAbstract;
-use Solis\PhpMagic\Classes\Validator;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\Validator\Validator;
+use Solis\Expressive\Magic\MagicException;
 
 /**
- * Class Magic
+ * Trait HasMagic
  *
- * @package Solis\PhpValidator\Helpers
+ * @package Solis\Expressive\Magic\Concerns
  */
-trait Magic
+trait HasMagic
 {
+
+    use HasSchema;
+
+    /**
+     * make
+     *
+     * @param $dados
+     *
+     * @return static
+     */
+    public static function make($dados = [])
+    {
+        $instance = new static();
+        if (!empty($dados)) {
+            $instance->attach($dados);
+        }
+
+        return $instance;
+    }
 
     /**
      * attach
@@ -35,7 +55,7 @@ trait Magic
      * @param string $name
      * @param mixed  $value
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function __set(
         $name,
@@ -49,7 +69,7 @@ trait Magic
             $name = $this->___property($name);
         }
 
-        $name instanceof PropertyEntryAbstract ? $this->___object(
+        $name instanceof PropertyContract ? $this->___object(
             $name,
             $value
         ) : $this->___set(
@@ -65,7 +85,7 @@ trait Magic
      *
      * @return mixed
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function __get($name)
     {
@@ -74,11 +94,12 @@ trait Magic
             $name
         )
         ) {
-            throw new TException(
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 "property $name not found in class, review your class or arguments definition",
-                '400'
+                400,
+                self::$schema->getMeta()
             );
         }
 
@@ -98,41 +119,38 @@ trait Magic
      * @param $name
      *
      * @return mixed
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     private function ___property($name)
     {
-        if (!property_exists(
-                $this,
-                'schema'
-            ) || empty($this->schema)
-        ) {
-
-            throw new TException(
+        if (!isset(self::$schema)) {
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 'property schema has not been defined, review your class definition',
-                '400'
+                400,
+                self::$schema->getMeta()
             );
         }
 
-        $meta = $this->schema->getPropertyEntry(
-            'alias',
-            $name
+        $meta = self::$schema->getPropertyEntryByIdentifier(
+            $name,
+            'alias'
         );
 
         $meta = is_array($meta) ? $meta[0] : $meta;
 
         if (empty($meta)) {
-            throw new TException(
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 "property $name not found in schema, review your schema definition",
-                400
+                400,
+                self::$schema->getMeta()
             );
         }
 
-        return !empty($meta->getObject()) ? $meta : $meta->getProperty();
+        return !empty($meta->getComposition()) ? $meta : $meta->getProperty();
     }
 
     /**
@@ -141,50 +159,50 @@ trait Magic
      * @param $name
      * @param $value
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     private function ___set(
         $name,
         $value
     ) {
-        $isRequired = $this->schema->getPropertyEntry(
-            'property',
+        $isRequired = self::$schema->getPropertyEntryByIdentifier(
             $name
         )->getBehavior()->isRequired();
 
         if (is_null($value) && !empty($isRequired)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 "value for property [ {$name} ] set as required cannot be null",
-                400
+                400,
+                self::$schema->getMeta()
             );
         }
 
         if (!is_null($value)) {
-            $value = Validator::make($this->schema)->validate(
+            $value = Validator::make(self::$schema)->validate(
                 $name,
                 $value
             );
+        }
 
-            if (method_exists(
-                $this,
-                'set' . ucfirst($name)
-            )) {
-                $this->{'set' . ucfirst($name)}($value);
-            } else {
-                $this->{$name} = $value;
-            }
+        if (method_exists(
+            $this,
+            'set' . ucfirst($name)
+        )) {
+            $this->{'set' . ucfirst($name)}($value);
+        } else {
+            $this->{$name} = $value;
         }
     }
 
     /**
      * ___object
      *
-     * @param PropertyEntryAbstract $meta
-     * @param mixed                 $value
+     * @param PropertyContract $meta
+     * @param mixed            $value
      *
-     * @throws TException
+     * @throws MagicException
      */
     private function ___object(
         $meta,
@@ -202,11 +220,11 @@ trait Magic
     /**
      * ___attForeign
      *
-     * @param array                 $value
-     * @param PropertyEntryAbstract $meta
+     * @param array            $value
+     * @param PropertyContract $meta
      *
      * @return array
-     * @throws TException
+     * @throws MagicException
      */
     private function ___attForeign(
         array $value,
@@ -222,81 +240,37 @@ trait Magic
 
         $aInstance = [];
         foreach ($value as $item) {
-            // callable class
-            $class = $meta->getObject()->getClass();
+            // dependency class
+            $class = $meta->getComposition()->getClass();
 
             if (empty($item) || !is_array($item)) {
-                throw new TException(
+                throw new MagicException(
                     __CLASS__,
                     __METHOD__,
                     "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
-                    500
+                    500,
+                    self::$schema->getMeta()
                 );
             }
 
-            // calling by default its make method, if its exists
+            // calling by default its make method
             $instance = call_user_func_array(
                 [$class, 'make'],
                 [$item]
             );
 
             if (empty($instance) || !is_object($instance)) {
-                throw new TException(
+                throw new MagicException(
                     __CLASS__,
                     __METHOD__,
                     "application can't create instance of {$class}, verify your class make method",
-                    500
+                    500,
+                    self::$schema->getMeta()
                 );
             }
             $aInstance[] = $instance;
         }
 
         return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
-    }
-
-    /**
-     * toArray
-     *
-     * @param boolean $asAlias
-     *
-     * @throws TException
-     *
-     * @return array
-     */
-    public function toArray($asAlias = false)
-    {
-
-        if (!property_exists(
-                $this,
-                'schema'
-            ) || empty($this->schema)
-        ) {
-            throw new TException(
-                __CLASS__,
-                __METHOD__,
-                "schema property has not been defined at " . get_class($this),
-                500
-            );
-        }
-
-        $method = !empty($asAlias) ? "getAlias" : "getProperty";
-
-        $dados = [];
-        foreach ($this->schema->getProperties() as $item) {
-            $value = $this->{$item->getProperty()};
-
-            if (!is_null($value)) {
-                if (is_array($value)) {
-                    $dados[$item->{$method}()] = [];
-                    foreach ($value as $valueItem) {
-                        $dados[$item->{$method}()][] = is_object($valueItem) ? $valueItem->toArray(!empty($asAlias) ? $asAlias : false) : $valueItem;
-                    }
-                } else {
-                    $dados[$item->{$method}()] = is_object($value) ? $value->toArray(!empty($asAlias) ? $asAlias : false) : $value;
-                }
-            }
-        }
-
-        return $dados;
     }
 }

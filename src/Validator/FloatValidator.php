@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Validator;
 
-use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
-use Solis\PhpMagic\Contracts\FloatValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
-use Solis\Breaker\TException;
+use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class FloatValidator
@@ -22,18 +22,24 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
         [
             'name'     => 'floatval',
             'function' => 'applyFloatval',
-            'class'    => 'Solis\\PhpValidator\\Format\\FloatFormat'
-        ]
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\FloatFormat',
+        ],
     ];
 
     /**
      * make
      *
+     * @param mixed $meta
+     *
      * @return static
      */
-    public static function make()
+    public static function make($meta = null)
     {
-        return new static();
+        $instance = new static();
+        if (!empty($meta)) {
+            $instance->meta = $meta;
+        }
+        return $instance;
     }
 
     /**
@@ -45,7 +51,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
      *
      * @return float
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -53,17 +59,12 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
         $format = null
     ) {
         if (!is_numeric($data) || !is_float(floatval($data))) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name' => $name,
-                        '@type' => 'float',
-                    ],
-                    Message::PROPERTY_INVALID_TYPE
-                ),
-                400
+                "property {$name} is invalid for type float",
+                400,
+                $this->meta
             );
         }
 

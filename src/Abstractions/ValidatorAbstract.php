@@ -1,14 +1,15 @@
 <?php
 
-namespace Solis\PhpMagic\Abstractions;
+namespace Solis\Expressive\Magic\Abstractions;
 
-use Solis\PhpSchema\Contracts\SchemaContract;
-use Solis\PhpMagic\Contracts\FloatValidatorContract;
-use Solis\PhpMagic\Contracts\IntValidatorContract;
-use Solis\PhpMagic\Contracts\StringValidatorContract;
-use Solis\PhpMagic\Contracts\ValidatorContract;
-use Solis\PhpMagic\Helpers\Types;
-use Solis\Breaker\TException;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Expressive\Magic\Contracts\IntValidatorContract;
+use Solis\Expressive\Magic\Contracts\StringValidatorContract;
+use Solis\Expressive\Magic\Contracts\ValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\Validator\Types;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class ValidatorAbstract
@@ -64,16 +65,16 @@ abstract class ValidatorAbstract implements ValidatorContract
      * @param mixed  $value
      *
      * @return mixed
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
         $value
     ) {
 
-        $meta = $this->schema->getPropertyEntry('property', $name);
+        $meta = $this->schema->getPropertyEntryByIdentifier($name);
         if (empty($meta)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 "meta information for 'property' entry has not been found in schema definition",
@@ -98,7 +99,7 @@ abstract class ValidatorAbstract implements ValidatorContract
      *
      * @return mixed
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     private function hydrate(
         $meta,

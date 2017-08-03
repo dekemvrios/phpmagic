@@ -1,17 +1,20 @@
 # README
 
-## What is PhpMagic
-PhpMagic is a simple php class property validation engine.
+## PhpMagic
 
-## How To Install?
-This package was designed to be installed with composer dependency management tool.
+PhpMagic é utilizado como ferramenta por [phpexpressive](https://github.com/rafaelbeecker/phpexpressive) para atribuição e validação dinâmica de propriedades.
+
+## Como instalar?
+
+Esse pacote foi estruturado para ser instalado por meio do composer
 
 ```
 composer require solis/phpmagic
 ``` 
 
-## How To Use it?
-First, you need to define a schema, representing the properties and its expected types/formats. 
+## Como utilizar?
+
+Primeiramente é necessário definir um schema, representando as propriedades a serem atribuidas e seus respectivos tipos.
 
 ```
 {
@@ -30,28 +33,34 @@ First, you need to define a schema, representing the properties and its expected
 }
 ```
 
-The schema is a json representation of a class and is built by the PhpSchema\Schema class.
+O schema é uma representação em Json  de uma determinada classe, e é criado através da implementação do [phpschema](https://github.com/rafaelbeecker/phpschema) 
 
 ```
-Solis\PhpSchema\Classes\Schema;
-
 $schema = Schema::make(
     file_get_contents("/path/to/schema.json")
 );
 ```
 
-Its possible to use the validation engine to validate a certain value against the schema.
+É possível utilizar o mecanismo de validação para validar uma determinada propriedade contra um schema.
 
 ```
-use Solis\PhpMagic\Classes\Validator;
+use Solis\Expressive\Magic\Validator\Validator;
 
 try {
 
   $value = Validator::make($schema)->validate($property, $value);
 
-} catch(\InvalidArgumentException $exception){
-  $exception->getMessage();  
+} catch(TExceptionAbstract $exception){
+  echo $exception->toJson();  
 }
 ```
 
-It validates and returns the value as specified in the schema, throwing a TException if the value is invalid.
+O mecanismo valida e retorna o valor como especificado no schema, lançando uma TException caso for inválido.
+
+## Change log
+
+Acompanhe o [CHANGELOG](CHANGELOG.md) para informações sobre atualizações recentes.
+
+## Licença
+
+The MIT License (MIT). Verifique [LICENSE](LICENSE.MD) para mais informações.

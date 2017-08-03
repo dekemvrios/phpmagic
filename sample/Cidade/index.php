@@ -2,7 +2,7 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Cidade\Classes\Estado;
+use Solis\Expressive\Magic\Sample\Cidade\Classes\Estado;
 use Solis\Breaker\TException;
 
 try {
@@ -19,7 +19,7 @@ try {
                 [
                     'sNome'       => 'Joinville',
                     'iCodigoIbge' => 52,
-                ]
+                ],
             ],
             "aCapital"    => [
                 'sNome'       => 'Florianopolis',

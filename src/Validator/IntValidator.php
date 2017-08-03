@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Validator;
 
-use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
-use Solis\PhpMagic\Contracts\IntValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
-use Solis\Breaker\TException;
+use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\IntValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class IntValidator
@@ -21,18 +21,24 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
         [
             'name'     => 'intval',
             'function' => 'applyIntval',
-            'class'    => 'Solis\\PhpValidator\\Format\\IntFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\IntFormat'
         ]
     ];
 
     /**
      * make
      *
+     * @param mixed $meta
+     *
      * @return static
      */
-    public static function make()
+    public static function make($meta = null)
     {
-        return new static();
+        $instance = new static();
+        if (!empty($meta)) {
+            $instance->meta = $meta;
+        }
+        return $instance;
     }
 
     /**
@@ -44,7 +50,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
      *
      * @return int
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -52,17 +58,12 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
         $format = null
     ) {
         if (!is_numeric($data) || !is_int(intval($data))) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@name' => $name,
-                        '@type' => 'int',
-                    ],
-                    Message::PROPERTY_INVALID_TYPE
-                ),
-                400
+                "property {$name} is invalid for type int",
+                400,
+                $this->meta
             );
         }
 

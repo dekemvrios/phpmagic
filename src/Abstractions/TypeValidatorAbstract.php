@@ -1,15 +1,14 @@
 <?php
 
+namespace Solis\Expressive\Magic\Abstractions;
 
-namespace Solis\PhpMagic\Abstractions;
-
-use Solis\PhpMagic\Helpers\Message;
-use Solis\Breaker\TException;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class TypeValidatorAbstract
  *
- * @package Solis\PhpMagic\Abstractions
+ * @package Solis\Expressive\Magic\Abstractions
  */
 abstract class TypeValidatorAbstract
 {
@@ -17,6 +16,11 @@ abstract class TypeValidatorAbstract
      * @var array
      */
     protected $formatting;
+
+    /**
+     * @var mixed
+     */
+    protected $meta = [];
 
     /**
      * applyFormat
@@ -138,7 +142,7 @@ abstract class TypeValidatorAbstract
      *
      * @return array
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     protected function getFuncParams($options)
     {
@@ -153,16 +157,12 @@ abstract class TypeValidatorAbstract
         ) ? $options['class'] : null;
 
         if (!class_exists($class)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@class' => $class,
-                    ],
-                    Message::PROPERTY_CLASS_NOT_FOUND
-                ),
-                400
+                "class {$class} for schema property has not been defined",
+                400,
+                $this->meta
             );
         }
 
@@ -171,17 +171,12 @@ abstract class TypeValidatorAbstract
             $method
         )
         ) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                Message::getTextMessage(
-                    [
-                        '@method' => $method,
-                        '@class'  => $class,
-                    ],
-                    Message::PROPERTY_METHOD_NOT_FOUND
-                ),
-                400
+                "method {$method} for schema property has not been defined at class {$class}",
+                400,
+                $this->meta
             );
         }
 
