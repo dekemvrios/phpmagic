@@ -2,6 +2,8 @@
 
 namespace Solis\Expressive\Magic\Contracts;
 
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+
 /**
  * Class ValidatorContract
  *
@@ -17,6 +19,8 @@ interface ValidatorContract
      * @param mixed  $value
      *
      * @return mixed
+     *
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,

@@ -1,10 +1,10 @@
 <?php
 
-
 namespace Solis\Expressive\Magic\Abstractions;
 
 use Solis\Expressive\Magic\Helpers\Message;
-use Solis\Breaker\TException;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class TypeValidatorAbstract
@@ -138,7 +138,7 @@ abstract class TypeValidatorAbstract
      *
      * @return array
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     protected function getFuncParams($options)
     {
@@ -153,7 +153,7 @@ abstract class TypeValidatorAbstract
         ) ? $options['class'] : null;
 
         if (!class_exists($class)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(
@@ -171,7 +171,7 @@ abstract class TypeValidatorAbstract
             $method
         )
         ) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(

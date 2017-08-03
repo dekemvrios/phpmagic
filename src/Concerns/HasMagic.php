@@ -3,8 +3,9 @@
 namespace Solis\Expressive\Magic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Classes\Validator;
-use Solis\Breaker\TException;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Trait HasMagic
@@ -54,7 +55,7 @@ trait HasMagic
      * @param string $name
      * @param mixed  $value
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function __set(
         $name,
@@ -84,7 +85,7 @@ trait HasMagic
      *
      * @return mixed
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function __get($name)
     {
@@ -93,7 +94,7 @@ trait HasMagic
             $name
         )
         ) {
-            throw new TException(
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 "property $name not found in class, review your class or arguments definition",
@@ -117,12 +118,12 @@ trait HasMagic
      * @param $name
      *
      * @return mixed
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     private function ___property($name)
     {
         if (!isset(self::$schema)) {
-            throw new TException(
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 'property schema has not been defined, review your class definition',
@@ -138,7 +139,7 @@ trait HasMagic
         $meta = is_array($meta) ? $meta[0] : $meta;
 
         if (empty($meta)) {
-            throw new TException(
+            throw new MagicException(
                 get_class($this),
                 __METHOD__,
                 "property $name not found in schema, review your schema definition",
@@ -155,7 +156,7 @@ trait HasMagic
      * @param $name
      * @param $value
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     private function ___set(
         $name,
@@ -166,7 +167,7 @@ trait HasMagic
         )->getBehavior()->isRequired();
 
         if (is_null($value) && !empty($isRequired)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 "value for property [ {$name} ] set as required cannot be null",
@@ -197,7 +198,7 @@ trait HasMagic
      * @param PropertyContract $meta
      * @param mixed            $value
      *
-     * @throws TException
+     * @throws MagicException
      */
     private function ___object(
         $meta,
@@ -219,7 +220,7 @@ trait HasMagic
      * @param PropertyContract $meta
      *
      * @return array
-     * @throws TException
+     * @throws MagicException
      */
     private function ___attForeign(
         array $value,
@@ -239,7 +240,7 @@ trait HasMagic
             $class = $meta->getComposition()->getClass();
 
             if (empty($item) || !is_array($item)) {
-                throw new TException(
+                throw new MagicException(
                     __CLASS__,
                     __METHOD__,
                     "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
@@ -254,7 +255,7 @@ trait HasMagic
             );
 
             if (empty($instance) || !is_object($instance)) {
-                throw new TException(
+                throw new MagicException(
                     __CLASS__,
                     __METHOD__,
                     "application can't create instance of {$class}, verify your class make method",

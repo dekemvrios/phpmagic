@@ -4,8 +4,9 @@ namespace Solis\Expressive\Magic\Classes;
 
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\IntValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Helpers\Message;
-use Solis\Breaker\TException;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class IntValidator
@@ -44,7 +45,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
      *
      * @return int
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -52,7 +53,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
         $format = null
     ) {
         if (!is_numeric($data) || !is_int(intval($data))) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(

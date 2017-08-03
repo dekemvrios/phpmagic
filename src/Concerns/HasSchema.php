@@ -3,8 +3,9 @@
 namespace Solis\Expressive\Magic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 use Solis\Expressive\Schema\Schema;
-use Solis\Breaker\TException;
 
 /**
  * Trait HasSchema
@@ -26,12 +27,12 @@ trait HasSchema
      *
      * @param string $path
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function boot($path)
     {
         if (!file_exists($path)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 'not found schema for class ' . __CLASS__,
@@ -51,7 +52,7 @@ trait HasSchema
      *
      * @param boolean $asAlias
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      *
      * @return array
      */
@@ -59,7 +60,7 @@ trait HasSchema
     {
 
         if (!isset(self::$schema)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 "schema property has not been defined at " . get_class($this),

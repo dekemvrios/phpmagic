@@ -4,8 +4,9 @@ namespace Solis\Expressive\Magic\Classes;
 
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\MagicException;
 use Solis\Expressive\Magic\Helpers\Message;
-use Solis\Breaker\TException;
 
 /**
  * Class FloatValidator
@@ -45,7 +46,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
      *
      * @return float
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -53,7 +54,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
         $format = null
     ) {
         if (!is_numeric($data) || !is_float(floatval($data))) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(

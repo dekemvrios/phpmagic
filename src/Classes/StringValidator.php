@@ -2,10 +2,11 @@
 
 namespace Solis\Expressive\Magic\Classes;
 
-use Solis\Breaker\TException;
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\StringValidatorContract;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Helpers\Message;
+use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class StringValidator
@@ -60,7 +61,7 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
      *
      * @return string
      *
-     * @throws TException
+     * @throws TExceptionAbstract
      */
     public function validate(
         $name,
@@ -68,7 +69,7 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
         $format = null
     ) {
         if (!is_string($data)) {
-            throw new TException(
+            throw new MagicException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(
