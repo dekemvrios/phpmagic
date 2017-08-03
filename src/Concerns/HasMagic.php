@@ -1,15 +1,15 @@
 <?php
 
-namespace Solis\PhpMagic\Concerns;
+namespace Solis\Expressive\Magic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
-use Solis\PhpMagic\Classes\Validator;
+use Solis\Expressive\Magic\Classes\Validator;
 use Solis\Breaker\TException;
 
 /**
  * Trait HasMagic
  *
- * @package Solis\PhpMagic\Concerns
+ * @package Solis\Expressive\Magic\Concerns
  */
 trait HasMagic
 {

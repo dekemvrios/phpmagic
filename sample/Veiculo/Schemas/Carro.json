@@ -10,7 +10,7 @@
       "property": "roda",
       "type": "undefined",
       "composition": {
-        "class": "Solis\\PhpMagic\\Sample\\Veiculo\\Classes\\Roda"
+        "class": "Solis\\Expressive\\Magic\\Sample\\Veiculo\\Classes\\Roda"
       }
     }
   ]

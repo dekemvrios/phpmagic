@@ -1,8 +1,8 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Pessoas\Classes;
+namespace Solis\Expressive\Magic\Sample\Pessoas\Classes;
 
-use Solis\PhpMagic\Concerns\HasMagic;
+use Solis\Expressive\Magic\Concerns\HasMagic;
 
 /**
  * Class Individuo

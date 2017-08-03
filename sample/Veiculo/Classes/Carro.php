@@ -1,13 +1,13 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Veiculo\Classes;
+namespace Solis\Expressive\Magic\Sample\Veiculo\Classes;
 
-use Solis\PhpMagic\Concerns\HasMagic;
+use Solis\Expressive\Magic\Concerns\HasMagic;
 
 /**
  * Class Carro
  *
- * @package Solis\PhpMagic\Sample\Veiculo
+ * @package Solis\Expressive\Magic\Sample\Veiculo
  */
 class Carro
 {

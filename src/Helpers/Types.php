@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\PhpMagic\Helpers;
+namespace Solis\Expressive\Magic\Helpers;
 
 /**
  * Class Types

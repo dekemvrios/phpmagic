@@ -1,8 +1,8 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Cidade\Classes;
+namespace Solis\Expressive\Magic\Sample\Cidade\Classes;
 
-use Solis\PhpMagic\Concerns\HasMagic;
+use Solis\Expressive\Magic\Concerns\HasMagic;
 
 /**
  * Class Cidade

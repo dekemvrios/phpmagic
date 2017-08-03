@@ -1,13 +1,13 @@
 <?php
 
-namespace Solis\PhpMagic\Sample\Cidade\Classes;
+namespace Solis\Expressive\Magic\Sample\Cidade\Classes;
 
-use Solis\PhpMagic\Concerns\HasMagic;
+use Solis\Expressive\Magic\Concerns\HasMagic;
 
 /**
  * Class Estado
  *
- * @package Solis\PhpMagic\Sample\Schema\Classes
+ * @package Solis\Expressive\Magic\Sample\Schema\Classes
  */
 class Estado
 {

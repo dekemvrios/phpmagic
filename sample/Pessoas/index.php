@@ -2,8 +2,8 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Pessoas\Classes\Individuo;
-use Solis\Breaker\TException;
+use Solis\Expressive\Magic\Sample\Pessoas\Classes\Individuo;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 
 error_reporting(E_ALL);
 
@@ -32,6 +32,6 @@ try {
     );
 
     var_dump($individuo);
-} catch (TException $exception) {
+} catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
 }

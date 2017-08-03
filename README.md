@@ -43,7 +43,7 @@ $schema = Schema::make(
 Its possible to use the validation engine to validate a certain value against the schema.
 
 ```
-use Solis\PhpMagic\Classes\Validator;
+use Solis\Expressive\Magic\Classes\Validator;
 
 try {
 

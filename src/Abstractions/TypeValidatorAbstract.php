@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Solis\PhpMagic\Abstractions;
+namespace Solis\Expressive\Magic\Abstractions;
 
-use Solis\PhpMagic\Helpers\Message;
+use Solis\Expressive\Magic\Helpers\Message;
 use Solis\Breaker\TException;
 
 /**
  * Class TypeValidatorAbstract
  *
- * @package Solis\PhpMagic\Abstractions
+ * @package Solis\Expressive\Magic\Abstractions
  */
 abstract class TypeValidatorAbstract
 {

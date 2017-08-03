@@ -1,28 +1,29 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Classes;
 
-use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
-use Solis\PhpMagic\Contracts\IntValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
+use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Expressive\Magic\Helpers\Message;
 use Solis\Breaker\TException;
 
 /**
- * Class IntValidator
+ * Class FloatValidator
  *
  * @package Solis\PhpValidator\Types
  */
-class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
+class FloatValidator extends TypeValidatorAbstract implements FloatValidatorContract
 {
+
     /**
      * @var array
      */
     protected $formatting = [
         [
-            'name'     => 'intval',
-            'function' => 'applyIntval',
-            'class'    => 'Solis\\PhpValidator\\Format\\IntFormat'
-        ]
+            'name'     => 'floatval',
+            'function' => 'applyFloatval',
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\FloatFormat',
+        ],
     ];
 
     /**
@@ -42,7 +43,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
      * @param       $data
      * @param array $format
      *
-     * @return int
+     * @return float
      *
      * @throws TException
      */
@@ -51,14 +52,14 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
         $data,
         $format = null
     ) {
-        if (!is_numeric($data) || !is_int(intval($data))) {
+        if (!is_numeric($data) || !is_float(floatval($data))) {
             throw new TException(
                 __CLASS__,
                 __METHOD__,
                 Message::getTextMessage(
                     [
                         '@name' => $name,
-                        '@type' => 'int',
+                        '@type' => 'float',
                     ],
                     Message::PROPERTY_INVALID_TYPE
                 ),
@@ -73,6 +74,6 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
             );
         }
 
-        return intval($data);
+        return floatval($data);
     }
 }

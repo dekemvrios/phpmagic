@@ -1,9 +1,9 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Classes;
 
-use Solis\PhpMagic\Abstractions\ValidatorAbstract;
-use Solis\PhpMagic\Contracts\ValidatorContract;
+use Solis\Expressive\Magic\Abstractions\ValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\ValidatorContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 
 /**

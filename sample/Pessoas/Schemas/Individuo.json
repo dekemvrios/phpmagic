@@ -33,7 +33,7 @@
       "type": "string",
       "format": [
         {
-          "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Individuo",
+          "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Individuo",
           "function": "getCustomString",
           "params": [
             "Exemplo",
@@ -47,7 +47,7 @@
       "property": "endereco",
       "type": "undefined",
       "composition": {
-        "class": "Solis\\PhpMagic\\Sample\\Pessoas\\Classes\\Endereco"
+        "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Endereco"
       }
     }
   ]

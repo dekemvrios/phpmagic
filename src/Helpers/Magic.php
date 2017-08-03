@@ -1,9 +1,9 @@
 <?php
 
-namespace Solis\PhpMagic\Helpers;
+namespace Solis\Expressive\Magic\Helpers;
 
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
-use Solis\PhpMagic\Classes\Validator;
+use Solis\Expressive\Magic\Classes\Validator;
 use Solis\Breaker\TException;
 
 /**

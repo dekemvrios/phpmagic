@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Classes;
+namespace Solis\Expressive\Magic\Classes;
 
 use Solis\Breaker\TException;
-use Solis\PhpMagic\Abstractions\TypeValidatorAbstract;
-use Solis\PhpMagic\Contracts\StringValidatorContract;
-use Solis\PhpMagic\Helpers\Message;
+use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
+use Solis\Expressive\Magic\Contracts\StringValidatorContract;
+use Solis\Expressive\Magic\Helpers\Message;
 
 /**
  * Class StringValidator
@@ -22,23 +22,23 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
             'name'     => 'size',
             'function' => 'applySize',
             'params'   => true,
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'uppercase',
             'function' => 'applyUppercase',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'lowercase',
             'function' => 'applyLowercase',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
         ],
         [
             'name'     => 'noSpecialChars',
             'function' => 'removeSpecialChars',
-            'class'    => 'Solis\\PhpMagic\\Format\\StringFormat'
-        ]
+            'class'    => 'Solis\\Expressive\\Magic\\Format\\StringFormat',
+        ],
     ];
 
     /**

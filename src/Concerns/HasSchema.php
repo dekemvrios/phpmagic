@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\PhpMagic\Concerns;
+namespace Solis\Expressive\Magic\Concerns;
 
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\Expressive\Schema\Schema;
@@ -9,7 +9,7 @@ use Solis\Breaker\TException;
 /**
  * Trait HasSchema
  *
- * @package Solis\PhpMagic\Concerns
+ * @package Solis\Expressive\Magic\Concerns
  */
 trait HasSchema
 {

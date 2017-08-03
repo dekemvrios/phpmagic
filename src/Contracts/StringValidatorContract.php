@@ -1,22 +1,23 @@
 <?php
 
-namespace Solis\PhpMagic\Contracts;
+namespace Solis\Expressive\Magic\Contracts;
 
 /**
- * Class FloatValidatorContract
+ * Class StringValidatorContract
  *
  * @package Solis\PhpValidator\Contracts
  */
-interface FloatValidatorContract
+interface StringValidatorContract
 {
+
     /**
      * validate
      *
-     * @param       $name
-     * @param       $data
-     * @param array $format
+     * @param string $name
+     * @param mixed  $data
+     * @param array  $format
      *
-     * @return float
+     * @return string
      *
      * @throws \InvalidArgumentException
      */

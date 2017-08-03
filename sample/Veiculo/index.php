@@ -2,7 +2,7 @@
 
 require_once '../../vendor/autoload.php';
 
-use Solis\PhpMagic\Sample\Veiculo\Classes\Carro;
+use Solis\Expressive\Magic\Sample\Veiculo\Classes\Carro;
 use Solis\Breaker\TException;
 
 try {

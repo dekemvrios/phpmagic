@@ -1,11 +1,11 @@
 <?php
 
-namespace Solis\PhpMagic\Helpers;
+namespace Solis\Expressive\Magic\Helpers;
 
 /**
  * Class Message
  *
- * @package Solis\PhpMagic\Helpers
+ * @package Solis\Expressive\Magic\Helpers
  */
 class Message
 {

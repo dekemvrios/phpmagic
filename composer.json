@@ -15,12 +15,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Solis\\PhpMagic\\": "app/src"
+      "Solis\\Expressive\\Magic\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Solis\\PhpMagic\\Sample\\": "sample"
+      "Solis\\Expressive\\Magic\\Sample\\": "sample"
     }
   },
   "require-dev": {

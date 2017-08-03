@@ -1,13 +1,13 @@
 <?php
 
-namespace Solis\PhpMagic\Abstractions;
+namespace Solis\Expressive\Magic\Abstractions;
 
 use Solis\Expressive\Schema\Contracts\SchemaContract;
-use Solis\PhpMagic\Contracts\FloatValidatorContract;
-use Solis\PhpMagic\Contracts\IntValidatorContract;
-use Solis\PhpMagic\Contracts\StringValidatorContract;
-use Solis\PhpMagic\Contracts\ValidatorContract;
-use Solis\PhpMagic\Helpers\Types;
+use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
+use Solis\Expressive\Magic\Contracts\IntValidatorContract;
+use Solis\Expressive\Magic\Contracts\StringValidatorContract;
+use Solis\Expressive\Magic\Contracts\ValidatorContract;
+use Solis\Expressive\Magic\Helpers\Types;
 use Solis\Breaker\TException;
 
 /**

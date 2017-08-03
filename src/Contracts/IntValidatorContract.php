@@ -1,6 +1,6 @@
 <?php
 
-namespace Solis\PhpMagic\Contracts;
+namespace Solis\Expressive\Magic\Contracts;
 
 /**
  * Class IntValidatorContract

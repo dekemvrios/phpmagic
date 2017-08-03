@@ -35,7 +35,7 @@
       "property": "cidade",
       "type": "undefined",
       "composition": {
-        "class": "Solis\\PhpMagic\\Sample\\Cidade\\Classes\\Cidade"
+        "class": "Solis\\Expressive\\Magic\\Sample\\Cidade\\Classes\\Cidade"
       }
     }
   ]
