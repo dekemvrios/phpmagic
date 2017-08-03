@@ -8,8 +8,8 @@ use Solis\Expressive\Magic\Contracts\IntValidatorContract;
 use Solis\Expressive\Magic\Contracts\StringValidatorContract;
 use Solis\Expressive\Magic\Contracts\ValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
+use Solis\Expressive\Magic\Validator\Types;
 use Solis\Expressive\Magic\MagicException;
-use Solis\Expressive\Magic\Helpers\Types;
 
 /**
  * Class ValidatorAbstract
