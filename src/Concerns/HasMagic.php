@@ -179,15 +179,15 @@ trait HasMagic
                 $name,
                 $value
             );
+        }
 
-            if (method_exists(
-                $this,
-                'set' . ucfirst($name)
-            )) {
-                $this->{'set' . ucfirst($name)}($value);
-            } else {
-                $this->{$name} = $value;
-            }
+        if (method_exists(
+            $this,
+            'set' . ucfirst($name)
+        )) {
+            $this->{'set' . ucfirst($name)}($value);
+        } else {
+            $this->{$name} = $value;
         }
     }
 
@@ -235,7 +235,7 @@ trait HasMagic
 
         $aInstance = [];
         foreach ($value as $item) {
-            // callable class
+            // dependency class
             $class = $meta->getComposition()->getClass();
 
             if (empty($item) || !is_array($item)) {
@@ -247,7 +247,7 @@ trait HasMagic
                 );
             }
 
-            // calling by default its make method, if its exists
+            // calling by default its make method
             $instance = call_user_func_array(
                 [$class, 'make'],
                 [$item]
