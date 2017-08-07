@@ -29,7 +29,7 @@ trait HasSchema
      *
      * @throws TExceptionAbstract
      */
-    public function boot($path)
+    public function start($path)
     {
         if (!file_exists($path)) {
             throw new MagicException(
