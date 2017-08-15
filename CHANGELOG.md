@@ -4,7 +4,12 @@ Todas as modificações relevantes para phpbreaker serão documentadas neste arq
 
 O formato é baseado [Keep a CHANGELOG](http://keepachangelog.com/) e esse projeto adere ao [Semantic Versioning 2.0.0](http://semver.org/).  
 
-## [1.0.1] - 2017-08-07
+## [1.2.0] - 2017-08-15
+
+## Added
+- Adicionado validacao para valores validos ao atribuir em propriedade.
+
+## [1.1.0] - 2017-08-07
 
 ## Added
 - Modificado assinatura do método da trait HasSchema de boot para start.
