@@ -75,7 +75,7 @@ class StringValidator extends TypeValidatorAbstract implements StringValidatorCo
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "property {$name} is invalid for type string",
+                "property [ {$name} ] is invalid for type [ string ] specified in schema",
                 400,
                 $this->meta
             );

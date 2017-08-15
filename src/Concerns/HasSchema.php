@@ -35,7 +35,7 @@ trait HasSchema
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                'not found schema for class ' . __CLASS__,
+                "not found json file in path [ {$path} ]while building schema for class [ " . __CLASS__ . " ]",
                 400
             );
         }

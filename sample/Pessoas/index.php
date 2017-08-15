@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 try {
     $individuo = Individuo::make(
         [
-            'iCodigo'      => '1',
+            'iCodigo'      => '3',
             'sSegundoNome' => 'Becker',
             'aEndereco'    => [
                 [

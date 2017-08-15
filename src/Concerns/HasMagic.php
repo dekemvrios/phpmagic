@@ -124,7 +124,7 @@ trait HasMagic
             throw new MagicException(
                 get_class($this),
                 __METHOD__,
-                "property $name not found in class, review your class or arguments definition",
+                "property [ {$name} ] not found in class, review your class or arguments",
                 400,
                 self::$schema->getMeta()
             );
@@ -171,7 +171,7 @@ trait HasMagic
             throw new MagicException(
                 get_class($this),
                 __METHOD__,
-                "property $name not found in schema, review your schema definition",
+                "property [ {$name} ] not found in schema, review your schema definition",
                 400,
                 self::$schema->getMeta()
             );
@@ -230,7 +230,12 @@ trait HasMagic
                         __METHOD__,
                         "value [ {$value} ]for property [ {$name} ] is not valid following allowedValues requirements",
                         400,
-                        self::$schema->getMeta()
+                        array_merge([
+                            self::$schema->getMeta(),
+                            [
+                                'allowedValues' => $meta->getAllowedValues(),
+                            ],
+                        ])
                     );
                 }
             }

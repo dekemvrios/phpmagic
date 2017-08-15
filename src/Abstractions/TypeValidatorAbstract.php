@@ -160,7 +160,7 @@ abstract class TypeValidatorAbstract
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "class {$class} for schema property has not been defined",
+                "class [ {$class} ] for schema property has not been defined",
                 400,
                 $this->meta
             );
@@ -174,7 +174,7 @@ abstract class TypeValidatorAbstract
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "method {$method} for schema property has not been defined at class {$class}",
+                "method [ {$method} ] for schema property has not been defined at class [ {$class} ]",
                 400,
                 $this->meta
             );

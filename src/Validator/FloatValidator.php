@@ -62,7 +62,7 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "property {$name} is invalid for type float",
+                "property [ {$name} ] is invalid for type [ float ] specified in schema",
                 400,
                 $this->meta
             );

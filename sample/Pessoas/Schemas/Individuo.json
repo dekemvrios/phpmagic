@@ -6,7 +6,12 @@
     {
       "alias": "iCodigo",
       "property": "codigo",
-      "type": "int"
+      "type": "int",
+      "allowedValues": [
+        3,
+        4,
+        5
+      ]
     },
     {
       "alias": "fDinheiro",

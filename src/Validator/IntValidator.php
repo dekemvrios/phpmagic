@@ -61,7 +61,7 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,
-                "property {$name} is invalid for type int",
+                "property [ {$name} ] is invalid for type [ int ] specified in schema",
                 400,
                 $this->meta
             );
