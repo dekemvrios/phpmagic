@@ -46,7 +46,7 @@ class Individuo
      */
     public function __construct()
     {
-        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json");
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Individuo.json");
     }
 
     /**

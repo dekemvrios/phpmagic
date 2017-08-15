@@ -10,11 +10,9 @@ error_reporting(E_ALL);
 try {
     $individuo = Individuo::make(
         [
-            'iCodigo'       => '1',
-            'fDinheiro'     => '1.50',
-            'sPrimeiroNome' => 'Rafael',
-            'sSegundoNome'  => 'Becker',
-            'aEndereco'     => [
+            'iCodigo'      => '1',
+            'sSegundoNome' => 'Becker',
+            'aEndereco'    => [
                 [
                     'sLogradouro'  => 'Rua XV de novembro',
                     'sCep'         => '89160000',
@@ -23,7 +21,7 @@ try {
                     'aCidade'      => [
                         [
                             'sNome'       => 'Rio do Sul',
-                            'iCodigoIbge' => '123456',
+                            'iCodigoIbge' => '1',
                         ],
                     ],
                 ],

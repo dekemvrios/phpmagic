@@ -46,6 +46,6 @@ class Endereco
      */
     public function __construct()
     {
-        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json");
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Endereco.json");
     }
 }

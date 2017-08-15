@@ -6,6 +6,7 @@ use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Validator\Validator;
 use Solis\Expressive\Magic\MagicException;
+use Solis\Expressive\Schema\Contracts\SchemaContract;
 
 /**
  * Trait HasMagic
@@ -47,6 +48,32 @@ trait HasMagic
         foreach ($dados as $item => $value) {
             $this->{$item} = $value;
         }
+
+        $this->withDefaultValues();
+    }
+
+    /**
+     * withDefaultValues
+     *
+     * @return $this
+     */
+    private function withDefaultValues()
+    {
+        /**
+         * @var PropertyContract[] $propertiesWithDefault
+         */
+        $propertiesWithDefault = $this::$schema->getPropertiesWithDefaultValue();
+        if(empty($propertiesWithDefault)){
+            return $this;
+        }
+
+        foreach ($propertiesWithDefault as $property) {
+            if (is_null($this->{$property->getProperty()})) {
+                $this->{$property->getAlias()} = $property->getDefault();
+            }
+        }
+
+        return $this;
     }
 
     /**

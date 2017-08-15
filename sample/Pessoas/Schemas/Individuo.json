@@ -12,14 +12,16 @@
       "alias": "fDinheiro",
       "property": "dinheiro",
       "type": "float",
+      "default": "175",
       "behavior": {
-        "required": false
+        "required": "false"
       }
     },
     {
       "alias": "sPrimeiroNome",
       "property": "primeiroNome",
       "type": "string",
+      "default": "Rafael",
       "format": [
         {
           "function": "uppercase"
