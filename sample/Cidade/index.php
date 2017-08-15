@@ -3,6 +3,7 @@
 require_once '../../vendor/autoload.php';
 
 use Solis\Expressive\Magic\Sample\Cidade\Classes\Estado;
+use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Breaker\TException;
 
 try {
@@ -10,7 +11,7 @@ try {
     $instance = Estado::make(
         [
             'sNome'       => 'Santa Catarina',
-            'iCodigoIbge' => 42,
+            'iCodigoIbge' => 52,
             'aCidade'     => [
                 [
                     'sNome'       => 'Rio do Sul',
@@ -18,16 +19,16 @@ try {
                 ],
                 [
                     'sNome'       => 'Joinville',
-                    'iCodigoIbge' => 52,
+                    'iCodigoIbge' => 2,
                 ],
             ],
             "aCapital"    => [
-                'sNome'       => 'Florianopolis',
-                'iCodigoIbge' => 52,
+                'sNome'       => 'Rio do Sul',
+                'iCodigoIbge' => 1,
             ],
         ]
     );
     var_dump($instance);
-} catch (TException $exception) {
+} catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
 }

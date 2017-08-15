@@ -29,6 +29,6 @@ class Cidade
      */
     protected function __construct()
     {
-        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json");
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Cidade.json");
     }
 }

@@ -39,6 +39,6 @@ class Estado
      */
     protected function __construct()
     {
-        $this->boot(dirname(dirname(__FILE__)) . "/Schemas/Estado.json");
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Estado.json");
     }
 }

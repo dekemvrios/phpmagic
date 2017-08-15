@@ -8,12 +8,21 @@
         {
           "function": "lowercase"
         }
+      ],
+      "allowedValues": [
+        "rio do sul",
+        "joinville"
       ]
     },
     {
       "alias": "iCodigoIbge",
       "type": "int",
-      "property": "codigoIbge"
+      "property": "codigoIbge",
+      "allowedValues": [
+        1,
+        2,
+        3
+      ]
     }
   ]
 }

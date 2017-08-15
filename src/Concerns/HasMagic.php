@@ -165,9 +165,16 @@ trait HasMagic
         $name,
         $value
     ) {
-        $isRequired = self::$schema->getPropertyEntryByIdentifier(
-            $name
-        )->getBehavior()->isRequired();
+        /**
+         * @var PropertyContract $meta
+         */
+        $meta = self::$schema->getPropertyEntryByIdentifier($name);
+
+        if (empty($meta)) {
+            return;
+        }
+
+        $isRequired = $meta->getBehavior()->isRequired();
 
         if (is_null($value) && !empty($isRequired)) {
             throw new MagicException(
@@ -184,6 +191,22 @@ trait HasMagic
                 $name,
                 $value
             );
+
+            if (!empty($meta->getAllowedValues())) {
+                if (!in_array(
+                    $value,
+                    $meta->getAllowedValues()
+                )
+                ) {
+                    throw new MagicException(
+                        __CLASS__,
+                        __METHOD__,
+                        "value [ {$value} ]for property [ {$name} ] is not valid following allowedValues requirements",
+                        400,
+                        self::$schema->getMeta()
+                    );
+                }
+            }
         }
 
         if (method_exists(
