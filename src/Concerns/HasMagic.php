@@ -6,7 +6,7 @@ use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Validator\Validator;
 use Solis\Expressive\Magic\MagicException;
-use Solis\Expressive\Schema\Contracts\SchemaContract;
+use Solis\Expressive\Magic\Validator\Types;
 
 /**
  * Trait HasMagic
@@ -82,6 +82,8 @@ trait HasMagic
      * @param string $name
      * @param mixed  $value
      *
+     * @return mixed
+     *
      * @throws TExceptionAbstract
      */
     public function __set(
@@ -94,6 +96,10 @@ trait HasMagic
         )
         ) {
             $name = $this->___property($name);
+        }
+
+        if (empty($name)) {
+            return false;
         }
 
         $name instanceof PropertyContract ? $this->___object(
@@ -121,6 +127,11 @@ trait HasMagic
             $name
         )
         ) {
+
+            if (empty(Types::$TYPE_STRICT)) {
+                return false;
+            }
+
             throw new MagicException(
                 get_class($this),
                 __METHOD__,
@@ -168,6 +179,11 @@ trait HasMagic
         $meta = is_array($meta) ? $meta[0] : $meta;
 
         if (empty($meta)) {
+
+            if (empty(Types::$TYPE_STRICT)) {
+                return false;
+            }
+
             throw new MagicException(
                 get_class($this),
                 __METHOD__,
@@ -278,13 +294,16 @@ trait HasMagic
      * @param array            $value
      * @param PropertyContract $meta
      *
-     * @return array
+     * @return array|boolean
      * @throws MagicException
      */
     private function ___attForeign(
-        array $value,
+        $value,
         $meta
     ) {
+        if (empty($value)) {
+            return false;
+        }
 
         $value = count(
             array_filter(

@@ -5,11 +5,15 @@ namespace Solis\Expressive\Magic\Validator;
 /**
  * Class Types
  *
- * @package Solis\PhpValidator
+ * @package Solis\Expressive\Magic\Validator
  */
 class Types
 {
-    const TYPE_INT    = 'int';
+    public static $TYPE_STRICT = true;
+
+    const TYPE_INT = 'int';
+
     const TYPE_STRING = 'string';
-    const TYPE_FLOAT  = 'float';
+
+    const TYPE_FLOAT = 'float';
 }
