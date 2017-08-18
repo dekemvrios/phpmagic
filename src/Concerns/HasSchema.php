@@ -15,8 +15,6 @@ use Solis\Expressive\Schema\Schema;
 trait HasSchema
 {
 
-    use HasMagic;
-
     /**
      * @var SchemaContract
      */
