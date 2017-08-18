@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Magic\Abstractions;
 
+use Solis\Expressive\Magic\Contracts\JsonValidatorContract;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
 use Solis\Expressive\Magic\Contracts\IntValidatorContract;
@@ -39,23 +40,31 @@ abstract class ValidatorAbstract implements ValidatorContract
     protected $intValidator;
 
     /**
+     * @var JsonValidatorContract
+     */
+    protected $jsonValidator;
+
+    /**
      * __construct
      *
-     * @param SchemaContract $schema
-     * @param $stringValidator
-     * @param $floatValidator
-     * @param $intValidator
+     * @param SchemaContract          $schema
+     * @param StringValidatorContract $stringValidator
+     * @param FloatValidatorContract  $floatValidator
+     * @param IntValidatorContract    $intValidator
+     * @param JsonValidatorContract   $jsonValidator
      */
     protected function __construct(
         $schema,
         $stringValidator,
         $floatValidator,
-        $intValidator
+        $intValidator,
+        $jsonValidator
     ) {
         $this->schema = $schema;
         $this->stringValidator = $stringValidator;
         $this->floatValidator = $floatValidator;
         $this->intValidator = $intValidator;
+        $this->jsonValidator = $jsonValidator;
     }
 
     /**
@@ -135,6 +144,18 @@ abstract class ValidatorAbstract implements ValidatorContract
 
             case Types::TYPE_FLOAT:
                 return $this->floatValidator->validate(
+                    array_key_exists(
+                        'property',
+                        $meta
+                    ) ? $meta['property'] : null,
+                    $data,
+                    array_key_exists(
+                        'format',
+                        $meta
+                    ) ? $meta['format'] : null
+                );
+            case Types::TYPE_JSON:
+                return $this->jsonValidator->validate(
                     array_key_exists(
                         'property',
                         $meta

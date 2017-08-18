@@ -16,4 +16,6 @@ class Types
     const TYPE_STRING = 'string';
 
     const TYPE_FLOAT = 'float';
+
+    const TYPE_JSON = 'json';
 }
