@@ -51,9 +51,6 @@ trait HasMagic
         }
 
         $this->withDefaultValuesValidation();
-        if (!empty(Types::$TYPE_STRICT)) {
-            $this->withNotNullValuesValidation();
-        }
     }
 
     /**
@@ -74,38 +71,6 @@ trait HasMagic
         foreach ($propertiesWithDefault as $property) {
             if (is_null($this->{$property->getProperty()})) {
                 $this->{$property->getAlias()} = $property->getDefault();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * withNotNullValuesValidation
-     *
-     * @return $this
-     *
-     * @throws TExceptionAbstract
-     */
-    private function withNotNullValuesValidation()
-    {
-        /**
-         * @var PropertyContract[] propertiesWithNotNull
-         */
-        $propertiesWithNotNull = $this::$schema->getPropertiesWithNotNullConstraint();
-        if (empty($propertiesWithNotNull)) {
-            return $this;
-        }
-
-        foreach ($propertiesWithNotNull as $property) {
-            if (is_null($this->{$property->getProperty()})) {
-                throw new MagicException(
-                    __CLASS__,
-                    __METHOD__,
-                    "property [ " . $property->getProperty() . " ] set as required cannot be empty",
-                    400,
-                    $this::$schema->getMeta()
-                );
             }
         }
 
