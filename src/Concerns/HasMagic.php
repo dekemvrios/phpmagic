@@ -93,7 +93,7 @@ trait HasMagic
          * @var PropertyContract[] propertiesWithNotNull
          */
         $propertiesWithNotNull = $this::$schema->getPropertiesWithNotNullConstraint();
-        if (empty($propertiesWithDefault)) {
+        if (empty($propertiesWithNotNull)) {
             return $this;
         }
 
