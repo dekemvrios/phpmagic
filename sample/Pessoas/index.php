@@ -17,7 +17,7 @@ try {
 
     $endereco = [
         [
-            'sLogradouro'  => 'Rua XV de novembro' . $malformed,
+            'sLogradouro'  => 'Rua XV de novembro',// . $malformed,
             'sCep'         => '89160000',
             'sBairro'      => 'Centro',
             'sComplemento' => 'Sala 15',
@@ -39,7 +39,7 @@ try {
         ]
     );
 
-    var_dump($individuo);
+    var_dump($individuo->toArray());
 } catch (TExceptionAbstract $exception) {
     echo $exception->toJson();
 }
