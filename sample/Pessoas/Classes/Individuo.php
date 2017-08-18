@@ -40,6 +40,11 @@ class Individuo
     protected $segundoNome;
 
     /**
+     * @var string
+     */
+    protected $jsonEndereco;
+
+    /**
      * __construct
      *
      * @throws \RuntimeException

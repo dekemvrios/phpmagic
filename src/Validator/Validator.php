@@ -27,7 +27,8 @@ class Validator extends ValidatorAbstract
             $schema,
             StringValidator::make($schema->getMeta()),
             FloatValidator::make($schema->getMeta()),
-            IntValidator::make($schema->getMeta())
+            IntValidator::make($schema->getMeta()),
+            JsonValidator::make($schema->getMeta())
         );
     }
 }

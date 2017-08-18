@@ -50,7 +50,7 @@ class JsonValidator extends TypeValidatorAbstract implements JsonValidatorContra
         $data,
         $format = null
     ) {
-        if (!is_string($data) || !is_array($data)) {
+        if (!is_string($data) && !is_array($data)) {
             throw new MagicException(
                 __CLASS__,
                 __METHOD__,

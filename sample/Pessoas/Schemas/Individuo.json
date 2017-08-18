@@ -59,6 +59,11 @@
       "composition": {
         "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Endereco"
       }
+    },
+    {
+      "alias": "jEndereco",
+      "property": "jsonEndereco",
+      "type": "json"
     }
   ]
 }
