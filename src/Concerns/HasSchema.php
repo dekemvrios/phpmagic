@@ -77,13 +77,19 @@ trait HasSchema
             if (!is_null($value)) {
                 if (is_array($value)) {
                     $dados[$item->{$method}()] = [];
-                    foreach ($value as $valueItem) {
-
-                        $valueItem = is_object($valueItem) ? $valueItem->toArray(
-                            $asAlias
-                        ) : $valueItem;
-
-                        $dados[$item->{$method}()][] = $valueItem;
+                    switch ($item->getType()) {
+                        case 'json':
+                            $decoded = json_decode($value);
+                            $dados[$item->{$method}()] = !empty($decoded) ? $decoded : $value;
+                            break;
+                        default:
+                            foreach ($value as $valueItem) {
+                                $valueItem = is_object($valueItem) ? $valueItem->toArray(
+                                    $asAlias
+                                ) : $valueItem;
+                                $dados[$item->{$method}()][] = $valueItem;
+                            }
+                            break;
                     }
                 } else {
                     $value = is_object($value) ? $value->toArray($asAlias) : $value;
