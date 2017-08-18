@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Magic\Concerns;
 
+use Solis\Breaker\TException;
 use Solis\Expressive\Schema\Contracts\Entries\Property\PropertyContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Validator\Validator;
@@ -49,7 +50,10 @@ trait HasMagic
             $this->{$item} = $value;
         }
 
-        $this->withDefaultValues();
+        $this->withDefaultValuesValidation();
+        if (!empty(Types::$TYPE_STRICT)) {
+            $this->withNotNullValuesValidation();
+        }
     }
 
     /**
@@ -57,7 +61,7 @@ trait HasMagic
      *
      * @return $this
      */
-    private function withDefaultValues()
+    private function withDefaultValuesValidation()
     {
         /**
          * @var PropertyContract[] $propertiesWithDefault
@@ -70,6 +74,38 @@ trait HasMagic
         foreach ($propertiesWithDefault as $property) {
             if (is_null($this->{$property->getProperty()})) {
                 $this->{$property->getAlias()} = $property->getDefault();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * withNotNullValuesValidation
+     *
+     * @return $this
+     *
+     * @throws TExceptionAbstract
+     */
+    private function withNotNullValuesValidation()
+    {
+        /**
+         * @var PropertyContract[] propertiesWithNotNull
+         */
+        $propertiesWithNotNull = $this::$schema->getPropertiesWithNotNullConstraint();
+        if (empty($propertiesWithDefault)) {
+            return $this;
+        }
+
+        foreach ($propertiesWithNotNull as $property) {
+            if (is_null($this->{$property->getProperty()})) {
+                throw new MagicException(
+                    __CLASS__,
+                    __METHOD__,
+                    "property [ " . $property->getProperty() . " ] set as required cannot be empty",
+                    400,
+                    $this::$schema->getMeta()
+                );
             }
         }
 
