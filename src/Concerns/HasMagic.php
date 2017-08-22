@@ -78,6 +78,37 @@ trait HasMagic
     }
 
     /**
+     * withNotNull
+     *
+     * @return $this
+     *
+     * @throws TExceptionAbstract
+     */
+    public function withNotNull()
+    {
+        /**
+         * @var PropertyContract[] $propertiesWithNotNull
+         */
+        $propertiesWithNotNull = $this::$schema->getPropertiesWithNotNullConstraint();
+        if(empty($propertiesWithNotNull)){
+            return $this;
+        }
+
+        foreach ($propertiesWithNotNull as $property) {
+            if (is_null($this->{$property->getProperty()})) {
+                throw new MagicException(
+                    __CLASS__,
+                    __METHOD__,
+                    "property [ " . $property->getAlias() . " ] set as required cannot be null",
+                    400
+                );
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * __set
      *
      * @param string $name
