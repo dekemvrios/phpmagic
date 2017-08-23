@@ -43,7 +43,7 @@ trait HasMagic
      *
      * @throws \InvalidArgumentException
      */
-    protected function attach(
+    public function attach(
         $dados
     ) {
         foreach ($dados as $item => $value) {
