@@ -89,7 +89,8 @@ trait HasSchema
                     foreach ($value as $valueItem) {
 
                         $valueItem = is_object($valueItem) ? $valueItem->toArray(
-                            $asAlias
+                            $asAlias,
+                            $returnHidden
                         ) : $valueItem;
                         $dados[$item->{$method}()][] = $valueItem;
                     }
@@ -101,7 +102,7 @@ trait HasSchema
                             $dados[$item->{$method}()] = !empty($decoded) ? $decoded : $value;
                             break;
                         default:
-                            $value = is_object($value) ? $value->toArray($asAlias) : $value;
+                            $value = is_object($value) ? $value->toArray($asAlias, $returnHidden) : $value;
 
                             $dados[$item->{$method}()] = $value;
                             break;
