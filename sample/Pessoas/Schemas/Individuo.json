@@ -19,7 +19,8 @@
       "type": "float",
       "default": "175",
       "behavior": {
-        "required": "false"
+        "required": "false",
+        "hidden": "true"
       }
     },
     {
@@ -56,6 +57,9 @@
       "alias": "aEndereco",
       "property": "endereco",
       "type": "undefined",
+      "behavior": {
+        "hidden": "false"
+      },
       "composition": {
         "class": "Solis\\Expressive\\Magic\\Sample\\Pessoas\\Classes\\Endereco"
       }

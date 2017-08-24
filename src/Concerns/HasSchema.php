@@ -49,13 +49,16 @@ trait HasSchema
      * toArray
      *
      * @param boolean $asAlias
+     * @param boolean $returnHidden
      *
      * @throws TExceptionAbstract
      *
      * @return array
      */
-    public function toArray($asAlias = false)
-    {
+    public function toArray(
+        $asAlias = false,
+        $returnHidden = true
+    ) {
 
         if (!isset(self::$schema)) {
             throw new MagicException(
@@ -71,6 +74,13 @@ trait HasSchema
         $dados = [];
         foreach (self::$schema->getProperties() as $item) {
             $value = $this->{$item->getProperty()};
+
+            if (
+                empty($returnHidden) &&
+                !empty($item->getBehavior()->isHidden())
+            ) {
+                continue;
+            }
 
             if (!is_null($value)) {
                 if (is_array($value)) {
