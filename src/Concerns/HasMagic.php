@@ -330,53 +330,55 @@ trait HasMagic
      * @throws MagicException
      */
     private function ___attForeign(
-        $value,
-        $meta
+            $value,
+            $meta
     ) {
         if (empty($value)) {
             return false;
         }
-
         $value = count(
-            array_filter(
-                array_keys($value),
-                'is_string'
-            )
+                array_filter(
+                        array_keys($value),
+                        'is_string'
+                )
         ) > 0 ? [$value] : $value;
-
         $aInstance = [];
         foreach ($value as $item) {
             // dependency class
             $class = $meta->getComposition()->getClass();
-
             if (empty($item) || !is_array($item)) {
                 throw new MagicException(
-                    __CLASS__,
-                    __METHOD__,
-                    "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
-                    500,
-                    self::$schema->getMeta()
+                        __CLASS__,
+                        __METHOD__,
+                        "meta information for {$meta->getAlias()} expects an associative array as supplied argument",
+                        500,
+                        self::$schema->getMeta()
                 );
             }
-
             // calling by default its make method
             $instance = call_user_func_array(
-                [$class, 'make'],
-                [$item]
+                    [$class, 'make'],
+                    [$item]
             );
-
             if (empty($instance) || !is_object($instance)) {
                 throw new MagicException(
-                    __CLASS__,
-                    __METHOD__,
-                    "application can't create instance of {$class}, verify your class make method",
-                    500,
-                    self::$schema->getMeta()
+                        __CLASS__,
+                        __METHOD__,
+                        "application can't create instance of {$class}, verify your class make method",
+                        500,
+                        self::$schema->getMeta()
                 );
+            }
+            if ($meta->getType() === 'json') {
+                $instance->withNotNull();
+                $instance = $instance->toArray(true);
             }
             $aInstance[] = $instance;
         }
-
-        return count($aInstance) === 1 ? $aInstance[0] : $aInstance;
+        $aInstance = count($aInstance) === 1 ? $aInstance[0] : $aInstance;
+        if ($meta->getType() === 'json') {
+            $aInstance = json_encode($aInstance);
+        }
+        return $aInstance;
     }
 }
