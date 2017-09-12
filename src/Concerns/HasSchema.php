@@ -21,7 +21,7 @@ trait HasSchema
     public static $schema;
 
     /**
-     * boot
+     * start
      *
      * @param string $path
      *
@@ -29,19 +29,45 @@ trait HasSchema
      */
     public function start($path)
     {
+        if (is_file($path)) {
+            $this->setSchemaFromPath($path);
+
+            return;
+        }
+
+        $this->setSchemaFromString($path);
+    }
+
+    /**
+     * @param string $path
+     *
+     * @throws TExceptionAbstract
+     */
+    private function setSchemaFromPath($path)
+    {
         if (!file_exists($path)) {
             throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "not found json file in path [ {$path} ]while building schema for class [ " . __CLASS__ . " ]",
-                400
+                    __CLASS__,
+                    __METHOD__,
+                    "not found json file in path [ {$path} ]while building schema for class [ " . __CLASS__ . " ]",
+                    400
             );
         }
 
         if (!isset(self::$schema)) {
             self::$schema = Schema::make(
-                file_get_contents($path)
+                    file_get_contents($path)
             );
+        }
+    }
+
+    /**
+     * @param string $json
+     */
+    private function setSchemaFromString($json)
+    {
+        if (!isset(self::$schema)) {
+            self::$schema = Schema::make($json);
         }
     }
 
