@@ -1,6 +1,6 @@
 {
   "name": "solis/phpmagic",
-  "description": "PhpMagic use magic methods to validate and set/get class properties",
+  "description": "The Expressive magic package",
   "license": "MIT",
   "authors": [
     {
