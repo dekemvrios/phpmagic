@@ -72,6 +72,14 @@ trait HasSchema
     }
 
     /**
+     * @return SchemaContract
+     */
+    public function getSchema()
+    {
+        return self::$schema;
+    }
+
+    /**
      * toArray
      *
      * @param boolean $asAlias
