@@ -3,6 +3,7 @@
 namespace Solis\Expressive\Magic\Abstractions;
 
 use Solis\Expressive\Magic\Contracts\JsonValidatorContract;
+use Solis\Expressive\Magic\Exception;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
 use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
 use Solis\Expressive\Magic\Contracts\IntValidatorContract;
@@ -10,7 +11,6 @@ use Solis\Expressive\Magic\Contracts\StringValidatorContract;
 use Solis\Expressive\Magic\Contracts\ValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
 use Solis\Expressive\Magic\Validator\Types;
-use Solis\Expressive\Magic\MagicException;
 
 /**
  * Class ValidatorAbstract
@@ -60,11 +60,11 @@ abstract class ValidatorAbstract implements ValidatorContract
         $intValidator,
         $jsonValidator
     ) {
-        $this->schema = $schema;
+        $this->schema          = $schema;
         $this->stringValidator = $stringValidator;
-        $this->floatValidator = $floatValidator;
-        $this->intValidator = $intValidator;
-        $this->jsonValidator = $jsonValidator;
+        $this->floatValidator  = $floatValidator;
+        $this->intValidator    = $intValidator;
+        $this->jsonValidator   = $jsonValidator;
     }
 
     /**
@@ -76,28 +76,18 @@ abstract class ValidatorAbstract implements ValidatorContract
      * @return mixed
      * @throws TExceptionAbstract
      */
-    public function validate(
-        $name,
-        $value
-    ) {
-
+    public function validate($name, $value)
+    {
         $meta = $this->schema->getPropertyEntryByIdentifier($name);
-        if (empty($meta)) {
-            throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "meta information for 'property' entry has not been found in schema definition",
-                400
-            );
-        }
 
+        if (!$meta) {
+            throw new Exception("Meta informação para propriedade {$name} não encontrada no schema", 400);
+        }
         $meta = is_array($meta) ? $meta[0] : $meta;
+
         $meta = $meta->toArray();
 
-        return $this->hydrate(
-            $meta,
-            $value
-        );
+        return $this->hydrate($meta, $value);
     }
 
     /**
@@ -110,65 +100,23 @@ abstract class ValidatorAbstract implements ValidatorContract
      *
      * @throws TExceptionAbstract
      */
-    private function hydrate(
-        $meta,
-        $data
-    ) {
+    private function hydrate($meta, $data)
+    {
+        $property = array_key_exists('property', $meta) ? $meta['property'] : null;
+        $format   = array_key_exists('format', $meta) ? $meta['format'] : null;
+        $type     = array_key_exists('type', $meta) ? $meta['type'] : null;
 
-        switch ($meta['type']) {
+        switch ($type) {
             case Types::TYPE_STRING:
-                return $this->stringValidator->validate(
-                    array_key_exists(
-                        'property',
-                        $meta
-                    ) ? $meta['property'] : null,
-                    $data,
-                    array_key_exists(
-                        'format',
-                        $meta
-                    ) ? $meta['format'] : null
-                );
-
+                return $this->stringValidator->validate($property, $data, $format);
             case Types::TYPE_INT:
-                return $this->intValidator->validate(
-                    array_key_exists(
-                        'property',
-                        $meta
-                    ) ? $meta['property'] : null,
-                    $data,
-                    array_key_exists(
-                        'format',
-                        $meta
-                    ) ? $meta['format'] : null
-                );
-
+                return $this->intValidator->validate($property, $data, $format);
             case Types::TYPE_FLOAT:
-                return $this->floatValidator->validate(
-                    array_key_exists(
-                        'property',
-                        $meta
-                    ) ? $meta['property'] : null,
-                    $data,
-                    array_key_exists(
-                        'format',
-                        $meta
-                    ) ? $meta['format'] : null
-                );
+                return $this->floatValidator->validate($property, $data, $format);
             case Types::TYPE_JSON:
-                return $this->jsonValidator->validate(
-                    array_key_exists(
-                        'property',
-                        $meta
-                    ) ? $meta['property'] : null,
-                    $data,
-                    array_key_exists(
-                        'format',
-                        $meta
-                    ) ? $meta['format'] : null
-                );
+                return $this->jsonValidator->validate($property, $data, $format);
         }
 
-        // still in development, so if not has an expected type, returns the raw value
         return $data;
     }
 }

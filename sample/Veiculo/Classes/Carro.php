@@ -29,8 +29,6 @@ class Carro
      */
     public function __construct()
     {
-        $this->boot(
-            dirname(dirname(__FILE__)) . "/Schemas/Carro.json"
-        );
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Carro.json");
     }
 }

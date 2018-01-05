@@ -29,8 +29,6 @@ class Roda
      */
     public function __construct()
     {
-        $this->boot(
-            dirname(dirname(__FILE__)) . "/Schemas/Roda.json"
-        );
+        $this->start(dirname(dirname(__FILE__)) . "/Schemas/Roda.json");
     }
 }

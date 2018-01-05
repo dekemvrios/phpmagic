@@ -30,16 +30,14 @@ try {
         ],
     ];
 
-    $individuo = Individuo::make(
-        [
-            'iCodigo'      => '3',
-            'sSegundoNome' => 'Becker',
-            'aEndereco'    => $endereco,
-            'jEndereco'    => $endereco,
-        ]
-    );
+    $individuo = Individuo::make([
+        'iCodigo'      => '3',
+        'sSegundoNome' => 'Becker',
+        'aEndereco'    => $endereco,
+        'jEndereco'    => $endereco,
+    ]);
 
-    var_dump($individuo->toArray());
+    print_r($individuo->toArray());
 } catch (TExceptionAbstract $exception) {
-    echo $exception->toJson();
+    var_dump($exception);
 }

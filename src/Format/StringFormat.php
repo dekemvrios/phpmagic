@@ -17,15 +17,9 @@ class StringFormat
      *
      * @return string
      */
-    public static function applySize(
-        $data,
-        $size
-    ) {
-        return substr(
-            $data,
-            0,
-            intval($size)
-        );
+    public static function applySize($data, $size)
+    {
+        return substr($data, 0, intval($size));
     }
 
     /**
@@ -35,9 +29,8 @@ class StringFormat
      *
      * @return string
      */
-    public static function applyUppercase(
-        $data
-    ) {
+    public static function applyUppercase($data)
+    {
         return strtoupper($data);
     }
 
@@ -48,9 +41,8 @@ class StringFormat
      *
      * @return string
      */
-    public static function applyLowercase(
-        $data
-    ) {
+    public static function applyLowercase($data)
+    {
         return strtolower($data);
     }
 
@@ -61,14 +53,8 @@ class StringFormat
      *
      * @return mixed
      */
-    public static function removeSpecialChars(
-        $data
-    ) {
-
-        return preg_replace(
-            '/[^A-Za-z0-9\-]/',
-            '',
-            $data
-        );
+    public static function removeSpecialChars($data)
+    {
+        return preg_replace('/[^A-Za-z0-9\-]/', '', $data);
     }
 }

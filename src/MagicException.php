@@ -29,28 +29,21 @@ class MagicException extends TExceptionAbstract
         $meta = null
     ) {
         // create new Tinfo object to store default TException information
-        $error = Tinfo::build(
-            [
-                'code'    => $code,
-                'message' => $reason,
-            ]
-        );
+        $error = Tinfo::build([
+            'code'    => $code,
+            'message' => $reason,
+        ]);
 
         // create new Tinfo object to store debug TException information
-        $debug = Tinfo::build(
-            [
-                'class'  => $class,
-                'method' => $method,
-            ]
-        );
+        $debug = Tinfo::build([
+            'class'  => $class,
+            'method' => $method,
+        ]);
 
-        if (!empty($meta)) {
-            $debug->setMeta($meta);
+        if ($meta) {
+            $debug->setEntry('meta', $meta);
         }
 
-        parent::__construct(
-            $error,
-            $debug
-        );
+        parent::__construct($error, $debug);
     }
 }

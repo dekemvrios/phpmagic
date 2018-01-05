@@ -5,7 +5,7 @@ namespace Solis\Expressive\Magic\Validator;
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\JsonValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
-use Solis\Expressive\Magic\MagicException;
+use Solis\Expressive\Magic\Exception;
 
 /**
  * Class JsonValidator
@@ -27,7 +27,8 @@ class JsonValidator extends TypeValidatorAbstract implements JsonValidatorContra
     public static function make($meta = null)
     {
         $instance = new static();
-        if (!empty($meta)) {
+
+        if ($meta) {
             $instance->meta = $meta;
         }
 
@@ -45,31 +46,16 @@ class JsonValidator extends TypeValidatorAbstract implements JsonValidatorContra
      *
      * @throws TExceptionAbstract
      */
-    public function validate(
-        $name,
-        $data,
-        $format = null
-    ) {
+    public function validate($name, $data, $format = null)
+    {
         if (!is_string($data) && !is_array($data)) {
-            throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "property [ {$name} ] is invalid for type [ json ] specified in schema",
-                400,
-                $this->meta
-            );
+            throw new Exception("propriedade [ {$name} ] é inválida para tipo [ json ] definido no schema", 400);
         }
 
-        $data = $this->encode(
-            $name,
-            $data
-        );
+        $data = $this->encode($name, $data);
 
-        if (!empty($format)) {
-            $data = self::applyFormat(
-                $format,
-                $data
-            );
+        if ($format) {
+            $data = self::applyFormat($format, $data);
         }
 
         return (string)$data;
@@ -80,24 +66,19 @@ class JsonValidator extends TypeValidatorAbstract implements JsonValidatorContra
      * @param $data
      *
      * @return string
-     * @throws MagicException
+     * @throws Exception
      */
-    protected function encode(
-        $name,
-        $data
-    ) {
+    protected function encode($name, $data)
+    {
         if (is_string($data)) {
             return $data;
         }
 
         $data = json_encode($data);
-        if (!empty(json_last_error())) {
-            throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "Error encoding JSON for property [ {$name} ] - " . $this->lastJsonErrorMessage(json_last_error()),
-                400,
-                $this->meta
+
+        if (json_last_error()) {
+            throw new Exception(
+                "Erro json encode [ {$name} ] - " . $this->lastJsonErrorMessage(json_last_error()), 500
             );
         }
 
@@ -112,11 +93,11 @@ class JsonValidator extends TypeValidatorAbstract implements JsonValidatorContra
     protected function lastJsonErrorMessage($error)
     {
         $errors = [
-            JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',
+            JSON_ERROR_DEPTH          => 'Maximum stack depth exceeded',
             JSON_ERROR_STATE_MISMATCH => 'State mismatch (invalid or malformed JSON)',
-            JSON_ERROR_CTRL_CHAR => 'Control character error, possibly incorrectly encoded',
-            JSON_ERROR_SYNTAX => 'Syntax error',
-            JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded',
+            JSON_ERROR_CTRL_CHAR      => 'Control character error, possibly incorrectly encoded',
+            JSON_ERROR_SYNTAX         => 'Syntax error',
+            JSON_ERROR_UTF8           => 'Malformed UTF-8 characters, possibly incorrectly encoded',
         ];
 
         return isset($errors[$error]) ? $errors[$error] : 'Unknown error';

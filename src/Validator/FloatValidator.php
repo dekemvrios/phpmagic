@@ -5,7 +5,7 @@ namespace Solis\Expressive\Magic\Validator;
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\FloatValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
-use Solis\Expressive\Magic\MagicException;
+use Solis\Expressive\Magic\Exception;
 
 /**
  * Class FloatValidator
@@ -36,9 +36,11 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
     public static function make($meta = null)
     {
         $instance = new static();
-        if (!empty($meta)) {
+
+        if ($meta) {
             $instance->meta = $meta;
         }
+
         return $instance;
     }
 
@@ -53,26 +55,14 @@ class FloatValidator extends TypeValidatorAbstract implements FloatValidatorCont
      *
      * @throws TExceptionAbstract
      */
-    public function validate(
-        $name,
-        $data,
-        $format = null
-    ) {
+    public function validate($name, $data, $format = null)
+    {
         if (!is_numeric($data) || !is_float(floatval($data))) {
-            throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "property [ {$name} ] is invalid for type [ float ] specified in schema",
-                400,
-                $this->meta
-            );
+            throw new Exception("propriedade [ {$name} ] é inválida para tipo [ float ] definido no schema", 400);
         }
 
-        if (!empty($format)) {
-            $data = self::applyFormat(
-                $format,
-                $data
-            );
+        if ($format) {
+            $data = self::applyFormat($format, $data);
         }
 
         return floatval($data);

@@ -5,7 +5,7 @@ namespace Solis\Expressive\Magic\Validator;
 use Solis\Expressive\Magic\Abstractions\TypeValidatorAbstract;
 use Solis\Expressive\Magic\Contracts\IntValidatorContract;
 use Solis\Breaker\Abstractions\TExceptionAbstract;
-use Solis\Expressive\Magic\MagicException;
+use Solis\Expressive\Magic\Exception;
 
 /**
  * Class IntValidator
@@ -35,9 +35,11 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
     public static function make($meta = null)
     {
         $instance = new static();
-        if (!empty($meta)) {
+
+        if ($meta) {
             $instance->meta = $meta;
         }
+
         return $instance;
     }
 
@@ -52,26 +54,14 @@ class IntValidator extends TypeValidatorAbstract implements IntValidatorContract
      *
      * @throws TExceptionAbstract
      */
-    public function validate(
-        $name,
-        $data,
-        $format = null
-    ) {
+    public function validate($name, $data, $format = null)
+    {
         if (!is_numeric($data) || !is_int(intval($data))) {
-            throw new MagicException(
-                __CLASS__,
-                __METHOD__,
-                "property [ {$name} ] is invalid for type [ int ] specified in schema",
-                400,
-                $this->meta
-            );
+            throw new Exception("propriedade [ {$name} ] é inválida para tipo [ int ] definido no schema", 400);
         }
 
-        if (!empty($format)) {
-            $data = self::applyFormat(
-                $format,
-                $data
-            );
+        if ($format) {
+            $data = self::applyFormat($format, $data);
         }
 
         return intval($data);

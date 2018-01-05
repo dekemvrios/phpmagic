@@ -7,19 +7,17 @@ use Solis\Breaker\TException;
 
 try {
 
-    $instance = Carro::make(
-        [
-            'sNome' => 'Fusca',
-            'sRoda' => [
-                [
-                    'sMarca' => 'Pirelli',
-                ],
-                [
-                    'sMarca' => 'Pirelli',
-                ],
+    $instance = Carro::make([
+        'sNome' => 'Fusca',
+        'sRoda' => [
+            [
+                'sMarca' => 'Pirelli',
             ],
-        ]
-    );
+            [
+                'sMarca' => 'Pirelli',
+            ],
+        ],
+    ]);
 
     var_dump($instance);
 
