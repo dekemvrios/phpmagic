@@ -2,6 +2,7 @@
 
 namespace Solis\Expressive\Magic\Abstractions;
 
+use MongoDB\BSON\Type;
 use Solis\Expressive\Magic\Contracts\JsonValidatorContract;
 use Solis\Expressive\Magic\Exception;
 use Solis\Expressive\Schema\Contracts\SchemaContract;
@@ -108,6 +109,7 @@ abstract class ValidatorAbstract implements ValidatorContract
 
         switch ($type) {
             case Types::TYPE_STRING:
+            case Types::TYPE_DATE:
                 return $this->stringValidator->validate($property, $data, $format);
             case Types::TYPE_INT:
                 return $this->intValidator->validate($property, $data, $format);

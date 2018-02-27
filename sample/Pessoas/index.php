@@ -31,10 +31,11 @@ try {
     ];
 
     $individuo = Individuo::make([
-        'iCodigo'      => '3',
-        'sSegundoNome' => 'Becker',
-        'aEndereco'    => $endereco,
-        'jEndereco'    => $endereco,
+        'iCodigo'         => '3',
+        'sSegundoNome'    => 'Becker',
+        'sDataNascimento' => Date('Y-m-d H:i:s'),
+        'aEndereco'       => $endereco,
+        'jEndereco'       => $endereco,
     ]);
 
     print_r($individuo->toArray());

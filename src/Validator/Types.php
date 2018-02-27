@@ -18,4 +18,6 @@ class Types
     const TYPE_FLOAT = 'float';
 
     const TYPE_JSON = 'json';
+
+    const TYPE_DATE = 'date';
 }

@@ -54,6 +54,11 @@
       ]
     },
     {
+      "alias": "sDataNascimento",
+      "property": "dataNascimento",
+      "type": "date"
+    },
+    {
       "alias": "aEndereco",
       "property": "endereco",
       "type": "undefined",

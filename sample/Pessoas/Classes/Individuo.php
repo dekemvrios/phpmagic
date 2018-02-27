@@ -42,6 +42,11 @@ class Individuo
     /**
      * @var string
      */
+    protected $dataNascimento;
+
+    /**
+     * @var string
+     */
     protected $jsonEndereco;
 
     /**

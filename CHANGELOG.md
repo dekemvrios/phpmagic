@@ -4,6 +4,11 @@ Todas as modificações relevantes para phpbreaker serão documentadas neste arq
 
 O formato é baseado [Keep a CHANGELOG](http://keepachangelog.com/) e esse projeto adere ao [Semantic Versioning 2.0.0](http://semver.org/).  
 
+## 1.4.10 - 2018-02-27
+
+## Added
+- Adicionado suporte para atribuição de propriedade com o tipo DATE.
+
 ## 1.4.0 - 2017-08-18
 
 ## Added
