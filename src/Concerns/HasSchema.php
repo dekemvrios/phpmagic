@@ -89,10 +89,15 @@ trait HasSchema
         $dados = [];
 
         foreach (self::$schema->getProperties() as $item) {
-            $value = $this->{$item->getProperty()};
 
             if (!$returnHidden && $item->getBehavior()->isHidden()) {
                 continue;
+            }
+
+            if (method_exists($this, "get" . $item->getProperty())) {
+                $value = $this->{"get" . $item->getProperty()}();
+            } else {
+                $value = $this->{$item->getProperty()};
             }
 
             if (is_null($value)) {

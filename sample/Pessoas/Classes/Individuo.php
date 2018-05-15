@@ -75,4 +75,12 @@ class Individuo
     ) {
         return "{$data} {$param2} {$param3}";
     }
+
+    /**
+     * @return string
+     */
+    public function getPrimeiroNome()
+    {
+        return 'Meu Primeiro Nome';
+    }
 }

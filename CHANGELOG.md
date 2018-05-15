@@ -4,6 +4,12 @@ Todas as modificações relevantes para phpbreaker serão documentadas neste arq
 
 O formato é baseado [Keep a CHANGELOG](http://keepachangelog.com/) e esse projeto adere ao [Semantic Versioning 2.0.0](http://semver.org/).  
 
+## 1.4.11 - 2018-05-15
+
+## Changed
+- Modificado comportamento de método toArray de HasSchema de modo a retornar valor de propriedade a partir de método caso
+existir agum com prefixo 'get' em conjunto com nome de propriedade a ser retornada.
+
 ## 1.4.10 - 2018-02-27
 
 ## Added
